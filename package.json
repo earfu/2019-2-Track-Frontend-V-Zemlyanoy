@@ -1,8 +1,9 @@
 {
-  "name": "Zemlyanoy",
+  "name": "track-mail-2019-user",
+  "homepage": "https://your_gh_login.github.io/your_repo_name",
   "description": "Mail.Ru Group Frontend Track course, 2019",
   "version": "0.1.0",
-  "author": "User",
+  "author": "Zemlyanoy",
   "dependencies": {
     "@emotion/core": "^10.0.14",
     "@emotion/styled": "^10.0.14",
@@ -44,6 +45,7 @@
     "eslint-plugin-prettier": "^2.6.0",
     "eslint-plugin-react": "^7.4.0",
     "husky": "^0.14.3",
+    "gh-pages": "^2.1.1",
     "jest": "^24.8.0",
     "jest-transform-stub": "^2.0.0",
     "jscpd": "^2.0.15",
@@ -67,6 +69,8 @@
     "not dead"
   ],
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "eject": "react-scripts eject",

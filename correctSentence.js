@@ -17,7 +17,23 @@ correctSentence("Greetings, friends") == "Greetings, friends."
 correctSentence("Greetings, friends.") == "Greetings, friends."
  */
 
-function correctSentence(text) {
+export default function correctSentence(text) {
   // your solution goes here
-  return text;
+  var output = ''
+  if (text.length != 0) { //first symbol
+    output += text[0].toUpperCase()
+  }
+
+  if (text.length > 1) { //strings are immutable, so add char by char
+    for (var i = 1; i < text.length; i++) { //and yes, memory usage
+      output += text[i] //should be using a buffer instead
+    }
+  }
+
+  if (output[output.length - 1] != '.') { //last symbol check/add
+    output += '.'
+  }
+  text = output //so, why is output set to be the same variable?..
+  
+  return text
 }

@@ -24,7 +24,25 @@ nonUniqueElements([5, 5, 5, 5, 5]) == [5, 5, 5, 5, 5]
 nonUniqueElements([10, 9, 10, 10, 9, 8]) == [10, 9, 10, 10, 9]
  */
 
-function nonUniqueElements(data) {
+export default function nonUniqueElements(data) {
   // your solution goes here
+  var n = data.length
+  
+  var delc = 0 //count for deleted elements
+  for (var i = 0; i < n; i++) { //one-by-one check
+    var count = 0 //number of matches
+    var m = data[i - delc]
+    for (var j = 0; j < (n - delc); j++) {
+      if (m == data[j]) {
+        count++
+      }
+    }
+    if (count == 1) { //if no other matches
+      data.splice(i - delc,1) //delete right from there
+      delc++ //no copy arrays needed, really
+    }
+  }
+
   return data
 }
+//console.log(nonUniqueElements([5,5,1,21,1]))
