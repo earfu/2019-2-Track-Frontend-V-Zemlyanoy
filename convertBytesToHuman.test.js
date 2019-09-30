@@ -22,40 +22,16 @@ test('Возвращает корректное значение для чисе
 // другая группа проверок
 test('Возвращает корректное значение', () => {
   expect(convertBytesToHuman(1207.0)).toBe('1.18 KB')
-  // ...
-});
-
-test('Возвращает корректное значение', () => {
   expect(convertBytesToHuman(0)).toBe('0 B')
   // ...
 });
 
 test('Возвращает false', () => {
   expect(convertBytesToHuman(-1)).toBe(false)
-  // ...
-});
-
-test('Возвращает false', () => {
   expect(convertBytesToHuman(1.1)).toBe(false)
-  // ...
-});
-
-test('Возвращает false', () => {
   expect(convertBytesToHuman(true)).toBe(false)
-  // ...
-});
-
-test('Возвращает false', () => {
   expect(convertBytesToHuman([])).toBe(false)
-  // ...
-});
-
-test('Возвращает false', () => {
   expect(convertBytesToHuman([1])).toBe(false)
-  // ...
-});
-
-test('Возвращает false', () => {
   expect(convertBytesToHuman('1')).toBe(false)
   // ...
 });
