@@ -8,8 +8,10 @@ template.innerHTML = `
         }
 
         :host {
-            display: inline-block;
+            display: inherit;
+            height: 100%;
             border: 1px solid rgba(25, 25, 25, 0.32);
+            margin-bottom: 1px;
         }
     </style>
     <input type="text">
@@ -33,7 +35,9 @@ class FormInput extends HTMLElement {
     }
 
     get value() {
-        return this.$input.value;
+        let val = this.$input.value;
+        this.$input.value = "";  //resets the form without reloading the page
+        return val;  //as a side effect, one-use retrieval is accidentally enforced
     }
 }
 
