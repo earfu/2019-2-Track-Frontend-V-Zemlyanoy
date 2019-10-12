@@ -18,27 +18,27 @@ template.innerHTML = `
 `;
 
 class FormInput extends HTMLElement {
-    constructor () {
-        super();
-        this._shadowRoot = this.attachShadow({ mode: 'open' });
-        this._shadowRoot.appendChild(template.content.cloneNode(true));
+  constructor() {
+    super();
+    this.shadowRoot = this.attachShadow({ mode: 'open' });
+    this.shadowRoot.appendChild(template.content.cloneNode(true));
 
-        this.$input = this.shadowRoot.querySelector('input');
-    }
+    this.$input = this.shadowRoot.querySelector('input');
+  }
 
-    static get observedAttributes() {
-        return ['name', 'value', 'placeholder', 'disabled'];
-    }
+  static get observedAttributes() {
+    return ['name', 'value', 'placeholder', 'disabled'];
+  }
 
-    attributeChangedCallback(name, oldValue, newValue) {
-        this.$input.setAttribute(name, newValue);
-    }
+  attributeChangedCallback(name, oldValue, newValue) {
+    this.$input.setAttribute(name, newValue);
+  }
 
-    get value() {
-        let val = this.$input.value;
-        this.$input.value = "";  //resets the form without reloading the page
-        return val;  //as a side effect, one-use retrieval is accidentally enforced
-    }
+  get value() {
+    const val = this.$input.value;
+    this.$input.value = ''; // resets the form without reloading the page
+    return val; // as a side effect, one-use retrieval is accidentally enforced
+  }
 }
 
 customElements.define('form-input', FormInput);
