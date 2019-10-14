@@ -1,16 +1,18 @@
 const template = document.createElement('template');
 template.innerHTML = `
     <style>
-        div { /* for the entire central area */
-            width: 100%;
-            padding-left: 25%;
-            padding-right: 25%;
+        div.sending-form {
             display: flex;
             align-items: stretch;
             justify-content: space-between;
+
         }
 
         form-input {
+            width: 100%;
+        }
+
+        message-history {
             width: 100%;
         }
 
@@ -21,9 +23,10 @@ template.innerHTML = `
         div button {
             width: 18%;
         }
+
     </style>
-    <div>
-        <message-history></message-history>
+    <message-history></message-history>
+    <div class="sending-form">
         <form>
             <form-input name="message-text" placeholder="Введите сообщение"></form-input>
         </form>
@@ -55,7 +58,7 @@ class MessageForm extends HTMLElement {
     // instead of passing them to the constructor
     this.$input.reset(); // reset the input form to clear
     msg.store(); // must be done somewhere; right after creation is the policy for now
-    const msgHistory = document.querySelector('message-history');
+    const msgHistory = this.shadowRoot.querySelector('message-history');
     msgHistory.append(msg);
     // this.$input.value = '';
     // return false;

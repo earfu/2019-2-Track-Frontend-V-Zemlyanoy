@@ -21,7 +21,7 @@ body {
 /*end start-state styles
  * begin student-specific styles*/
 
-div.message-area { /* for the central area of message list and input form */
+div.message-area { /* for the central area: message list and input form */
     width: 100%;
     padding-left: 25%;
     padding-right: 25%;
