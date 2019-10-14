@@ -12,7 +12,7 @@ script:
 deploy:
   provider: pages
   skip_cleanup: true
-  pushmi_pullyou: $pmpy
+  github_token: $pmpy
   local_dir: web-components/build
   on:
     branch:
