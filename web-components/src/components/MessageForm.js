@@ -17,11 +17,11 @@ template.innerHTML = `
         }
 
         div form {
-            width: 81%;
+            width: 80%;
         }
 
         div button {
-            width: 18%;
+            width: calc(20% - 2px);
         }
 
     </style>

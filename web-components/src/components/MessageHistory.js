@@ -3,6 +3,8 @@ template.innerHTML = `
     <style>
         .message-area {
             font: 12pt bold;
+            display: flex;
+            flex-direction: column;
         }
     </style>
     <div class="message-area"></div>

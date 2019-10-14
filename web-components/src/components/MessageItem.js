@@ -6,6 +6,9 @@ template.innerHTML = `
             background-color: #05ffb0;
             margin-bottom: 2px;
             margin-top: 2px;
+            width: 85%;
+            position: relative;
+            left: calc(15% - 4px);
         }
 
         .message-item-text {
