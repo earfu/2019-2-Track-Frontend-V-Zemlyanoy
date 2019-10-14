@@ -1,7 +1,10 @@
 const template = document.createElement('template');
 template.innerHTML = `
     <style>
-        div {
+        div { /* for the entire central area */
+            width: 100%;
+            padding-left: 25%;
+            padding-right: 25%;
             display: flex;
             align-items: stretch;
             justify-content: space-between;
@@ -20,6 +23,7 @@ template.innerHTML = `
         }
     </style>
     <div>
+        <message-history></message-history>
         <form>
             <form-input name="message-text" placeholder="Введите сообщение"></form-input>
         </form>
@@ -48,8 +52,8 @@ class MessageForm extends HTMLElement {
     // note: Firefox ignores this unless specifically allowed; see _onKeyPress below
     const msg = document.createElement('message-item'); // create new message-item
     msg.formulate(new Date(), this.$input.value, null);
-    this.$input.reset(); // reset the input form to clear
     // instead of passing them to the constructor
+    this.$input.reset(); // reset the input form to clear
     msg.store(); // must be done somewhere; right after creation is the policy for now
     const msgHistory = document.querySelector('message-history');
     msgHistory.append(msg);
