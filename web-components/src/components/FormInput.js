@@ -35,9 +35,12 @@ class FormInput extends HTMLElement {
   }
 
   get value() {
-    const val = this.$input.value;
+    return this.$input.value;
+  }
+
+  reset() {
     this.$input.value = ''; // resets the form without reloading the page
-    return val; // as a side effect, one-use retrieval is accidentally enforced
+
   }
 }
 

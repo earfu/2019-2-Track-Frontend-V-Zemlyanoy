@@ -48,6 +48,7 @@ class MessageForm extends HTMLElement {
     // note: Firefox ignores this unless specifically allowed; see _onKeyPress below
     const msg = document.createElement('message-item'); // create new message-item
     msg.formulate(new Date(), this.$input.value, null);
+    this.$input.reset(); // reset the input form to clear
     // instead of passing them to the constructor
     msg.store(); // must be done somewhere; right after creation is the policy for now
     const msgHistory = document.querySelector('message-history');
