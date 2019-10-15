@@ -5,6 +5,7 @@ template.innerHTML = `
             font: 12pt bold;
             display: flex;
             flex-direction: column;
+            justify-content: flex-end;
         }
     </style>
     <div class="message-area"></div>

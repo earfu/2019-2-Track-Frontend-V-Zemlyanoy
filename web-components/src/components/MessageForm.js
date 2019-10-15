@@ -1,11 +1,33 @@
 const template = document.createElement('template');
 template.innerHTML = `
     <style>
+        div.central-area {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+        }
+
         div.sending-form {
+            width: 100%;
+            height: 20%;
             display: flex;
             align-items: stretch;
             justify-content: space-between;
+        }
 
+        div.wrap-history { /* necessary for scrolling */
+            height: 70%; /* note: find a way to follow to the end? */
+            min-height: 0;
+            overflow: auto;
+        }
+
+        .form-head {
+        /* note: find a way to actually attach it to the top */
+            vertical-align: top;
+            width: 100%;
+            height: 10%;
         }
 
         form-input {
@@ -13,7 +35,9 @@ template.innerHTML = `
         }
 
         message-history {
+            height: 100%;
             width: 100%;
+            vertical-align: bottom;
         }
 
         div form {
@@ -25,12 +49,17 @@ template.innerHTML = `
         }
 
     </style>
-    <message-history></message-history>
-    <div class="sending-form">
-        <form>
-            <form-input name="message-text" placeholder="Введите сообщение"></form-input>
-        </form>
-        <button type="submit" onclick="">Send message</button>
+    <div class="central-area">
+        <div class="form-head"><p>Here be head</p></div>
+        <div class="wrap-history">
+            <message-history></message-history>
+        </div>
+        <div class="sending-form">
+            <form>
+                <form-input name="message-text" placeholder="Введите сообщение"></form-input>
+            </form>
+            <button type="submit" onclick="">Send message</button>
+        </div>
     </div>
 `;
 
