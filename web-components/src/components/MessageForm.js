@@ -11,7 +11,7 @@ template.innerHTML = `
 
         div.sending-form {
             width: 100%;
-            height: 20%;
+            height: 15%;
             display: flex;
             align-items: stretch;
             justify-content: space-between;
@@ -27,7 +27,7 @@ template.innerHTML = `
         /* note: find a way to actually attach it to the top */
             vertical-align: top;
             width: 100%;
-            height: 10%;
+            height: 15%;
         }
 
         form-input {
@@ -50,7 +50,10 @@ template.innerHTML = `
 
     </style>
     <div class="central-area">
-        <div class="form-head"><p>Here be head</p></div>
+        <div class="form-head">
+            <message-form-top>
+            </message-form-top>
+        </div>
         <div class="wrap-history">
             <message-history></message-history>
         </div>
