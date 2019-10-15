@@ -22,7 +22,6 @@ class FormInput extends HTMLElement {
     super();
     this.shadowRoot = this.attachShadow({ mode: 'open' });
     this.shadowRoot.appendChild(template.content.cloneNode(true));
-
     this.$input = this.shadowRoot.querySelector('input');
   }
 
@@ -40,7 +39,6 @@ class FormInput extends HTMLElement {
 
   reset() {
     this.$input.value = ''; // resets the form without reloading the page
-
   }
 }
 

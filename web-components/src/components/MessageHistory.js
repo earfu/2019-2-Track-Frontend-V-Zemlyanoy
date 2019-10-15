@@ -23,11 +23,11 @@ class MessageHistory extends HTMLElement {
 
   recreate(chatName) { // clear history, read the localStorage, form the message list, append list
     this.clear(); // full reset; clearing is also done in writeList(), though
-    const name = `${chatName || "No_name"}`;
+    const name = `${chatName || 'No_name'}`;
     const lsKey = `messages_${name}`;
     const lsString = localStorage.getItem(lsKey); // the messages stored
     if (lsString === null) {
-        return;
+      return;
     }
 
     let messageList = null;
@@ -36,15 +36,15 @@ class MessageHistory extends HTMLElement {
     let sep1 = 0;
     let msgLength = 0;
     while (pos < len) {
-        sep1 = lsString.indexOf('|', pos);
-        msgLength = Number.parseInt(lsString.slice(pos, sep1));
-        msgString = lsString.slice(pos, sep1 + msgLength + 1);
-        let msg = document.createElement('message-item');
-        msg.fromString(msgString);
-        messageList = (messageList === null) ? msg : messageList.add(msg);
-        // can change list head; also must watch out for list being a null
-        pos = sep1 + msgLength + 1;
-        //this list is assembled in linear time, assuming older messages at start
+      sep1 = lsString.indexOf('|', pos);
+      msgLength = Number.parseInt(lsString.slice(pos, sep1), 10);
+      const msgString = lsString.slice(pos, sep1 + msgLength + 1);
+      const msg = document.createElement('message-item');
+      msg.fromString(msgString);
+      messageList = (messageList === null) ? msg : messageList.add(msg);
+      // can change list head; also must watch out for list being a null
+      pos = sep1 + msgLength + 1;
+      // this list is assembled in linear time, assuming older messages at start
     }
 
     this.writeList(messageList);
@@ -62,9 +62,9 @@ class MessageHistory extends HTMLElement {
     let current = listHead;
     const msgArea = this.$messageArea;
     while (current.previous !== null) {
-        msgArea.prepend(current);
-        // assumes none of the messages already in the history
-        current = current.previous;
+      msgArea.prepend(current);
+      // assumes none of the messages already in the history
+      current = current.previous;
     }
     msgArea.prepend(current);
     // at present, see no reason to append list to non-empty history;
@@ -77,14 +77,14 @@ class MessageHistory extends HTMLElement {
     if (firstHead === null) { // as long as added list is in order; sort it here?
     // the MessageItem class currently has no methods for assembling lists without date-ordering;
     // MessageHistory does, however
-        this.writeList(listHead);
-        return;
+      this.writeList(listHead);
+      return;
     }
     let current = listHead;
     while (current !== null) {
-        let temp = current.previous;
-        firstHead = firstHead.add(current);
-        current = temp; // current.previous may be changed by adding
+      const temp = current.previous;
+      firstHead = firstHead.add(current);
+      current = temp; // current.previous may be changed by adding
     }
 
     this.writeList(firstHead); // to display messages in order
@@ -93,12 +93,12 @@ class MessageHistory extends HTMLElement {
   clear() {
     const msgArea = this.$messageArea;
     const messages = msgArea.children;
-    let msgArray = [];
+    const msgArray = [];
     for (let i = 0; i < messages.length; i += 1) {
-        msgArray[i] = messages[i];
+      msgArray[i] = messages[i];
     }
-    for (i = 0; i < msgArray.length; i += 1) {
-        msgArea.removeChild(msgArray[i]);
+    for (let i = 0; i < msgArray.length; i += 1) {
+      msgArea.removeChild(msgArray[i]);
     }
     // no direct looping through messages,
     // as the collection itself is affected by removals

@@ -25,7 +25,7 @@ class MessageFormTop extends HTMLElement {
     this.shadowRoot = this.attachShadow({ mode: 'open' });
     this.shadowRoot.appendChild(template.content.cloneNode(true));
     this.$name = this.shadowRoot.querySelector('#top-name');
-    this.$name.textContent = "No_name"; // default for now
+    this.$name.textContent = 'No_name'; // default for now
   }
 
   setName(name) {
