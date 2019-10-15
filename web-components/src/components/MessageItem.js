@@ -50,7 +50,7 @@ class MessageItem extends HTMLElement {
     this.date = date; // Date object
     this.text = `${text}`; // string
     this.author = `${author || 'localhost'}`;
-    this.previous = null;
+    this.previous = null; // not set when creating the message; set by external list manipulations
     this.$text.innerText = this.text; // note: see about not storing text and date twice
     this.$date.innerText = `${this.date}`;
     this.$author.innerText = this.author;
@@ -61,10 +61,60 @@ class MessageItem extends HTMLElement {
     this.previous = head;
   }
 
-  store() { // store the message in localStorage
-    const itemString = `${this.date.getTime()}|${this.author}|${this.text}`;
+  store(chatName) { // store the message in localStorage
+    const name = chatName || 'No_name';
+    const lsKey = `messages_${name}`;
+/*    const { author } = this;
+    const { text } = this;
+    const date = this.date.getTime(); */
+    const itemString = this.makeString();
     // so date is stored in milliseconds; "|" is a separator for later search
-    localStorage.setItem(localStorage.length, itemString); // the only kind in storage for now
+    const lsString = localStorage.getItem(lsKey);
+    const newString = (lsString === null) ? `${itemString}` : `${lsString}${itemString}`;
+    localStorage.setItem(lsKey, newString);
+    // newer messages at the end, for linear-time list assembly (see MessageHistory.recreate());
+    // displaying is not done message-by-message anyway
+  }
+
+  add(message) { // add to the list, ordered by date
+      const date = message.date;
+      let current = this;
+      if (date > current.date) {
+          message.setPrevious(current);
+          return message; // new list head
+      }
+      while ((current.previous !== null) && (date < current.previous.date)) {
+          current = current.previous;
+          // after this, date is guaranteed to be before current.date,
+          // with either current.previous === null or current.previous.date before date;
+          // either case, message must be inserted between current and current.previous
+      }
+        message.setPrevious(current.previous);
+        current.setPrevious(message);
+        return this; // as long as the new message is not the last
+  }
+
+  makeString() {
+    const { author } = this;
+    const { text } = this;
+    const date = this.date.getTime();
+    const subString = `${date}|${author.length}|${text.length}|${author}|${text}|`;
+    return `${subString.length}|${subString}`;
+  }
+
+  fromString(msgString) {
+    const sep1 = msgString.indexOf('|'); // first separator
+    const sep2 = msgString.indexOf('|', sep1 + 1);
+    const sep3 = msgString.indexOf('|', sep2 + 1);
+    const sep4 = msgString.indexOf('|', sep3 + 1);
+//    const subLength = Number.parseInt(msgString.slice(0, sep1));
+    const dateMillis = Number.parseInt(msgString.slice(sep1 + 1, sep2));
+    const authorLength = Number.parseInt(msgString.slice(sep2 + 1, sep3));
+    const textLength = Number.parseInt(msgString.slice(sep3 + 1, sep4));
+    const author = msgString.slice(sep4 + 1, sep4 + authorLength + 1);
+    const text = msgString.slice(sep4 + authorLength + 2, sep4 + authorLength + textLength + 2);
+    this.formulate(new Date(dateMillis), text, author);
+//    return this;
   }
 }
 
