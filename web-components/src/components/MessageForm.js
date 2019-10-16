@@ -89,7 +89,7 @@ class MessageForm extends HTMLElement {
     msg.formulate(new Date(), this.$input.value, null);
     // instead of passing them to the constructor
     this.$input.reset(); // reset the input form to clear
-    msg.store(); // must be done somewhere; right after creation is the policy for now
+    msg.store(null); // must be done somewhere; right after creation is the policy for now
     // note to future: store() has a name argument
     const msgHistory = this.shadowRoot.querySelector('message-history');
     msgHistory.append(msg);

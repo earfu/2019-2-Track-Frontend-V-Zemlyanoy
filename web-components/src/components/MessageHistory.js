@@ -63,12 +63,9 @@ class MessageHistory extends HTMLElement {
     const msgArea = this.$messageArea;
     while (current.previous !== null) {
       msgArea.prepend(current);
-      // assumes none of the messages already in the history
       current = current.previous;
     }
     msgArea.prepend(current);
-    // at present, see no reason to append list to non-empty history;
-    // still, the function does work in that case too
     this.head = listHead;
   }
 

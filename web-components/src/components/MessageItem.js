@@ -54,7 +54,7 @@ class MessageItem extends HTMLElement {
     this.$text.innerText = this.text; // note: see about not storing text and date twice
     this.$date.innerText = `${this.date}`;
     this.$author.innerText = this.author;
-    // this.store(); // not used this way for now; see infinite loop with MessageHistory.recreate()
+    // this.store(); // not used this way; see infinite loop with MessageHistory.recreate()
   }
 
   setPrevious(head) {
@@ -68,7 +68,6 @@ class MessageItem extends HTMLElement {
     const { text } = this;
     const date = this.date.getTime(); */
     const itemString = this.makeString();
-    // so date is stored in milliseconds; "|" is a separator for later search
     const lsString = localStorage.getItem(lsKey);
     const newString = (lsString === null) ? `${itemString}` : `${lsString}${itemString}`;
     localStorage.setItem(lsKey, newString);
@@ -94,15 +93,16 @@ class MessageItem extends HTMLElement {
     return this; // as long as the new message is not the last
   }
 
-  makeString() {
+  makeString() { // make string form of the message for localStorage
     const { author } = this;
     const { text } = this;
     const date = this.date.getTime();
     const subString = `${date}|${author.length}|${text.length}|${author}|${text}|`;
+    // so date is stored in milliseconds; "|" is a separator for parsing
     return `${subString.length}|${subString}`;
   }
 
-  fromString(msgString) {
+  fromString(msgString) { // recreate message from its string form
     const sep1 = msgString.indexOf('|'); // first separator
     const sep2 = msgString.indexOf('|', sep1 + 1);
     const sep3 = msgString.indexOf('|', sep2 + 1);
