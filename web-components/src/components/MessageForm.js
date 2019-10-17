@@ -85,6 +85,9 @@ class MessageForm extends HTMLElement {
   onSubmit(event) {
     event.preventDefault();
     // note: Firefox ignores this unless specifically allowed; see _onKeyPress below
+    if (this.$input.value === '') {
+      return;
+    }
     const msg = document.createElement('message-item'); // create new message-item
     msg.formulate(new Date(), this.$input.value, null);
     // instead of passing them to the constructor
