@@ -55,6 +55,7 @@ class MessageHistory extends HTMLElement {
     msg.setPrevious(this.head);
     this.head = msg;
     this.$messageArea.append(msg);
+    msg.scrollIntoView(false);
   }
 
   writeList(listHead) { // write a full list from the head (i.e., end), overwriting past history

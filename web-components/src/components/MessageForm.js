@@ -18,7 +18,7 @@ template.innerHTML = `
         }
 
         div.wrap-history { /* necessary for scrolling */
-            height: 70%; /* note: find a way to follow to the end? */
+            height: 70%; /* note: see about auto-scroll in MessageHistory.append() */
             min-height: 0;
             overflow: auto;
         }
