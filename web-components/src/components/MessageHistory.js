@@ -68,6 +68,7 @@ class MessageHistory extends HTMLElement {
     }
     msgArea.prepend(current);
     this.head = listHead;
+    listHead.scrollIntoView(false); // set starting position at the newest
   }
 
   addList(listHead) { // for merging histories in date order
