@@ -1,7 +1,4 @@
-import {chatDefaults} from './../chatDefaults';
-import MessageHistory from './MessageHistory';
-//import messageFormTopDefine from './MessageFormTop';
-//import './FormInput';
+import chatDefaults from '../chatDefaults';
 
 const template = document.createElement('template');
 template.innerHTML = `
@@ -72,11 +69,11 @@ template.innerHTML = `
 export default class MessageForm extends HTMLElement {
   constructor() {
     super();
-    /*this.shadowRoot = */this.attachShadow({ mode: 'open' });
+    /* this.shadowRoot = */this.attachShadow({ mode: 'open' });
     this.shadowRoot.appendChild(template.content.cloneNode(true));
 
     this.$form = this.shadowRoot.querySelector('form');
-    //this.$message = this.shadowRoot.querySelector('.result');
+    // this.$message = this.shadowRoot.querySelector('.result');
     this.$button = this.shadowRoot.querySelector('button');
     this.$button.$source = this; // black magic to get the original MessageForm from its button
 
@@ -95,17 +92,16 @@ export default class MessageForm extends HTMLElement {
 
   setName(name) {
     this.name = name;
-    //this.$top = this.shadowRoot.querySelector('message-form-top');
+    // this.$top = this.shadowRoot.querySelector('message-form-top');
     this.$top.setName(name);
-
   }
 
   recreateHistory(name) {
-      this.$history.recreate(name);
+    this.$history.recreate(name);
   }
 
   historyScrollEnd() {
-      this.$history.scrollEnd();
+    this.$history.scrollEnd();
   }
 
   onSubmit(event) {
@@ -121,7 +117,7 @@ export default class MessageForm extends HTMLElement {
     this.$input.reset(); // reset the input form to clear
     msg.store(this.name); // must be done somewhere; right after creation is the policy for now
     // note to future: store() has a name argument
-    //const msgHistory = this.shadowRoot.querySelector('message-history');
+    // const msgHistory = this.shadowRoot.querySelector('message-history');
     this.$history.append(msg);
   }
 

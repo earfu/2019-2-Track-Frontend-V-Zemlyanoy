@@ -1,7 +1,4 @@
-import {chatDefaults} from './../chatDefaults';
-//import './ChatList';
-//import './ChatListTop';
-//import './ChatCreationInput';
+// import chatDefaults from '../chatDefaults';
 
 const template = document.createElement('template');
 template.innerHTML = `
@@ -36,7 +33,10 @@ template.innerHTML = `
         .chat-creation {
             background-color: #ffffcc;
             border: none;
-            margin-right: 2px;
+            margin-right: 10%;
+            margin-bottom: 4px;
+            position: sticky;
+            bottom: 0;
             float: right;
             align-self: flex-end;
             display: flex;
@@ -77,13 +77,14 @@ template.innerHTML = `
 
 
 
+
     </div>
 `;
 
 export default class ChatListContainer extends HTMLElement {
   constructor() {
     super();
-    /*this.shadowRoot = */this.attachShadow({ mode: 'open' });
+    /* this.shadowRoot = */this.attachShadow({ mode: 'open' });
     this.shadowRoot.appendChild(template.content.cloneNode(true));
 
     this.$chatCreate = this.shadowRoot.querySelector('.chat-create');
@@ -113,10 +114,10 @@ export default class ChatListContainer extends HTMLElement {
 
     const chats = this.$chatList.$chatsArea.children;
     for (let i = 0; i < chats.length; i += 1) {
-        if (chats[i].name === chtName) { // no repeating chat names
-            chats[i].scrollIntoView(false); // bump; should have some way of highlighting too
-            return;
-        }
+      if (chats[i].name === chtName) { // no repeating chat names
+        chats[i].scrollIntoView(false); // bump; should have some way of highlighting too
+        return;
+      }
     }
 
     const cht = document.createElement('chat-item'); // create new message-item

@@ -1,5 +1,4 @@
-import {chatDefaults} from './../chatDefaults';
-import MessageItem from './MessageItem';
+import chatDefaults from '../chatDefaults';
 
 const template = document.createElement('template');
 template.innerHTML = `
@@ -17,7 +16,7 @@ template.innerHTML = `
 export default class MessageHistory extends HTMLElement {
   constructor() {
     super();
-    /*this.shadowRoot = */this.attachShadow({ mode: 'open' });
+    /* this.shadowRoot = */this.attachShadow({ mode: 'open' });
     this.shadowRoot.appendChild(template.content.cloneNode(true));
     this.$messageArea = this.shadowRoot.querySelector('.message-area');
     this.head = null;
@@ -109,7 +108,7 @@ export default class MessageHistory extends HTMLElement {
 
   scrollEnd() {
     if (this.head === null) {
-        return;
+      return;
     }
     this.head.scrollIntoView(false);
   }

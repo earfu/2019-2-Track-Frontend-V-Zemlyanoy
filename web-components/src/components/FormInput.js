@@ -20,7 +20,7 @@ template.innerHTML = `
 export default class FormInput extends HTMLElement {
   constructor() {
     super();
-    /*this.shadowRoot = */this.attachShadow({ mode: 'open' });
+    /* this.shadowRoot = */this.attachShadow({ mode: 'open' });
     this.shadowRoot.appendChild(template.content.cloneNode(true));
     this.$input = this.shadowRoot.querySelector('input');
   }

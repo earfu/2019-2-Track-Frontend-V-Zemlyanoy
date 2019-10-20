@@ -1,4 +1,4 @@
-import {chatDefaults} from './../chatDefaults';
+import chatDefaults from '../chatDefaults';
 
 const template = document.createElement('template');
 template.innerHTML = `
@@ -39,7 +39,7 @@ template.innerHTML = `
 export default class MessageItem extends HTMLElement {
   constructor() {
     super();
-    /*this.shadowRoot = */this.attachShadow({ mode: 'open' });
+    /* this.shadowRoot = */this.attachShadow({ mode: 'open' });
     this.shadowRoot.appendChild(template.content.cloneNode(true));
     this.$text = this.shadowRoot.querySelector('.message-item-text');
     this.$author = this.shadowRoot.querySelector('.message-item-author');

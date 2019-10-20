@@ -1,5 +1,3 @@
-//chatItem = require('./ChatItem');
-
 const template = document.createElement('template');
 template.innerHTML = `
     <style>
@@ -8,6 +6,7 @@ template.innerHTML = `
             display: flex;
             flex-direction: column;
             justify-content: flex-start;
+            clear: none;
         }
     </style>
     <div class="chats-area"></div>
@@ -17,10 +16,10 @@ template.innerHTML = `
 export default class ChatList extends HTMLElement {
   constructor() {
     super();
-    /*this.shadowRoot = */this.attachShadow({ mode: 'open' });
+    /* this.shadowRoot = */this.attachShadow({ mode: 'open' });
     this.shadowRoot.appendChild(template.content.cloneNode(true));
     this.$chatsArea = this.shadowRoot.querySelector('.chats-area');
-    this.start = null
+    this.start = null;
     this.end = null;
     this.recreate();
   }
@@ -37,7 +36,7 @@ export default class ChatList extends HTMLElement {
       return;
     }
 
-    //let chtList = null;
+    // let chtList = null;
     let pos = 0;
     const len = lsString.length;
     let sep1 = 0;
@@ -48,29 +47,28 @@ export default class ChatList extends HTMLElement {
       const chtString = lsString.slice(pos, sep1 + chtLength + 1);
       const cht = document.createElement('chat-item');
       cht.fromString(chtString);
-      //chtList = (chtList === null) ? cht : chtList.append(cht);
+      // chtList = (chtList === null) ? cht : chtList.append(cht);
       // can change list head; also must watch out for list being a null
       pos = sep1 + chtLength + 1;
       this.append(cht);
     }
 
-    //this.writeList(messageList);
+    // this.writeList(messageList);
   }
 
   append(cht) { // append a ChatItem
     if (this.start === null) {
       this.start = cht;
-    }
-    else {
-        this.end.setNext(cht);
-        cht.setPrevious(this.end);
+    } else {
+      this.end.setNext(cht);
+      cht.setPrevious(this.end);
     }
     this.end = cht;
     this.$chatsArea.append(cht);
     cht.scrollIntoView(false);
   }
 
-/*  writeList(listHead) { // write a full list from the head (i.e., end), overwriting past history
+  /*  writeList(listHead) { // write a full list from the head (i.e., end), overwriting past history
     this.clear(); // remove everything
     let current = listHead;
     const msgArea = this.$messageArea;
@@ -109,14 +107,13 @@ export default class ChatList extends HTMLElement {
       chtArray[i] = chats[i];
     }
     for (let i = 0; i < chtArray.length; i += 1) {
-      chtArea.removeChild(chtArray[i]);
+      chatsArea.removeChild(chtArray[i]);
     }
     // no direct looping through messages,
     // as the collection itself is affected by removals
     this.start = null;
     this.end = null;
   }
-
 }
 
 customElements.define('chat-list', ChatList);

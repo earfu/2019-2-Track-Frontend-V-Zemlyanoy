@@ -1,9 +1,5 @@
-import {chatDefaults} from './../chatDefaults';
-import MessageItem from'./MessageItem';
-import MessageHistory from './MessageHistory';
-import MessageFormTop from './MessageFormTop';
-import FormInput from './FormInput';
-import MessageForm from './MessageForm';
+import chatDefaults from '../chatDefaults';
+import { nodesLinks } from '../nodesLinks';
 
 const template = document.createElement('template');
 template.innerHTML = `
@@ -36,12 +32,12 @@ template.innerHTML = `
 export default class ChatItem extends HTMLElement {
   constructor() {
     super();
-    /*this.shadowRoot = */this.attachShadow({ mode: 'open' });
+    /* this.shadowRoot = */this.attachShadow({ mode: 'open' });
     this.shadowRoot.appendChild(template.content.cloneNode(true));
     this.$area = this.shadowRoot.querySelector('.chat-list-item');
     this.$chatName = this.shadowRoot.querySelector('.chat-item-name');
-    //this.$messageForm = document.createElement('message-form');
-    //this.$messageHistory = this.$messageForm.shadowRoot.querySelector('message-history');
+    // this.$messageForm = document.createElement('message-form');
+    // this.$messageHistory = this.$messageForm.shadowRoot.querySelector('message-history');
 
     this.icon = null;
     this.name = '';
@@ -50,7 +46,6 @@ export default class ChatItem extends HTMLElement {
     this.previous = null;
 
     this.$area.addEventListener('click', this.activate.bind(this));
-
   }
 
   formulate(name) {
@@ -76,7 +71,7 @@ export default class ChatItem extends HTMLElement {
   }
 
   makeString() {
-    const {name} = this;
+    const { name } = this;
     return `${name.length + 1}|${name}|`; // the +1 accounts for the last separator
   }
 
@@ -96,23 +91,29 @@ export default class ChatItem extends HTMLElement {
   activate() {
     const newForm = this.$messageForm;
     if (!newForm) {
-        this.$messageForm = document.createElement('message-form');
-        this.$messageForm.setName(this.name);
-        //this.$messageHistory = this.$messageForm.shadowRoot.querySelector('message-history');
-        //const msgHist = document.createElement('message-history');
-        //msgHist.recreate(this.name);
-        //this.$messageHistory.replaceWith(msgHist);
-        //this.$messageHistory = msgHist;
-        //this.$messageHistory.recreate(this.name);
-        this.$messageForm.recreateHistory(this.name);
+      this.$messageForm = document.createElement('message-form');
+      this.$messageForm.setName(this.name);
+      // this.$messageHistory = this.$messageForm.shadowRoot.querySelector('message-history');
+      // const msgHist = document.createElement('message-history');
+      // msgHist.recreate(this.name);
+      // this.$messageHistory.replaceWith(msgHist);
+      // this.$messageHistory = msgHist;
+      // this.$messageHistory.recreate(this.name);
+      this.$messageForm.recreateHistory(this.name);
     }
-    const frmArea = document.querySelector('.message-area');
-    const frm = document.querySelector('message-form');
+
+    nodesLinks.appContainer.removeChild(nodesLinks.chatListContainer);
+
+    nodesLinks.appContainer.append(this.$messageForm);
+    this.$messageForm.historyScrollEnd();
+
+
+    /* const frmArea = document.querySelector('.message-area');
+    const frm = frmArea.querySelector('message-form');
     //this.$messageForm.setName(this.name);
     frmArea.replaceChild(this.$messageForm, frm);
-    this.$messageForm.historyScrollEnd();
+    this.$messageForm.historyScrollEnd(); */
   }
-
 }
 
 customElements.define('chat-item', ChatItem);

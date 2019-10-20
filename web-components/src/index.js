@@ -1,20 +1,22 @@
 import './index.css';
 
 // babel in webPack reorders imports
-import {chatDefaults} from './chatDefaults';
+import './chatDefaults';
+import { makeLinks } from './nodesLinks';
+import './components/MessageItem';
+import './components/MessageHistory';
+import './components/MessageFormTop';
 
-import MessageItem from'./components/MessageItem';
-import MessageHistory from './components/MessageHistory';
-import MessageFormTop from './components/MessageFormTop';
+import './components/FormInput';
+import './components/MessageForm';
 
-import FormInput from './components/FormInput';
-import MessageForm from './components/MessageForm';
+import './components/ChatItem';
+import './components/ChatList';
+import './components/ChatListTop';
+import './components/ChatCreationInput';
+import './components/ChatListContainer';
 
-import ChatItem from './components/ChatItem';
-import ChatList from './components/ChatList';
-import ChatListTop from './components/ChatListTop';
-import ChatCreationInput from './components/ChatCreationInput';
-import ChatListContainer from './components/ChatListContainer';
+makeLinks();
 
 /*
 let a = new MessageItem();
