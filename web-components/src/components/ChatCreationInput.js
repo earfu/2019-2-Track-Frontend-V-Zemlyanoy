@@ -5,6 +5,7 @@ template.innerHTML = `
             border: 0;
             outline: none;
             width: calc(100% - 2px);
+            background-color: #ffffcc;
         }
 
         :host {
@@ -17,7 +18,7 @@ template.innerHTML = `
     <input type="text">
 `;
 
-export default class FormInput extends HTMLElement {
+export default class ChatCreationInput extends HTMLElement {
   constructor() {
     super();
     /*this.shadowRoot = */this.attachShadow({ mode: 'open' });
@@ -42,4 +43,4 @@ export default class FormInput extends HTMLElement {
   }
 }
 
-customElements.define('form-input', FormInput);
+customElements.define('chat-creation-input', ChatCreationInput);

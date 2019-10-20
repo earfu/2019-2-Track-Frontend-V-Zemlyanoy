@@ -1,67 +1,76 @@
-import {chatDefaults} from './../chatDefaults';
-import MessageItem from './MessageItem';
+//chatItem = require('./ChatItem');
 
 const template = document.createElement('template');
 template.innerHTML = `
     <style>
-        .message-area {
+        .chats-area {
             font: 12pt bold;
             display: flex;
             flex-direction: column;
-            justify-content: flex-end;
+            justify-content: flex-start;
         }
     </style>
-    <div class="message-area"></div>
+    <div class="chats-area"></div>
 `;
 
-export default class MessageHistory extends HTMLElement {
+
+export default class ChatList extends HTMLElement {
   constructor() {
     super();
     /*this.shadowRoot = */this.attachShadow({ mode: 'open' });
     this.shadowRoot.appendChild(template.content.cloneNode(true));
-    this.$messageArea = this.shadowRoot.querySelector('.message-area');
-    this.head = null;
+    this.$chatsArea = this.shadowRoot.querySelector('.chats-area');
+    this.start = null
+    this.end = null;
     this.recreate();
   }
 
-  recreate(chatName) { // clear history, read the localStorage, form the message list, append list
+  recreate() { // clear history, read the localStorage, form the message list, append list
     this.clear(); // full reset; clearing is also done in writeList(), though
-    const name = `${chatName || chatDefaults.firstChatName}`;
-    const lsKey = `messages_${name}`;
-    const lsString = localStorage.getItem(lsKey); // the messages stored
+
+    const first = document.createElement('chat-item');
+    first.formulate();
+    this.append(first);
+
+    const lsString = localStorage.getItem('chats');
     if (lsString === null) {
       return;
     }
 
-    let messageList = null;
+    //let chtList = null;
     let pos = 0;
     const len = lsString.length;
     let sep1 = 0;
-    let msgLength = 0;
+    let chtLength = 0;
     while (pos < len) {
       sep1 = lsString.indexOf('|', pos);
-      msgLength = Number.parseInt(lsString.slice(pos, sep1), 10);
-      const msgString = lsString.slice(pos, sep1 + msgLength + 1);
-      const msg = document.createElement('message-item');
-      msg.fromString(msgString);
-      messageList = (messageList === null) ? msg : messageList.add(msg);
+      chtLength = Number.parseInt(lsString.slice(pos, sep1), 10);
+      const chtString = lsString.slice(pos, sep1 + chtLength + 1);
+      const cht = document.createElement('chat-item');
+      cht.fromString(chtString);
+      //chtList = (chtList === null) ? cht : chtList.append(cht);
       // can change list head; also must watch out for list being a null
-      pos = sep1 + msgLength + 1;
-      // this list is assembled in linear time, assuming older messages at start
+      pos = sep1 + chtLength + 1;
+      this.append(cht);
     }
 
-    this.writeList(messageList);
+    //this.writeList(messageList);
   }
 
-  append(msg) { // append a message to the history
-    // note: no using msg.store() as long as this function is used in recreate()
-    msg.setPrevious(this.head);
-    this.head = msg;
-    this.$messageArea.append(msg);
-    msg.scrollIntoView(false);
+  append(cht) { // append a ChatItem
+    if (this.start === null) {
+      this.start = cht;
+    }
+    else {
+        this.end.setNext(cht);
+        cht.setPrevious(this.end);
+    }
+    this.end = cht;
+    this.$chatsArea.append(cht);
+    cht.scrollIntoView(false);
   }
 
-  writeList(listHead) { // write a full list from the head (i.e., end), overwriting past history
+/*  writeList(listHead) { // write a full list from the head (i.e., end), overwriting past history
     this.clear(); // remove everything
     let current = listHead;
     const msgArea = this.$messageArea;
@@ -91,28 +100,23 @@ export default class MessageHistory extends HTMLElement {
 
     this.writeList(firstHead); // to display messages in order
   }
-
+*/
   clear() {
-    const msgArea = this.$messageArea;
-    const messages = msgArea.children;
-    const msgArray = [];
-    for (let i = 0; i < messages.length; i += 1) {
-      msgArray[i] = messages[i];
+    const chatsArea = this.$chatsArea;
+    const chats = chatsArea.children;
+    const chtArray = [];
+    for (let i = 0; i < chats.length; i += 1) {
+      chtArray[i] = chats[i];
     }
-    for (let i = 0; i < msgArray.length; i += 1) {
-      msgArea.removeChild(msgArray[i]);
+    for (let i = 0; i < chtArray.length; i += 1) {
+      chtArea.removeChild(chtArray[i]);
     }
     // no direct looping through messages,
     // as the collection itself is affected by removals
-    this.head = null;
+    this.start = null;
+    this.end = null;
   }
 
-  scrollEnd() {
-    if (this.head === null) {
-        return;
-    }
-    this.head.scrollIntoView(false);
-  }
 }
 
-customElements.define('message-history', MessageHistory);
+customElements.define('chat-list', ChatList);

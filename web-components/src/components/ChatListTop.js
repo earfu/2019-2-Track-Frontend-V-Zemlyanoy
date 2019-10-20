@@ -1,9 +1,8 @@
 import {chatDefaults} from './../chatDefaults';
-
 const template = document.createElement('template');
 template.innerHTML = `
     <style>
-        .top-area {
+        .chat-top-area {
             font: 12pt bold;
             border: 1px solid black;
             background-color: #0000ff;
@@ -11,25 +10,26 @@ template.innerHTML = `
             height: calc(100% - 6px);
             margin-top: 2px;
             text-align: center;
+            display: flex;
+            flex-direction: row;
         }
         #top-name {
             color: white;
         }
     </style>
-    <div class="top-area">
+    <div class="chat-top-area">
+        <button type="submit" onclick="">Send message</button>
         <p id="top-name"></p>
     </div>
 `;
 
-export default class MessageFormTop extends HTMLElement {
+export default class ChatListTop extends HTMLElement {
   constructor() {
     super();
     /*this.shadowRoot = */this.attachShadow({ mode: 'open' });
     this.shadowRoot.appendChild(template.content.cloneNode(true));
     this.$name = this.shadowRoot.querySelector('#top-name');
-
-    this.setName(chatDefaults.firstChatName); // default for now
-
+    this.$name.textContent = chatDefaults.authorName; // default for now
   }
 
   setName(name) {
@@ -37,6 +37,4 @@ export default class MessageFormTop extends HTMLElement {
   }
 }
 
-
-customElements.define('message-form-top', MessageFormTop);
-
+customElements.define('chat-list-top', ChatListTop);

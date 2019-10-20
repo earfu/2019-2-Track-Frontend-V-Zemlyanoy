@@ -1,3 +1,5 @@
+import {chatDefaults} from './../chatDefaults';
+
 const template = document.createElement('template');
 template.innerHTML = `
     <style>
@@ -34,10 +36,10 @@ template.innerHTML = `
     </div>
 `;
 
-class MessageItem extends HTMLElement {
+export default class MessageItem extends HTMLElement {
   constructor() {
     super();
-    this.shadowRoot = this.attachShadow({ mode: 'open' });
+    /*this.shadowRoot = */this.attachShadow({ mode: 'open' });
     this.shadowRoot.appendChild(template.content.cloneNode(true));
     this.$text = this.shadowRoot.querySelector('.message-item-text');
     this.$author = this.shadowRoot.querySelector('.message-item-author');
@@ -49,7 +51,7 @@ class MessageItem extends HTMLElement {
     // make the message item itself; really, what is it with constructor arguments!?
     this.date = date; // Date object
     this.text = `${text}`; // string
-    this.author = `${author || 'localhost'}`;
+    this.author = `${author || chatDefaults.authorName}`;
     this.previous = null; // not set when creating the message; set by external list manipulations
     this.$text.innerText = this.text; // note: see about not storing text and date twice
     this.$date.innerText = `${this.date}`;
@@ -62,7 +64,7 @@ class MessageItem extends HTMLElement {
   }
 
   store(chatName) { // store the message in localStorage
-    const name = chatName || 'No_name';
+    const name = chatName || chatDefaults.firstChatName;
     const lsKey = `messages_${name}`;
     /*    const { author } = this;
     const { text } = this;

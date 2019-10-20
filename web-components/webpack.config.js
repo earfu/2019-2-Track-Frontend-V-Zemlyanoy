@@ -13,10 +13,11 @@ module.exports = {
     context: SRC_PATH,
     entry: {
         index: './index.js',
+
     },
     output: {
         path: BUILD_PATH,
-        filename: 'bundle.js'
+        filename: 'bundle.js',
     },
     module: {
         strictExportPresence: true,
@@ -63,6 +64,6 @@ module.exports = {
         new HTMLWebpackPlugin({
             filename: 'index.html',
             template: './index.html'
-        })
-    ]
+        }),
+    ],
 };
