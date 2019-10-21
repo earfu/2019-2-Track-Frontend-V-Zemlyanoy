@@ -54,7 +54,7 @@ export default class MessageItem extends HTMLElement {
     this.author = `${author || chatDefaults.authorName}`;
     this.previous = null; // not set when creating the message; set by external list manipulations
     this.$text.innerText = this.text; // note: see about not storing text and date twice
-    this.$date.innerText = `${this.date}`;
+    this.$date.innerText = `${this.date.toLocaleString()}`;
     this.$author.innerText = this.author;
     // this.store(); // not used this way; see infinite loop with MessageHistory.recreate()
   }
