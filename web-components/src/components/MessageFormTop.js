@@ -32,6 +32,8 @@ template.innerHTML = `
             border: none;
             height: 100%;
             width: 60px;
+            font-size: 16pt;
+
         }
 
         button img {
@@ -40,8 +42,10 @@ template.innerHTML = `
             height: 100%;
         }
     </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
     <div class="top-area">
-        <button class="deactivation" type="button" onclick=""><img src="./images/back.png"></img></button>
+        <button class="deactivation" type="button" onclick=""><i class="fa fa-chevron-left"></i></button>
 
         <p id="top-name"></p>
     </div>
@@ -58,7 +62,7 @@ export default class MessageFormTop extends HTMLElement {
     this.$button.addEventListener('click', deactivate.bind(this));
 
 
-    this.setName(chatDefaults.firstChatName); // default for now
+    this.setName(chatDefaults.firstChatName); // default at creation
   }
 
   setName(name) {

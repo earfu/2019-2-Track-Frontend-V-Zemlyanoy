@@ -70,12 +70,12 @@ export default class ChatItem extends HTMLElement {
     this.previous = head;
   }
 
-  makeString() {
+  makeString() { // make string form for storage
     const { name } = this;
     return `${name.length + 1}|${name}|`; // the +1 accounts for the last separator
   }
 
-  fromString(chtString) {
+  fromString(chtString) { // recreate from string form
     const sep = chtString.indexOf('|'); // separator
     const chtName = chtString.slice(sep + 1, -1);
     this.formulate(chtName);

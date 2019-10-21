@@ -24,6 +24,7 @@ template.innerHTML = `
             border: none;
             height: 100%;
             width: 60px;
+            font-size: 16pt;
         }
 
         button img {
@@ -32,8 +33,10 @@ template.innerHTML = `
             height: 100%;
         }
     </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
     <div class="chat-top-area">
-        <button type="button" onclick=""><img src="./images/bars.png"></img></button>
+        <button class="bars-button" type="button" onclick=""><i class="fa fa-bars"></i></button>
         <p id="top-name"></p>
     </div>
 `;
@@ -43,8 +46,12 @@ export default class ChatListTop extends HTMLElement {
     super();
     /* this.shadowRoot = */this.attachShadow({ mode: 'open' });
     this.shadowRoot.appendChild(template.content.cloneNode(true));
+
     this.$name = this.shadowRoot.querySelector('#top-name');
-    this.$name.textContent = chatDefaults.authorName; // default for now
+    this.$name.textContent = chatDefaults.authorName; // default at creation
+
+    this.$button = this.shadowRoot.querySelector('.bars-button');
+    // this.$button.addEventListener('click', .bind(this));
   }
 
   setName(name) {

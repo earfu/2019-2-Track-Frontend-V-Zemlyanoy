@@ -24,8 +24,8 @@ export default class ChatList extends HTMLElement {
     this.recreate();
   }
 
-  recreate() { // clear history, read the localStorage, form the message list, append list
-    this.clear(); // full reset; clearing is also done in writeList(), though
+  recreate() { // clear history, read the localStorage, form the chat list
+    this.clear(); // full reset
 
     const first = document.createElement('chat-item');
     first.formulate();
@@ -47,13 +47,9 @@ export default class ChatList extends HTMLElement {
       const chtString = lsString.slice(pos, sep1 + chtLength + 1);
       const cht = document.createElement('chat-item');
       cht.fromString(chtString);
-      // chtList = (chtList === null) ? cht : chtList.append(cht);
-      // can change list head; also must watch out for list being a null
       pos = sep1 + chtLength + 1;
       this.append(cht);
     }
-
-    // this.writeList(messageList);
   }
 
   append(cht) { // append a ChatItem
@@ -68,37 +64,6 @@ export default class ChatList extends HTMLElement {
     cht.scrollIntoView(false);
   }
 
-  /*  writeList(listHead) { // write a full list from the head (i.e., end), overwriting past history
-    this.clear(); // remove everything
-    let current = listHead;
-    const msgArea = this.$messageArea;
-    while (current.previous !== null) {
-      msgArea.prepend(current);
-      current = current.previous;
-    }
-    msgArea.prepend(current);
-    this.head = listHead;
-    listHead.scrollIntoView(false); // set starting position at the newest
-  }
-
-  addList(listHead) { // for merging histories in date order
-    let firstHead = this.head; // head of the list added to (i.e., the one already in the history)
-    if (firstHead === null) { // as long as added list is in order; sort it here?
-    // the MessageItem class currently has no methods for assembling lists without date-ordering;
-    // MessageHistory does, however
-      this.writeList(listHead);
-      return;
-    }
-    let current = listHead;
-    while (current !== null) {
-      const temp = current.previous;
-      firstHead = firstHead.add(current);
-      current = temp; // current.previous may be changed by adding
-    }
-
-    this.writeList(firstHead); // to display messages in order
-  }
-*/
   clear() {
     const chatsArea = this.$chatsArea;
     const chats = chatsArea.children;
@@ -109,7 +74,7 @@ export default class ChatList extends HTMLElement {
     for (let i = 0; i < chtArray.length; i += 1) {
       chatsArea.removeChild(chtArray[i]);
     }
-    // no direct looping through messages,
+    // no direct looping through chats,
     // as the collection itself is affected by removals
     this.start = null;
     this.end = null;

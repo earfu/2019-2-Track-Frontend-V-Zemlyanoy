@@ -5,6 +5,7 @@ template.innerHTML = `
             border: 0;
             outline: none;
             width: calc(100% - 2px);
+            height: 100%;
             background-color: #ffffcc;
         }
 

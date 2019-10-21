@@ -45,6 +45,7 @@ export default class MessageHistory extends HTMLElement {
       msg.fromString(msgString);
       messageList = (messageList === null) ? msg : messageList.add(msg);
       // can change list head; also must watch out for list being a null
+      // null list could be neutralised by switching add arguments
       pos = sep1 + msgLength + 1;
       // this list is assembled in linear time, assuming older messages at start
     }
@@ -58,6 +59,8 @@ export default class MessageHistory extends HTMLElement {
     this.head = msg;
     this.$messageArea.append(msg);
     msg.scrollIntoView(false);
+    // could the new message somehow be older than an existing one?
+    // it shouldn't, but...
   }
 
   writeList(listHead) { // write a full list from the head (i.e., end), overwriting past history
@@ -76,7 +79,7 @@ export default class MessageHistory extends HTMLElement {
   addList(listHead) { // for merging histories in date order
     let firstHead = this.head; // head of the list added to (i.e., the one already in the history)
     if (firstHead === null) { // as long as added list is in order; sort it here?
-    // the MessageItem class currently has no methods for assembling lists without date-ordering;
+    // the MessageItem class has no methods for assembling lists without date-ordering;
     // MessageHistory does, however
       this.writeList(listHead);
       return;
@@ -107,7 +110,7 @@ export default class MessageHistory extends HTMLElement {
   }
 
   scrollEnd() {
-    if (this.head === null) {
+    if (this.head === null) { // happens
       return;
     }
     this.head.scrollIntoView(false);
