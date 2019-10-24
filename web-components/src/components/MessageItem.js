@@ -11,6 +11,7 @@ template.innerHTML = `
             width: 85%;
             position: relative;
             left: calc(15% - 4px);
+            animation: pop 3s linear 0s 1 normal none running;
         }
 
         .message-item-text {
@@ -25,6 +26,13 @@ template.innerHTML = `
         .message-item-author {
             font: 8pt normal;
             text-align: right;
+        }
+
+        @keyframes pop {
+            0% {opacity: 0;}
+            35% {opacity: 0.33;}
+            67% {opacity: 0.67;}
+            100% {opacity: 1;}
         }
 
 

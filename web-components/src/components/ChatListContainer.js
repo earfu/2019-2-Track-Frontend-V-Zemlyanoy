@@ -15,6 +15,7 @@ template.innerHTML = `
             height: 85%;
             min-height: 0;
             overflow: auto;
+            scroll-behavior: smooth;
         }
 
         .chat-list-head {
