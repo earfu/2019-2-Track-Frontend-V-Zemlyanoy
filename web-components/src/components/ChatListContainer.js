@@ -34,6 +34,7 @@ template.innerHTML = `
         .chat-creation {
             background-color: #ffffcc;
             border: none;
+            border-radius: 20px;
             margin-right: 10%;
             margin-bottom: 4px;
             position: sticky;
@@ -48,7 +49,7 @@ template.innerHTML = `
         button.chat-create {
             background-color: #ffffcc;
             border: none;
-            border-radius: 50%;
+            border-radius: 0 40% 40% 0;
             height: 50px;
             width: 50px;
             font-size: 18pt;

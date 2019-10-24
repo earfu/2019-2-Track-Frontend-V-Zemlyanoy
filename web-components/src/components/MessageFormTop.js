@@ -15,6 +15,7 @@ template.innerHTML = `
         .top-area {
             font: 12pt bold;
             border: 1px solid black;
+            border-radius: 20px;
             background-color: #0000ff;
             width: 100%;
             height: calc(100% - 6px);
@@ -26,11 +27,13 @@ template.innerHTML = `
         }
         #top-name {
             color: white;
+            margin-left: 4px;
         }
         button.deactivation {
             background-color: #0000ff;
             border: none;
-            height: 100%;
+             border-radius: 20px;
+           height: 100%;
             width: 60px;
             font-size: 16pt;
 

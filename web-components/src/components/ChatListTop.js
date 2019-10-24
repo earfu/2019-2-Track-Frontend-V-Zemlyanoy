@@ -6,6 +6,7 @@ template.innerHTML = `
         .chat-top-area {
             font: 12pt bold;
             border: 1px solid black;
+            border-radius: 20px;
             background-color: #0000ff;
             width: 100%;
             height: calc(100% - 6px);
@@ -22,9 +23,11 @@ template.innerHTML = `
         div button {
             background-color: #0000ff;
             border: none;
+            border-radius: 20px;
             height: 100%;
             width: 60px;
             font-size: 16pt;
+            margin-left: 4px;
         }
 
         button img {

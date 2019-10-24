@@ -3,6 +3,7 @@ template.innerHTML = `
     <style>
         input {
             border: 0;
+            border-radius: 20px;
             outline: none;
             width: calc(100% - 2px);
             height: 100%;
@@ -13,6 +14,7 @@ template.innerHTML = `
             display: inherit;
             height: 100%;
             border: 1px solid rgba(25, 25, 25, 0.32);
+            border-radius: 20px;
             margin-bottom: 1px;
         }
     </style>
