@@ -18,5 +18,10 @@ deploy:
     branch:
       - master
       - devel
+      - hwork2
+      - hwork3
       - hwork4
+      - hwork5
+      - hwork6
+      - hwork7
       - /^hwork\d+$/
