@@ -54,7 +54,15 @@ template.innerHTML = `
         }
 
         button.chat-create:hover {
-            background-color: #ffff00;
+            transition: background-color 1s ease 0s;
+            transition: font-size 1s ease 0s;
+            animation: blink 4s infinite;
+        }
+
+        @keyframes blink {
+            0% {background-color: #ffffcc; font-size: 18pt;}
+            50% {background-color: #ffff00; font-size: 22pt;}
+            100% {background-color: #ffffcc; font-size: 18pt;}
         }
 
         form {

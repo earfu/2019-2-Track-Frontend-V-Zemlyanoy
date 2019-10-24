@@ -10,6 +10,7 @@ template.innerHTML = `
             width: calc(100% - 4px);
             display: flex;
             flex-direction: row;
+            transition: background-color 1s ease 0s;
         }
 
         div.chat-list-item:hover {
