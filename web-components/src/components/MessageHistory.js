@@ -1,3 +1,5 @@
+import chatDefaults from '../chatDefaults';
+
 const template = document.createElement('template');
 template.innerHTML = `
     <style>
@@ -11,10 +13,10 @@ template.innerHTML = `
     <div class="message-area"></div>
 `;
 
-class MessageHistory extends HTMLElement {
+export default class MessageHistory extends HTMLElement {
   constructor() {
     super();
-    this.shadowRoot = this.attachShadow({ mode: 'open' });
+    /* this.shadowRoot = */this.attachShadow({ mode: 'open' });
     this.shadowRoot.appendChild(template.content.cloneNode(true));
     this.$messageArea = this.shadowRoot.querySelector('.message-area');
     this.head = null;
@@ -23,7 +25,7 @@ class MessageHistory extends HTMLElement {
 
   recreate(chatName) { // clear history, read the localStorage, form the message list, append list
     this.clear(); // full reset; clearing is also done in writeList(), though
-    const name = `${chatName || 'No_name'}`;
+    const name = `${chatName || chatDefaults.firstChatName}`;
     const lsKey = `messages_${name}`;
     const lsString = localStorage.getItem(lsKey); // the messages stored
     if (lsString === null) {
@@ -43,6 +45,7 @@ class MessageHistory extends HTMLElement {
       msg.fromString(msgString);
       messageList = (messageList === null) ? msg : messageList.add(msg);
       // can change list head; also must watch out for list being a null
+      // null list could be neutralised by switching add arguments
       pos = sep1 + msgLength + 1;
       // this list is assembled in linear time, assuming older messages at start
     }
@@ -56,6 +59,8 @@ class MessageHistory extends HTMLElement {
     this.head = msg;
     this.$messageArea.append(msg);
     msg.scrollIntoView(false);
+    // could the new message somehow be older than an existing one?
+    // it shouldn't, but...
   }
 
   writeList(listHead) { // write a full list from the head (i.e., end), overwriting past history
@@ -74,7 +79,7 @@ class MessageHistory extends HTMLElement {
   addList(listHead) { // for merging histories in date order
     let firstHead = this.head; // head of the list added to (i.e., the one already in the history)
     if (firstHead === null) { // as long as added list is in order; sort it here?
-    // the MessageItem class currently has no methods for assembling lists without date-ordering;
+    // the MessageItem class has no methods for assembling lists without date-ordering;
     // MessageHistory does, however
       this.writeList(listHead);
       return;
@@ -102,6 +107,13 @@ class MessageHistory extends HTMLElement {
     // no direct looping through messages,
     // as the collection itself is affected by removals
     this.head = null;
+  }
+
+  scrollEnd() {
+    if (this.head === null) { // happens
+      return;
+    }
+    this.head.scrollIntoView(false);
   }
 }
 
