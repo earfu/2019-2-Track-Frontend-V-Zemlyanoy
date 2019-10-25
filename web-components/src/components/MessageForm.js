@@ -23,6 +23,7 @@ template.innerHTML = `
             height: 70%; /* note: see about auto-scroll in MessageHistory.append() */
             min-height: 0;
             overflow: auto;
+            scroll-behavior: smooth;
         }
 
         .form-head {
