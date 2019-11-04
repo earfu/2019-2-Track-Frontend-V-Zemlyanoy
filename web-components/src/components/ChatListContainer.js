@@ -15,6 +15,7 @@ template.innerHTML = `
             height: 85%;
             min-height: 0;
             overflow: auto;
+            scroll-behavior: smooth;
         }
 
         .chat-list-head {
@@ -33,6 +34,7 @@ template.innerHTML = `
         .chat-creation {
             background-color: #ffffcc;
             border: none;
+            border-radius: 20px;
             margin-right: 10%;
             margin-bottom: 4px;
             position: sticky;
@@ -47,14 +49,22 @@ template.innerHTML = `
         button.chat-create {
             background-color: #ffffcc;
             border: none;
-            border-radius: 50%;
+            border-radius: 0 40% 40% 0;
             height: 50px;
             width: 50px;
             font-size: 18pt;
         }
 
         button.chat-create:hover {
-            background-color: #ffff00;
+            transition: background-color 1s ease 0s;
+            transition: font-size 1s ease 0s;
+            animation: blink 4s infinite;
+        }
+
+        @keyframes blink {
+            0% {background-color: #ffffcc; font-size: 18pt;}
+            50% {background-color: #ffff00; font-size: 22pt;}
+            100% {background-color: #ffffcc; font-size: 18pt;}
         }
 
         form {

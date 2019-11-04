@@ -6,10 +6,12 @@ template.innerHTML = `
     <style>
         div.chat-list-item {
             border: 1px solid black;
+            border-radius: 20px;
             background-color: #0000bb;
             width: calc(100% - 4px);
             display: flex;
             flex-direction: row;
+            transition: background-color 1s ease 0s;
         }
 
         div.chat-list-item:hover {
@@ -19,6 +21,7 @@ template.innerHTML = `
         .chat-item-name {
             font: 12pt bold;
             color: white;
+            margin-left: 4px;
         }
 
     </style>

@@ -5,26 +5,38 @@ template.innerHTML = `
     <style>
         div {
             border: 2px solid black;
-            background-color: #05ffb0;
+            border-radius: 20px;
+            background-color: #ffff00;
             margin-bottom: 2px;
             margin-top: 2px;
             width: 85%;
             position: relative;
             left: calc(15% - 4px);
+            animation: pop 3s linear 0s 1 normal none running;
         }
 
         .message-item-text {
+            margin-left: 4px;
             font: 12pt bold;
         }
 
         .message-item-date {
             font: 8pt italic;
             text-align: right;
+            margin-right: 4px;
         }
 
         .message-item-author {
             font: 8pt normal;
             text-align: right;
+            margin-right: 4px;
+        }
+
+        @keyframes pop {
+            0% {opacity: 0;}
+            35% {opacity: 0.33;}
+            67% {opacity: 0.67;}
+            100% {opacity: 1;}
         }
 
 
