@@ -1,17 +1,15 @@
-import React from 'react'
+import React from 'react';
 import PropTypes from 'prop-types';
 import chatDefaults from '../chatDefaults';
 
-function MessageItem(props) {
-
+function MessageItem({ number, date, author, text }) {
 	return (
-		<div className="message-item-div" index={props.number}>
-			<p className="message-item-text">{ props.text }</p>
-			<p className="message-item-author">{ props.author }</p>
-			<p className="message-item-date">{ (new Date(props.date)).toLocaleString() }</p>
+		<div className="message-item-div" index={number}>
+			<p className="message-item-text">{text}</p>
+			<p className="message-item-author">{author}</p>
+			<p className="message-item-date">{new Date(date).toLocaleString()}</p>
 		</div>
 	);
-
 }
 
 MessageItem.propTypes = {
@@ -19,10 +17,10 @@ MessageItem.propTypes = {
 	date: PropTypes.number.isRequired,
 	number: PropTypes.number.isRequired,
 	text: PropTypes.string.isRequired,
-}
+};
 
 MessageItem.defaultProps = {
 	author: chatDefaults.authorName,
-}
+};
 
 export default MessageItem;

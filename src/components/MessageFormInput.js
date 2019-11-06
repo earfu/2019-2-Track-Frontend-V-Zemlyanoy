@@ -1,14 +1,19 @@
-import React from 'react'
+import React from 'react';
 import PropTypes from 'prop-types';
 import chatDefaults from '../chatDefaults';
 
-function MessageFormInput(props) {
-
+function MessageFormInput({ onChange, onKeyPress, onSubmit, value }) {
 	return (
-		<input type="text" className="message-form-input" placeholder={chatDefaults.messageInputText}
-			onChange={props.onChange} value={props.value}
-			onSubmit={props.onSubmit} onKeyPress={props.onKeyPress} />
-	)
+		<input
+			type="text"
+			className="message-form-input"
+			placeholder={chatDefaults.messageInputText}
+			onChange={onChange}
+			value={value}
+			onSubmit={onSubmit}
+			onKeyPress={onKeyPress}
+		/>
+	);
 }
 
 MessageFormInput.propTypes = {
@@ -16,6 +21,6 @@ MessageFormInput.propTypes = {
 	onSubmit: PropTypes.func.isRequired,
 	onChange: PropTypes.func.isRequired,
 	value: PropTypes.string.isRequired,
-}
+};
 
 export default MessageFormInput;

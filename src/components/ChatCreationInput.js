@@ -2,13 +2,18 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import chatDefaults from '../chatDefaults';
 
-function ChatCreationInput(props) {
+function ChatCreationInput({ onChange, onKeyPress, onSubmit, value }) {
 	return (
-		<input className="chat-name-input" type="text" value={props.value}
-			onChange={props.onChange} placeholder={chatDefaults.chatName}
-			onSubmit={props.onSubmit} onKeyPress={props.onKeyPress}
+		<input
+			className="chat-name-input"
+			type="text"
+			value={value}
+			onChange={onChange}
+			placeholder={chatDefaults.chatName}
+			onSubmit={onSubmit}
+			onKeyPress={onKeyPress}
 		/>
-	)
+	);
 }
 
 ChatCreationInput.propTypes = {
@@ -16,6 +21,6 @@ ChatCreationInput.propTypes = {
 	onKeyPress: PropTypes.func.isRequired,
 	onSubmit: PropTypes.func.isRequired,
 	value: PropTypes.string.isRequired,
-}
+};
 
 export default ChatCreationInput;

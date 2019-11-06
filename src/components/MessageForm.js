@@ -1,15 +1,14 @@
-import React from 'react'
+import React from 'react';
 import PropTypes from 'prop-types';
 import chatDefaults from '../chatDefaults';
 import MessageFormTop from './MessageFormTop';
 import MessageHistory from './MessageHistory';
 import MessageFormInput from './MessageFormInput';
 
-
 class MessageForm extends React.Component {
 	constructor(props) {
 		super(props);
-		this.state = {input: ''};
+		this.state = { input: '' };
 		this.handleButtonClick = this.handleButtonClick.bind(this);
 		this.handleChange = this.handleChange.bind(this);
 		this.handleKeyPress = this.handleKeyPress.bind(this);
@@ -17,17 +16,19 @@ class MessageForm extends React.Component {
 	}
 
 	handleChange(event) {
-		this.setState({input: event.target.value});
+		this.setState({ input: event.target.value });
 	}
 
 	handleSubmit(event) {
 		event.preventDefault();
-		if (this.state.input === '') {
+		const { input } = this.state;
+		const { save, appendMessage } = this.props;
+		if (input === '') {
 			return;
 		}
-		this.props.appendMessage(this.state.input, chatDefaults.authorName, (new Date()).valueOf());
-		this.setState({input: ''});
-		this.props.save();
+		appendMessage(input, chatDefaults.authorName, new Date().valueOf());
+		this.setState({ input: '' });
+		save();
 	}
 
 	handleKeyPress(event) {
@@ -44,23 +45,35 @@ class MessageForm extends React.Component {
 	}
 
 	render() {
+		const { name, handleReturn, messageArray } = this.props;
+		const { input } = this.state;
 		return (
 			<div className="message-form-wrap">
 				<div className="message-form-head">
-					<MessageFormTop name={this.props.name} handleReturn={this.props.handleReturn} />
+					<MessageFormTop name={name} handleReturn={handleReturn} />
 				</div>
 				<div className="wrap-history">
-					<MessageHistory chatName={this.props.name} messageArray={this.props.messageArray} />
+					<MessageHistory
+						className="message-history"
+						chatName={name}
+						messageArray={messageArray}
+					/>
 				</div>
 				<div className="message-sending-form">
 					<form className="message-form">
 						<MessageFormInput
 							name="message-text"
-							value={this.state.input}
+							value={input}
 							onChange={this.handleChange}
-							onSubmit={this.handleSubmit} onKeyPress={this.handleKeyPress} />
+							onSubmit={this.handleSubmit}
+							onKeyPress={this.handleKeyPress}
+						/>
 					</form>
-					<button className="message-button" type="submit" onClick={this.handleButtonClick}>
+					<button
+						className="message-button"
+						type="submit"
+						onClick={this.handleButtonClick}
+					>
 						{chatDefaults.sendMessageText}
 					</button>
 				</div>
@@ -75,6 +88,6 @@ MessageForm.propTypes = {
 	messageArray: PropTypes.arrayOf(PropTypes.object).isRequired,
 	name: PropTypes.string.isRequired,
 	save: PropTypes.func.isRequired,
-}
+};
 
 export default MessageForm;

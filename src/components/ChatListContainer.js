@@ -6,26 +6,26 @@ import ChatListTop from './ChatListTop';
 import chatDefaults from '../chatDefaults';
 import ChatItem from './ChatItem';
 
-
 class ChatListContainer extends React.Component {
 	constructor(props) {
 		super(props);
-		const state = JSON.parse(props.startState);
+		const { startState } = props;
+		const state = JSON.parse(startState);
 		this.handleReturn = this.handleReturn.bind(this);
 		this.save = this.save.bind(this);
 		this.handleButtonClick = this.handleButtonClick.bind(this);
 		this.handleChatClick = this.handleChatClick.bind(this);
 		this.handleInputChange = this.handleInputChange.bind(this);
 		this.handleKeyPress = this.handleKeyPress.bind(this);
-		this.handleSubmit = this.handleSubmit.bind(this)
-		this.state = {chatArray: [], input: '', screen: 'main'};
-		if (state != null){
-			const chatArray = state.chatArray;
-			for (const chat of chatArray) {
+		this.handleSubmit = this.handleSubmit.bind(this);
+		this.state = { chatArray: [], input: '', screen: 'main' };
+		if (state != null) {
+			const { chatArray } = this.state;
+			for (var chat of state.chatArray) {
 				chat.props.handleReturn = this.handleReturn;
 				chat.props.save = this.save;
 				chat.props.handleChatClick = this.handleChatClick;
-				this.state.chatArray.push(new ChatItem(chat.props))
+				chatArray.push(new ChatItem(chat.props));
 			}
 		}
 	}
@@ -40,22 +40,22 @@ class ChatListContainer extends React.Component {
 	}
 
 	handleInputChange(event) {
-		this.setState({input: event.target.value});
+		this.setState({ input: event.target.value });
 	}
 
 	handleSubmit(event) {
 		event.preventDefault();
-		const name = this.state.input;
-		if (name === '') {
+		const { input, chatArray } = this.state;
+		if (input === '') {
 			return;
 		}
-		for (const chat of this.state.chatArray) {
-			if (chat.name === name) {
+		for (const chat of chatArray) {
+			if (chat.name === input) {
 				return;
 			}
 		}
-		this.createChat(name);
-		this.setState({input: ''});
+		this.createChat(input);
+		this.setState({ input: '' });
 		this.save();
 	}
 
@@ -74,51 +74,67 @@ class ChatListContainer extends React.Component {
 
 	handleChatClick(event) {
 		const index = event.target.getAttribute('index');
-		this.setState({ screen: index })
+		this.setState({ screen: index });
 	}
 
 	createChat(name) {
-		this.state.chatArray.push(new ChatItem(
-			{name, index: this.state.chatArray.length, handleReturn: this.handleReturn,
-				save: this.save, handleChatClick: this.handleChatClick,
-				messageArray: []}
-		));
+		const { chatArray } = this.state;
+		chatArray.push(
+			new ChatItem({
+				name,
+				index: chatArray.length,
+				handleReturn: this.handleReturn,
+				save: this.save,
+				handleChatClick: this.handleChatClick,
+				messageArray: [],
+			}),
+		);
 	}
 
 	render() {
-		if (this.state.screen === 'main') {
+		const { screen, chatArray, input } = this.state;
+		const { name } = this.props;
+		if (screen === 'main') {
 			return (
 				<div className="chat-list-area">
 					<div className="chat-list-head">
-						<ChatListTop name={this.props.name} />
+						<ChatListTop name={name} />
 					</div>
 					<div className="wrap-chat-list">
-						<ChatList chatArray={this.state.chatArray} />
+						<ChatList chatArray={chatArray} />
 						<div className="chat-creation">
 							<form className="chat-creation-form">
-								<ChatCreationInput value={this.state.input}
+								<ChatCreationInput
+									value={input}
 									onChange={this.handleInputChange}
-									onSubmit={this.handleSubmit} onKeyPress={this.handleKeyPress} />
+									onSubmit={this.handleSubmit}
+									onKeyPress={this.handleKeyPress}
+								/>
 							</form>
-							<button className="chat-create" type="submit"
-								onClick={this.handleButtonClick}>+</button>
+							<button
+								className="chat-create"
+								type="submit"
+								onClick={this.handleButtonClick}
+							>
+								+
+							</button>
 						</div>
 					</div>
 				</div>
 			);
 		}
-		const chatIndex = this.state.screen;
-		return this.state.chatArray[chatIndex].messageForm;
+		const chatIndex = screen;
+		return chatArray[chatIndex].messageForm;
 	}
 }
 
 ChatListContainer.propTypes = {
 	name: PropTypes.string.isRequired,
 	startState: PropTypes.string,
-}
+};
 
 ChatListContainer.defaultProps = {
 	startState: null,
-}
+};
 
 export default ChatListContainer;

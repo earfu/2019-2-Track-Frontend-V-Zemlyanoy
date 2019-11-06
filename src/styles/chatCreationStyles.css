@@ -1,49 +1,57 @@
-
 .chat-creation {
-    background-color: #ffffcc;
-    border: none;
-    border-radius: 20px;
-    margin-right: 10%;
-    margin-bottom: 4px;
-    position: sticky;
-    bottom: 0;
-    float: right;
-    align-self: flex-end;
-    display: flex;
-    flex-direction: row;
-    justify-items: flex-end;
+	background-color: rgb(255, 255, 204);
+	border: none;
+	border-radius: 20px;
+	margin-right: 10%;
+	margin-bottom: 4px;
+	position: sticky;
+	bottom: 0;
+	float: right;
+	align-self: flex-end;
+	display: flex;
+	flex-direction: row;
+	justify-items: flex-end;
 }
 
 button.chat-create {
-    background-color: #ffffcc;
-    border: none;
-    border-radius: 0 40% 40% 0;
-    height: 50px;
-    width: 50px;
-    font-size: 18pt;
+	background-color: rgb(255, 255, 204);
+	border: none;
+	border-radius: 0 40% 40% 0;
+	height: 50px;
+	width: 50px;
+	font-size: 18pt;
 }
 
 button.chat-create:hover {
-    transition: background-color 1s ease 0s;
-    transition: font-size 1s ease 0s;
-    animation: blink 4s infinite;
+	transition: background-color 1s ease 0s;
+	transition: font-size 1s ease 0s;
+	animation: blink 4s infinite;
 }
 
 @keyframes blink {
-    0% {background-color: #ffffcc; font-size: 18pt;}
-    50% {background-color: #ffff00; font-size: 22pt;}
-    100% {background-color: #ffffcc; font-size: 18pt;}
+	0% {
+		background-color: rgb(255, 255, 204);
+		font-size: 18pt;
+	}
+	50% {
+		background-color: rgb(255, 255, 0);
+		font-size: 22pt;
+	}
+	100% {
+		background-color: rgb(255, 255, 204);
+		font-size: 18pt;
+	}
 }
 
 .chat-creation-form {
-    height: 50px;
+	height: 50px;
 }
 
 .chat-name-input {
-    border: 0;
-    border-radius: 20px;
-    outline: none;
-    width: calc(100% - 2px);
-    height: 100%;
-    background-color: #ffffcc;
+	border: 0;
+	border-radius: 20px;
+	outline: none;
+	width: calc(100% - 2px);
+	height: 100%;
+	background-color: rgb(255, 255, 204);
 }
