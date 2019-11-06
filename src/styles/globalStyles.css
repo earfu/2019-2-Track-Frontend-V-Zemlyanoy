@@ -1,22 +1,22 @@
 html {
-  height: 100%;
-  width: 100%;
+    height: 100%;
+    width: 100%;
 
 }
 
 body {
-  margin: 0;
-  padding: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Oxygen",
+    margin: 0;
+    padding: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Oxygen",
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  height: 100%;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    height: 100%;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
 
@@ -25,128 +25,15 @@ code {
 }
 
 div.app-container {
-    width: 100%;
+    width: 50%;
     height: 100%;
     display: flex;
     flex-direction: row;
     justify-items: flex-start;
 }
 
-div.chat-list-area {
-    width: 30%;
-    height: calc(100% - 4px);
-  /*  position: relative;
-    left: 0%; */
-    margin-left: 2px;
-    margin-right: 2px;
-}
-
-div.chat-list-area {
-            width: 100%;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-start;
-        }
-
-div.wrap-chat-list { /* necessary for scrolling */
-            height: 85%;
-            min-height: 0;
-            overflow: auto;
-            scroll-behavior: smooth;
-        }
-
-.chat-list-head {
-        /* note: find a way to actually attach it to the top */
-            vertical-align: top;
-            width: 100%;
-            height: 15%;
-        }
-
-chat-list {
-            height: 100%;
-            width: 100%;
-            vertical-align: top;
-        }
-
-.chat-creation {
-            background-color: #ffffcc;
-            border: none;
-            border-radius: 20px;
-            margin-right: 10%;
-            margin-bottom: 4px;
-            position: sticky;
-            bottom: 0;
-            float: right;
-            align-self: flex-end;
-            display: flex;
-            flex-direction: row;
-            justify-items: flex-end;
-        }
-
-button.chat-create {
-            background-color: #ffffcc;
-            border: none;
-            border-radius: 0 40% 40% 0;
-            height: 50px;
-            width: 50px;
-            font-size: 18pt;
-        }
-
-button.chat-create:hover {
-            transition: background-color 1s ease 0s;
-            transition: font-size 1s ease 0s;
-            animation: blink 4s infinite;
-        }
-
-@keyframes blink {
-            0% {background-color: #ffffcc; font-size: 18pt;}
-            50% {background-color: #ffff00; font-size: 22pt;}
-            100% {background-color: #ffffcc; font-size: 18pt;}
-        }
-
-.chat-creation-form {
-            height: 50px;
-        }
-
-.chat-top-area {
-            font: 12pt bold;
-            border: 1px solid black;
-            border-radius: 20px;
-            background-color: #0000ff;
-            width: 100%;
-            height: calc(100% - 6px);
-            margin-top: 2px;
-            text-align: center;
-            display: flex;
-            flex-direction: row;
-        }
-
-.chat-top-name {
-            color: white;
-            margin-left: 4px;
-        }
-
-div button.chat-bars-button {
-            background-color: #0000ff;
-            border: none;
-            border-radius: 20px;
-            height: 100%;
-            width: 60px;
-            font-size: 16pt;
-            margin-left: 4px;
-        }
-
-.chats-area {
-            font: 12pt bold;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-start;
-            clear: none;
-        }
-
 div.message-area { /* for the central area: message list and input form */
-    width: 50%;
+    width: 100%;
     height: calc(100% - 4px);
   /*  position: relative;
     left: 10%;*/
@@ -161,37 +48,9 @@ chat-list-container {
     margin-right: 2px;
 }
 
-div.chat-list-item {
-            border: 1px solid black;
-            border-radius: 20px;
-            background-color: #0000bb;
-            width: calc(100% - 4px);
-            display: flex;
-            flex-direction: row;
-            transition: background-color 1s ease 0s;
-        }
-
-div.chat-list-item:hover {
-            background-color: #0000ff;
-        }
-
-p.chat-item-name {
-            font: 12pt bold;
-            color: white;
-            margin-left: 4px;
-        }
-
-.chat-name-input {
-            border: 0;
-            border-radius: 20px;
-            outline: none;
-            width: calc(100% - 2px);
-            height: 100%;
-            background-color: #ffffcc;
-        }
 
 div.message-form-wrap {
-    width: 50%;
+    width: 100%;
     height: calc(100% - 4px);
 /*    display: flex;
     flex-direction: column;
@@ -202,134 +61,9 @@ div.message-form-wrap {
     margin-right: 2px;
 }
 
-div.message-central-area {
-            width: 100%;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-end;
-        }
-
-        div.message-sending-form {
-            width: 100%;
-            height: 15%;
-            display: flex;
-            align-items: stretch;
-            justify-content: space-between;
-        }
-
-        div.wrap-history { /* necessary for scrolling */
-            height: 70%; /* note: see about auto-scroll in MessageHistory.append() */
-            min-height: 0;
-            overflow: auto;
-        scroll-behavior: smooth;
+button i { /* used in several places*/
+    object-fit: contain;
+    width: 100%;
+    height: 100%;
+    block-size: auto;
 }
-
-        .message-form-head {
-        /* note: find a way to actually attach it to the top */
-            vertical-align: top;
-            width: 100%;
-            height: 15%;
-        }
-
-        .message-form-input {
-            width: 100%;
-        }
-
-        message-history {
-            height: 100%;
-            width: 100%;
-            vertical-align: bottom;
-        }
-
-        .message-form {
-            width: 80%;
-        }
-
-        .message-button {
-            width: calc(20% - 2px);
-        }
-
-div.message-top-area {
-            font: 12pt bold;
-            border: 1px solid black;
-            border-radius: 20px;
-            background-color: #0000ff;
-            width: 100%;
-            height: calc(100% - 6px);
-            margin-top: 2px;
-            text-align: center;
-            display: flex;
-            flex-direction: row;
-            justify-items: flex-start;
-        }
-p.message-top-name {
-            color: white;
-            margin-left: 4px;
-        }
-
-button.chat-deactivation {
-            background-color: #0000ff;
-            border: none;
-             border-radius: 20px;
-           height: 100%;
-            width: 60px;
-            font-size: 16pt;
-
-        }
-
-button i {
-            object-fit: contain;
-            width: 100%;
-            height: 100%;
-        }
-
-div.message-history-list {
-            font: 12pt bold;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-end;
-        }
-
-div.message-item-div {
-    border: 2px solid black;
-            border-radius: 20px;
-            background-color: #ffff00;
-            margin-bottom: 2px;
-            margin-top: 2px;
-            width: 85%;
-            position: relative;
-            left: calc(15% - 4px);
-            animation: pop 3s linear 0s 1 normal none running;
-}
-
-p.message-item-text {
-    margin-left: 4px;
-            font: 12pt bold;
-}
-
-p.message-item-date {
-    font: 8pt italic;
-            text-align: right;
-            margin-right: 4px;
-}
-
-p.message-item-author {
-    font: 8pt normal;
-            text-align: right;
-            margin-right: 4px;
-}
-
-@keyframes pop {
-            0% {opacity: 0;}
-            35% {opacity: 0.33;}
-            67% {opacity: 0.67;}
-            100% {opacity: 1;}
-        }
-
-.message-form-input {
-            border: 0;
-            outline: none;
-            width: calc(100% - 2px);
-            height: 100%;
-        }

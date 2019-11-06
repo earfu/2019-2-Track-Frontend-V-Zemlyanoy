@@ -1,142 +1,47 @@
 import React from 'react';
-import chatDefaults from '../chatDefaults';
-import MessageForm from './MessageForm';
-//import { nodesLinks } from '../nodesLinks';
-/*
-const template = document.createElement('template');
-template.innerHTML = `
-    <style>
-        div.chat-list-item {
-            border: 1px solid black;
-            border-radius: 20px;
-            background-color: #0000bb;
-            width: calc(100% - 4px);
-            display: flex;
-            flex-direction: row;
-            transition: background-color 1s ease 0s;
-        }
+import PropTypes from 'prop-types';
+import MessageForm from './../components/MessageForm'
 
-        div.chat-list-item:hover {
-            background-color: #0000ff;
-        }
-
-        .chat-item-name {
-            font: 12pt bold;
-            color: white;
-            margin-left: 4px;
-        }
-
-    </style>
-    <div class="chat-list-item">
-        <div class="chat-item-text">
-            <p class="chat-item-name"></p>
-        </div>
-    </div>
-`;
-
-export default class ChatItem extends HTMLElement {
-  constructor() {
-    super();
-    /* this.shadowRoot = /this.attachShadow({ mode: 'open' });
-    this.shadowRoot.appendChild(template.content.cloneNode(true));
-    this.$area = this.shadowRoot.querySelector('.chat-list-item');
-    this.$chatName = this.shadowRoot.querySelector('.chat-item-name');
-    // this.$messageForm = document.createElement('message-form');
-    // this.$messageHistory = this.$messageForm.shadowRoot.querySelector('message-history');
-
-    this.icon = null;
-    this.name = '';
-    this.state = 0;
-    this.next = null;
-    this.previous = null;
-
-    this.$area.addEventListener('click', this.activate.bind(this));
-  }
-
-  formulate(name) {
-    this.name = name || chatDefaults.firstChatName;
-    this.$chatName.innerText = this.name;
-    this.$messageForm = document.createElement('message-form');
-    this.$messageForm.setName(this.name);
-    this.$messageForm.recreateHistory(name);
-  }
-
-  add(cht) {
-    cht.setNext(this.next);
-    cht.setPrevious(this);
-    this.setNext(cht);
-  }
-
-  setNext(head) {
-    this.next = head;
-  }
-
-  setPrevious(head) {
-    this.previous = head;
-  }
-
-  makeString() { // make string form for storage
-    const { name } = this;
-    return `${name.length + 1}|${name}|`; // the +1 accounts for the last separator
-  }
-
-  fromString(chtString) { // recreate from string form
-    const sep = chtString.indexOf('|'); // separator
-    const chtName = chtString.slice(sep + 1, -1);
-    this.formulate(chtName);
-  }
-
-  store() { // note: can cause duplicates; should be used only full-list and on creation
-    const itemString = this.makeString();
-    const lsString = localStorage.getItem('chats');
-    const newString = (lsString === null) ? `${itemString}` : `${lsString}${itemString}`;
-    localStorage.setItem('chats', newString);
-  }
-
-  activate() {
-    const newForm = this.$messageForm;
-    if (!newForm) {
-      this.$messageForm = document.createElement('message-form');
-      this.$messageForm.setName(this.name);
-      // this.$messageHistory = this.$messageForm.shadowRoot.querySelector('message-history');
-      // const msgHist = document.createElement('message-history');
-      // msgHist.recreate(this.name);
-      // this.$messageHistory.replaceWith(msgHist);
-      // this.$messageHistory = msgHist;
-      // this.$messageHistory.recreate(this.name);
-      this.$messageForm.recreateHistory(this.name);
-    }
-
-    nodesLinks.appContainer.removeChild(nodesLinks.chatListContainer);
-
-    nodesLinks.appContainer.append(this.$messageForm);
-    this.$messageForm.historyScrollEnd();
+class ChatItem extends React.Component {
+	constructor(props) {
+		super(props);
+		this.appendMessage = this.appendMessage.bind(this);
+		this.messageForm = (<MessageForm name={this.props.name} messageArray={this.props.messageArray}
+			handleReturn={this.props.handleReturn} save={this.props.save}
+			appendMessage={this.appendMessage} />);
+	}
 
 
-    /* const frmArea = document.querySelector('.message-area');
-    const frm = frmArea.querySelector('message-form');
-    //this.$messageForm.setName(this.name);
-    frmArea.replaceChild(this.$messageForm, frm);
-    this.$messageForm.historyScrollEnd(); /
-  }
+	appendMessage(text, author, date) {
+		const arr = this.props.messageArray;
+		arr.push(
+			{ number: arr.length, text , author, date: (date || (new Date()).valueOf()) }
+		);
+	}
+
+	render() {
+		return (
+			<div className="chat-list-item" index={this.props.index}>
+				<div className="chat-item-text">
+					<p className="chat-item-name">{this.props.name}</p>
+				</div>
+				<button className="chat-messages-button" type="button" index={this.props.index}
+					onClick={this.props.handleChatClick}>
+					<i className="fa fa-chevron-right" index={this.props.index} />
+				</button>
+			</div>
+		)
+	}
+
 }
 
-customElements.define('chat-item', ChatItem);*/
-
-class ChatItem(props) {
-  constructor(props) {
-    super(props);
-    this.messageForm = MessageForm({name: props.name});
-  }
-
-    return (
-        <div className="chat-list-item">
-            <div className="chat-item-text">
-                <p className="chat-item-name">{this.props.name}</p>
-            </div>
-        </div>
-    )
-
+ChatItem.propTypes = {
+	handleChatClick: PropTypes.func.isRequired,
+	handleReturn: PropTypes.func.isRequired,
+	index: PropTypes.number.isRequired,
+	messageArray: PropTypes.arrayOf(PropTypes.object).isRequired,
+	name: PropTypes.string.isRequired,
+	save: PropTypes.func.isRequired,
 }
 
 export default ChatItem;

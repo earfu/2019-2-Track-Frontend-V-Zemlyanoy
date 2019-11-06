@@ -1,0 +1,31 @@
+
+div.chat-list-item {
+    border: 1px solid black;
+    border-radius: 20px;
+    background-color: #0000bb;
+    width: calc(100% - 4px);
+    display: flex;
+    flex-direction: row;
+    transition: background-color 1s ease 0s;
+}
+
+div.chat-list-item:hover {
+    background-color: #0000ff;
+}
+
+p.chat-item-name {
+    font: 12pt bold;
+    color: white;
+    margin-left: 4px;
+}
+
+button.chat-messages-button {
+    background-color: #0000ff;
+    border: none;
+    border-radius: 20px;
+    height: 100%;
+    width: 60px;
+    font-size: 16pt;
+    margin-left: 4px;
+    align-self: center;
+}

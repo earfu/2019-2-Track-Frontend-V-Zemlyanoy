@@ -1,213 +1,124 @@
 import React from 'react';
-import ChatItem from './ChatItem';
+import PropTypes from 'prop-types';
 import ChatList from './ChatList';
 import ChatCreationInput from './ChatCreationInput';
 import ChatListTop from './ChatListTop';
- import chatDefaults from '../chatDefaults';
+import chatDefaults from '../chatDefaults';
+import ChatItem from './ChatItem';
 
-/*const template = document.createElement('template');
-template.innerHTML = `
-    <style>
-        div.chat-list-area {
-            width: 100%;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-start;
-        }
-
-        div.wrap-chat-list { /* necessary for scrolling *
-            height: 85%;
-            min-height: 0;
-            overflow: auto;
-            scroll-behavior: smooth;
-        }
-
-        .chat-list-head {
-        /* note: find a way to actually attach it to the top *
-            vertical-align: top;
-            width: 100%;
-            height: 15%;
-        }
-
-        chat-list {
-            height: 100%;
-            width: 100%;
-            vertical-align: top;
-        }
-
-        .chat-creation {
-            background-color: #ffffcc;
-            border: none;
-            border-radius: 20px;
-            margin-right: 10%;
-            margin-bottom: 4px;
-            position: sticky;
-            bottom: 0;
-            float: right;
-            align-self: flex-end;
-            display: flex;
-            flex-direction: row;
-            justify-items: flex-end;
-        }
-
-        button.chat-create {
-            background-color: #ffffcc;
-            border: none;
-            border-radius: 0 40% 40% 0;
-            height: 50px;
-            width: 50px;
-            font-size: 18pt;
-        }
-
-        button.chat-create:hover {
-            transition: background-color 1s ease 0s;
-            transition: font-size 1s ease 0s;
-            animation: blink 4s infinite;
-        }
-
-        @keyframes blink {
-            0% {background-color: #ffffcc; font-size: 18pt;}
-            50% {background-color: #ffff00; font-size: 22pt;}
-            100% {background-color: #ffffcc; font-size: 18pt;}
-        }
-
-        form {
-            height: 50px;
-        }
-
-    </style>
-    <div class="chat-list-area">
-        <div class="chat-list-head">
-        </div>
-        <div class="wrap-chat-list">
-            <div class="chat-creation">
-                <form>
-                    <chat-creation-input name="chat-creation-name" placeholder="Введите название">
-                    </chat-creation-input>
-                </form>
-                <button class="chat-create" type="submit" onclick="">+</button>
-            </div>
-        </div>
-
-
-
-
-    </div>
-`;
-
-export default class ChatListContainer extends HTMLElement {
-  constructor() {
-    super();
-    /* this.shadowRoot = *this.attachShadow({ mode: 'open' });
-    this.shadowRoot.appendChild(template.content.cloneNode(true));
-
-    this.$chatCreate = this.shadowRoot.querySelector('.chat-create');
-
-    this.$form = this.shadowRoot.querySelector('form');
-    this.$input = this.shadowRoot.querySelector('chat-creation-input');
-
-    this.$top = document.createElement('chat-list-top');
-    this.shadowRoot.querySelector('.chat-list-head').prepend(this.$top);
-
-    this.$chatList = document.createElement('chat-list');
-    this.shadowRoot.querySelector('.wrap-chat-list').prepend(this.$chatList);
-
-    this.$chatCreate.$source = this; // backwards link
-    this.$form.addEventListener('submit', this.onSubmit.bind(this));
-    this.$form.addEventListener('keypress', this.onKeyPress.bind(this));
-    this.$chatCreate.onclick = this.onClickCreate;
-  }
-
-  onSubmit(event) {
-    event.preventDefault();
-    // note: Firefox ignores this unless specifically allowed; see _onKeyPress below
-    const chtName = this.$input.value;
-    if (chtName === '') { // no empty chat names
-      return;
-    }
-
-    const chats = this.$chatList.$chatsArea.children;
-    for (let i = 0; i < chats.length; i += 1) {
-      if (chats[i].name === chtName) { // no repeating chat names
-        chats[i].scrollIntoView(false); // bump; should have some way of highlighting too
-        return;
-      }
-    }
-
-    const cht = document.createElement('chat-item'); // create new message-item
-    cht.formulate(chtName);
-    this.$input.reset();
-    cht.store();
-    this.$chatList.append(cht);
-  }
-
-  onKeyPress(event) {
-    if (event.keyCode === 13) {
-      this.$form.dispatchEvent(new Event('submit', { cancelable: true }));
-      // cancelable: true is needed for Firefox
-      // preventDefault() is not allowed to work otherwise
-    }
-  }
-
-  onClickCreate() {
-    this.$source.$form.dispatchEvent(new Event('submit', { cancelable: true }));
-  }
-}
-
-customElements.define('chat-list-container', ChatListContainer);
-*/
 
 class ChatListContainer extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {chatArray: [], input: ''};
-  }
+	constructor(props) {
+		super(props);
+		const state = JSON.parse(props.startState);
+		this.handleReturn = this.handleReturn.bind(this);
+		this.save = this.save.bind(this);
+		this.handleButtonClick = this.handleButtonClick.bind(this);
+		this.handleChatClick = this.handleChatClick.bind(this);
+		this.handleInputChange = this.handleInputChange.bind(this);
+		this.handleKeyPress = this.handleKeyPress.bind(this);
+		this.handleSubmit = this.handleSubmit.bind(this)
+		this.state = {chatArray: [], input: '', screen: 'main'};
+		if (state != null){
+			const chatArray = state.chatArray;
+			for (const chat of chatArray) {
+				chat.props.handleReturn = this.handleReturn;
+				chat.props.save = this.save;
+				chat.props.handleChatClick = this.handleChatClick;
+				this.state.chatArray.push(new ChatItem(chat.props))
+			}
+		}
+	}
 
-  handleChange(event) {
-    this.setState({input: event.target.value});
-  }
+	save() {
+		const lsString = JSON.stringify(this.state);
+		localStorage.setItem(chatDefaults.appName, lsString);
+	}
 
-  handleSubmit(event) {
-    event.preventDefault();
-    if (this.state.input === '') {
-      return;
-    }
-    //this.appendChat(this.state.input, chatDefaults.authorName, new Date());
-    this.setState({input: ''});
-  }
+	handleReturn() {
+		this.setState({ screen: 'main' });
+	}
 
-  handleKeyPress(event) {
-    if (event.key === 'Enter') {
-      this.handleSubmit(new Event('submit', { cancelable: true }));
-      // cancelable: true is needed for Firefox
-      // preventDefault() is not allowed to work otherwise
-    }
-  }
+	handleInputChange(event) {
+		this.setState({input: event.target.value});
+	}
 
-  handleButtonClick() {
-    this.handleSubmit(new Event('submit', { cancelable: true }));
-  }
+	handleSubmit(event) {
+		event.preventDefault();
+		const name = this.state.input;
+		if (name === '') {
+			return;
+		}
+		for (const chat of this.state.chatArray) {
+			if (chat.name === name) {
+				return;
+			}
+		}
+		this.createChat(name);
+		this.setState({input: ''});
+		this.save();
+	}
 
-  render() {
-    return (
-        <div className="chat-list-area">
-            <div className="chat-list-head">
-                <ChatListTop name={this.props.name} />
-            </div>
-            <div className="wrap-chat-list">
-                <div className="chat-creation">
-                    <form className="chat-creation-form"
-                    onSubmit={this.handleSubmit.bind(this)} onKeyPress={this.handleKeyPress.bind(this)}>
-                        <ChatCreationInput placeholder={chatDefaults.chatName} value={this.state.input}
-                        onChange={this.handleChange.bind(this)
-                        />
-                    </form>
-                    <button className="chat-create" type="submit"
-                    onclick={this.handleButtonClick.bind(this)}>+</button>
-                </div>
-            </div>
-        </div>
-    );
-  }
+	handleKeyPress(event) {
+		if (event.key === 'Enter') {
+			event.preventDefault();
+			this.handleSubmit(new Event('submit', { cancelable: true }));
+			// cancelable: true is needed for Firefox
+			// preventDefault() is not allowed to work otherwise
+		}
+	}
+
+	handleButtonClick() {
+		this.handleSubmit(new Event('submit', { cancelable: true }));
+	}
+
+	handleChatClick(event) {
+		const index = event.target.getAttribute('index');
+		this.setState({ screen: index })
+	}
+
+	createChat(name) {
+		this.state.chatArray.push(new ChatItem(
+			{name, index: this.state.chatArray.length, handleReturn: this.handleReturn,
+				save: this.save, handleChatClick: this.handleChatClick,
+				messageArray: []}
+		));
+	}
+
+	render() {
+		if (this.state.screen === 'main') {
+			return (
+				<div className="chat-list-area">
+					<div className="chat-list-head">
+						<ChatListTop name={this.props.name} />
+					</div>
+					<div className="wrap-chat-list">
+						<ChatList chatArray={this.state.chatArray} />
+						<div className="chat-creation">
+							<form className="chat-creation-form">
+								<ChatCreationInput value={this.state.input}
+									onChange={this.handleInputChange}
+									onSubmit={this.handleSubmit} onKeyPress={this.handleKeyPress} />
+							</form>
+							<button className="chat-create" type="submit"
+								onClick={this.handleButtonClick}>+</button>
+						</div>
+					</div>
+				</div>
+			);
+		}
+		const chatIndex = this.state.screen;
+		return this.state.chatArray[chatIndex].messageForm;
+	}
 }
+
+ChatListContainer.propTypes = {
+	name: PropTypes.string.isRequired,
+	startState: PropTypes.string,
+}
+
+ChatListContainer.defaultProps = {
+	startState: null,
+}
+
+export default ChatListContainer;
