@@ -21,7 +21,7 @@ class ChatListContainer extends React.Component {
 		this.state = { chatArray: [], input: '', screen: 'main' };
 		if (state != null) {
 			const { chatArray } = this.state;
-			for (var chat of state.chatArray) {
+			for (const chat of state.chatArray) {
 				chat.props.handleReturn = this.handleReturn;
 				chat.props.save = this.save;
 				chat.props.handleChatClick = this.handleChatClick;
