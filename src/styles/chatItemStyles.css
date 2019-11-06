@@ -6,11 +6,17 @@ div.chat-list-item {
     width: calc(100% - 4px);
     display: flex;
     flex-direction: row;
+    align-items: flex-end;
     transition: background-color 1s ease 0s;
 }
 
 div.chat-list-item:hover {
     background-color: #0000ff;
+}
+
+div.chat-item-text{
+    width: 90%;
+    height: 100%;
 }
 
 p.chat-item-name {
@@ -24,7 +30,7 @@ button.chat-messages-button {
     border: none;
     border-radius: 20px;
     height: 100%;
-    width: 60px;
+    width: 10%;
     font-size: 16pt;
     margin-left: 4px;
     align-self: center;
