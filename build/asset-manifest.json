@@ -1,0 +1,21 @@
+{
+	"files": {
+		"main.css": "/2019-2-Track-Frontend-V-Zemlyanoy/static/css/main.6fcdffcb.chunk.css",
+		"main.js": "/2019-2-Track-Frontend-V-Zemlyanoy/static/js/main.40d2021b.chunk.js",
+		"main.js.map": "/2019-2-Track-Frontend-V-Zemlyanoy/static/js/main.40d2021b.chunk.js.map",
+		"runtime-main.js": "/2019-2-Track-Frontend-V-Zemlyanoy/static/js/runtime-main.e95fb70e.js",
+		"runtime-main.js.map": "/2019-2-Track-Frontend-V-Zemlyanoy/static/js/runtime-main.e95fb70e.js.map",
+		"static/js/2.4e75ca13.chunk.js": "/2019-2-Track-Frontend-V-Zemlyanoy/static/js/2.4e75ca13.chunk.js",
+		"static/js/2.4e75ca13.chunk.js.map": "/2019-2-Track-Frontend-V-Zemlyanoy/static/js/2.4e75ca13.chunk.js.map",
+		"index.html": "/2019-2-Track-Frontend-V-Zemlyanoy/index.html",
+		"precache-manifest.7500ac6807fdba3e0c46e24a61535928.js": "/2019-2-Track-Frontend-V-Zemlyanoy/precache-manifest.7500ac6807fdba3e0c46e24a61535928.js",
+		"service-worker.js": "/2019-2-Track-Frontend-V-Zemlyanoy/service-worker.js",
+		"static/css/main.6fcdffcb.chunk.css.map": "/2019-2-Track-Frontend-V-Zemlyanoy/static/css/main.6fcdffcb.chunk.css.map"
+	},
+	"entrypoints": [
+		"static/js/runtime-main.e95fb70e.js",
+		"static/js/2.4e75ca13.chunk.js",
+		"static/css/main.6fcdffcb.chunk.css",
+		"static/js/main.40d2021b.chunk.js"
+	]
+}
