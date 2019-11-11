@@ -11,11 +11,11 @@ function ChatList({ chatArray }) {
 				</li>)
 			)}
 		</div>
-	)
+	);
 }
 
 ChatList.propTypes = {
 	chatArray: PropTypes.arrayOf(PropTypes.object).isRequired,
-}
+};
 
 export default ChatList;

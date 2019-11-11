@@ -98,8 +98,6 @@ bower_components
 
 # Compiled binary addons (http://nodejs.org/api/addons.html)
 build/Release
-build
-web-components/build
 
 # Dependency directories
 node_modules/
@@ -132,6 +130,8 @@ bower_components/
 *.log
 
 dist/
+build/
+web-components/build/
 
 #### eslint ####
 # These rules are required to lint .eslintrc.js and friends.
