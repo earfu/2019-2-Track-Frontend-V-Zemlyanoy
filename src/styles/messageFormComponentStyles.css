@@ -1,58 +1,59 @@
 div.message-central-area {
-	width: 100%;
-	height: 100%;
-	display: flex;
-	flex-direction: column;
-	justify-content: flex-end;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
 }
 
 div.message-sending-form {
-	width: 100%;
-	height: 15%;
-	display: flex;
-	align-items: stretch;
-	justify-content: space-between;
+  width: 100%;
+  height: 15%;
+  display: flex;
+  align-items: stretch;
+  justify-content: space-between;
 }
 
 div.wrap-history {
-	/* necessary for scrolling */
-	height: 70%; /* note: see about auto-scroll in MessageHistory.append() */
-	min-height: 0;
-	overflow: auto;
-	scroll-behavior: smooth;
+  /* necessary for scrolling */
+  height: 70%; /* note: see about auto-scroll in MessageHistory.append() */
+  min-height: 0;
+  overflow: auto;
+  scroll-behavior: smooth;
 }
 
 .message-form-head {
-	/* note: find a way to actually attach it to the top */
-	vertical-align: top;
-	width: 100%;
-	height: 15%;
+  /* note: find a way to actually attach it to the top */
+  vertical-align: top;
+  width: 100%;
+  height: 15%;
 }
 
 .message-history {
-	height: 100%;
-	width: 100%;
-	vertical-align: bottom;
+  height: 100%;
+  width: 100%;
+  vertical-align: bottom;
 }
 
 .message-form {
-	width: 80%;
+  width: 80%;
 }
 
 .message-button {
-	width: calc(20% - 2px);
+  width: calc(20% - 2px);
 }
 
 div.message-history-list {
-	font: 12pt 700;
-	display: flex;
-	flex-direction: column;
-	justify-content: flex-end;
+  font-size: 12pt;
+  font-weight: 700;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
 }
 
 .message-form-input {
-	border: 0;
-	outline: none;
-	width: calc(100% - 2px);
-	height: 100%;
+  border: 0;
+  outline: none;
+  width: calc(100% - 2px);
+  height: 100%;
 }
