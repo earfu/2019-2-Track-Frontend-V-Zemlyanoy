@@ -1,0 +1,52 @@
+div.message-item-div {
+  border: 2px solid rgb(0, 0, 0);
+  border-radius: 20px;
+  background-color: rgb(255, 255, 0);
+  margin-bottom: 2px;
+  margin-top: 2px;
+  width: 85%;
+  position: relative;
+  left: calc(15% - 4px);
+  animation: pop 3s linear 0s 1 normal none running;
+
+  @media screen and (prefers-reduced-motion) { /* required by stylelint */
+    animation: none;
+  }
+}
+
+p.message-item-text {
+  margin-left: 4px;
+  font-size: 12pt;
+  font-weight: 700; /* bold weight */
+}
+
+p.message-item-date {
+  font: 8pt italic;
+  text-align: right;
+  margin-right: 4px;
+}
+
+p.message-item-author {
+  font-size: 8pt;
+  font-weight: 400; /* normal weight */
+  text-align: right;
+  margin-right: 4px;
+}
+
+@keyframes pop {
+  0% {
+    opacity: 0;
+  }
+
+  35% {
+    opacity: 0.33;
+  }
+
+  67% {
+    opacity: 0.67;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}

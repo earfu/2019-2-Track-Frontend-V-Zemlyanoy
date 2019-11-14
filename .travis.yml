@@ -1,10 +1,9 @@
 language: node_js
 node_js:
   - "stable"
-
-before_install:
-  - cd web-components
-
+cache:
+  directories:
+  - node_modules
 script:
   - npm run test
   - npm run build
@@ -13,15 +12,9 @@ deploy:
   provider: pages
   skip_cleanup: true
   github_token: $pmpy
-  local_dir: web-components/build
+  local_dir: build
   on:
     branch:
       - master
       - devel
-      - hwork2
-      - hwork3
-      - hwork4
       - hwork5
-      - hwork6
-      - hwork7
-      - /^hwork\d+$/
