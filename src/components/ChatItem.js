@@ -7,11 +7,12 @@ class ChatItem extends React.Component {
   constructor(props) {
     // { name, messageArray, handleReturn, save }
     super(props);
-    const { name, save, messageArray } = props;
+    const { name, save, messageArray, username } = props;
     this.appendMessage = this.appendMessage.bind(this);
     this.messageForm = (
       <MessageForm
         name={name}
+        username={username}
         messageArray={messageArray}
         save={save}
         appendMessage={this.appendMessage}
@@ -50,6 +51,7 @@ ChatItem.propTypes = {
   index: PropTypes.number.isRequired,
   messageArray: PropTypes.arrayOf(PropTypes.object).isRequired,
   name: PropTypes.string.isRequired,
+  username: PropTypes.string.isRequired,
   save: PropTypes.func.isRequired,
 };
 

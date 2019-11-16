@@ -51,24 +51,42 @@ class ChatListContainer extends React.Component {
   }
 
   createChat(name) {
-    const { chatArray, save } = this.props;
+    const { chatArray, save, username } = this.props;
     chatArray.push(
       new ChatItem({
         name,
         index: chatArray.length,
         save,
+        username,
         messageArray: [],
       }),
     );
+    /* chat = {
+        props: {
+            name: name,
+            index: chatArray.length,
+            save: save,
+            username: username,
+            messageArray: [],
+        },
+        messageForm: (
+            <MessageForm
+            name={name}
+            username={username}
+            messageArray={messageArray}
+            save={save}
+            appendMessage={this.appendMessage}
+            />
+        ), */
   }
 
   render() {
     const { input } = this.state;
-    const { chatArray, name } = this.props;
+    const { chatArray, username } = this.props;
     return (
       <div className="chat-list-area">
         <div className="chat-list-head">
-          <ChatListTop name={name} />
+          <ChatListTop name={username} />
         </div>
         <div className="wrap-chat-list">
           <ChatList chatArray={chatArray} />
@@ -96,9 +114,9 @@ class ChatListContainer extends React.Component {
 }
 
 ChatListContainer.propTypes = {
-  name: PropTypes.string.isRequired,
   chatArray: PropTypes.arrayOf(PropTypes.object).isRequired,
   save: PropTypes.func.isRequired,
+  username: PropTypes.string.isRequired,
 };
 
 export default ChatListContainer;

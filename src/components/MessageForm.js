@@ -22,11 +22,11 @@ class MessageForm extends React.Component {
   handleSubmit(event) {
     event.preventDefault();
     const { input } = this.state;
-    const { save, appendMessage } = this.props;
+    const { save, appendMessage, username } = this.props;
     if (input === '') {
       return;
     }
-    appendMessage(input, chatDefaults.authorName, new Date().valueOf());
+    appendMessage(input, username, new Date().valueOf());
     this.setState({ input: '' });
     save();
   }
@@ -87,6 +87,7 @@ MessageForm.propTypes = {
   messageArray: PropTypes.arrayOf(PropTypes.object).isRequired,
   name: PropTypes.string.isRequired,
   save: PropTypes.func.isRequired,
+  username: PropTypes.string.isRequired,
 };
 
 export default MessageForm;

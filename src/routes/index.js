@@ -4,6 +4,7 @@ import { createBrowserHistory } from 'history';
 
 import MainScreenContainer from '../containers/MainScreenContainer';
 import ChatDisplayContainer from '../containers/ChatDisplayContainer';
+import Profile from '../components/Profile';
 import ChatItem from '../components/ChatItem';
 import chatDefaults from '../chatDefaults';
 
@@ -14,13 +15,20 @@ class Routes extends React.Component {
     this.save = this.save.bind(this);
     this.renderChat = this.renderChat.bind(this);
     this.renderMain = this.renderMain.bind(this);
+    this.renderProfile = this.renderProfile.bind(this);
+    this.updateProfile = this.updateProfile.bind(this);
     const state = JSON.parse(localStorage.getItem(chatDefaults.appName));
-    this.state = { chatArray: [] };
+    let { user } = state;
+    if (user === undefined) {
+      user = { username: chatDefaults.authorName, fullName: '', bio: '' };
+    }
+    this.state = { chatArray: [], user };
     if (state != null) {
       // recreate the chat array from stored data
       const { chatArray } = this.state;
       for (const chat of state.chatArray) {
         chat.props.save = this.save;
+        chat.props.username = user.username;
         chatArray.push(new ChatItem(chat.props));
       }
     }
@@ -32,10 +40,33 @@ class Routes extends React.Component {
     localStorage.setItem(chatDefaults.appName, lsString);
   }
 
+  updateProfile(user) {
+    this.setState({ user });
+    this.save();
+  }
+
   renderMain(props) {
     // render main screen
-    const { chatArray } = this.state;
-    return <MainScreenContainer chatArray={chatArray} save={this.save} />;
+    const { chatArray, user } = this.state;
+    return (
+      <MainScreenContainer
+        chatArray={chatArray}
+        save={this.save}
+        username={user.username}
+      />
+    );
+  }
+
+  renderProfile(props) {
+    // render user profile
+    const { user } = this.state;
+    return (
+      <Profile
+        user={user}
+        save={this.save}
+        updateProfile={this.updateProfile}
+      />
+    );
   }
 
   renderChat(props) {
@@ -72,6 +103,7 @@ class Routes extends React.Component {
         <Switch>
           <Route exact path="/" render={this.renderMain} />
           <Route path="/chat/:id" render={this.renderChat} />
+          <Route exact path="/profile" render={this.renderProfile} />
         </Switch>
       </Router>
     );
