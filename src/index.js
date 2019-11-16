@@ -13,6 +13,7 @@ import './styles/messageFormComponentStyles.css';
 import './styles/messageFormTopStyles.css';
 import './styles/messageItemStyles.css';
 import './styles/containerStyles.css';
+import './styles/profileStyles.css';
 
 import * as serviceWorker from './utils/serviceWorker';
 //import chatDefaults from './chatDefaults';

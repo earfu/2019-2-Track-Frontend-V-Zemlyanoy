@@ -3,6 +3,13 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import chatDefaults from '../chatDefaults';
 
+function handleKeyPress(event) {
+  // to disable re-rendering on Enter
+  if (event.key === 'Enter') {
+    event.preventDefault();
+  }
+}
+
 class Profile extends React.Component {
   constructor(props) {
     super(props);
@@ -20,15 +27,15 @@ class Profile extends React.Component {
 
   handleButtonClick() {
     const { username, fullName, bio } = this.state;
-    const { user: oldUser } = this.props;
     // check correctness
     if (username === '') {
-      this.setState({ username: oldUser.username });
       return;
     }
     const { updateProfile } = this.props;
     const newUser = { username, fullName, bio };
     updateProfile(newUser);
+    const { user } = this.props;
+    this.setState(user);
   }
 
   render() {
@@ -43,40 +50,50 @@ class Profile extends React.Component {
           </Link>
           <p className="profile-top-text">{chatDefaults.myProfileText}</p>
         </div>
-        <form className="profile-username-form">
-          <input
-            className="profile-input-field"
-            type="text"
-            value={username}
-            onChange={this.handleInputChange}
-            id="username"
-          />
-        </form>
-        <form className="profile-username-form">
-          <input
-            className="profile-input-field"
-            type="text"
-            value={fullName}
-            onChange={this.handleInputChange}
-            id="fullName"
-          />
-        </form>
-        <form className="profile-username-form">
-          <input
-            className="profile-input-field"
-            type="text"
-            value={bio}
-            onChange={this.handleInputChange}
-            id="bio"
-          />
-        </form>
-        <button
-          className="profile-save-button"
-          type="submit"
-          onClick={this.handleButtonClick}
-        >
-          {chatDefaults.saveProfileText}
-        </button>
+        <div className="profile-scroll">
+          <p className="profile-attribute-text">Username:</p>
+          <form className="profile-username-form">
+            <input
+              className="profile-input-field"
+              type="text"
+              value={username}
+              onChange={this.handleInputChange}
+              onKeyPress={handleKeyPress}
+              id="username"
+            />
+          </form>
+          <p className="profile-attribute-text">Full name:</p>
+          <form className="profile-full-name-form">
+            <input
+              className="profile-input-field"
+              type="text"
+              value={fullName}
+              onChange={this.handleInputChange}
+              onKeyPress={handleKeyPress}
+              id="fullName"
+            />
+          </form>
+          <p className="profile-attribute-text">About me:</p>
+          <form className="profile-bio-form">
+            <textarea
+              rows="8"
+              cols="50"
+              className="profile-input-field"
+              type="text"
+              value={bio}
+              onChange={this.handleInputChange}
+              onKeyPress={handleKeyPress}
+              id="bio"
+            />
+          </form>
+          <button
+            className="profile-save-button"
+            type="submit"
+            onClick={this.handleButtonClick}
+          >
+            {chatDefaults.saveProfileText}
+          </button>
+        </div>
       </div>
     );
   }

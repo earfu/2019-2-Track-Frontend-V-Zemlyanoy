@@ -40,8 +40,9 @@ class Routes extends React.Component {
     localStorage.setItem(chatDefaults.appName, lsString);
   }
 
-  updateProfile(user) {
-    this.setState({ user });
+  updateProfile(newUser) {
+    this.forceUpdate();
+    this.setState({ user: newUser });
     this.save();
   }
 
