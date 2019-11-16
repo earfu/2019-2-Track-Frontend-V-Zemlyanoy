@@ -35,7 +35,7 @@ template.innerHTML = `
 export default class ChatItem extends HTMLElement {
   constructor() {
     super();
-    /* this.shadowRoot = */this.attachShadow({ mode: 'open' });
+    /* this.shadowRoot = */ this.attachShadow({ mode: 'open' });
     this.shadowRoot.appendChild(template.content.cloneNode(true));
     this.$area = this.shadowRoot.querySelector('.chat-list-item');
     this.$chatName = this.shadowRoot.querySelector('.chat-item-name');
@@ -73,21 +73,25 @@ export default class ChatItem extends HTMLElement {
     this.previous = head;
   }
 
-  makeString() { // make string form for storage
+  makeString() {
+    // make string form for storage
     const { name } = this;
     return `${name.length + 1}|${name}|`; // the +1 accounts for the last separator
   }
 
-  fromString(chtString) { // recreate from string form
+  fromString(chtString) {
+    // recreate from string form
     const sep = chtString.indexOf('|'); // separator
     const chtName = chtString.slice(sep + 1, -1);
     this.formulate(chtName);
   }
 
-  store() { // note: can cause duplicates; should be used only full-list and on creation
+  store() {
+    // note: can cause duplicates; should be used only full-list and on creation
     const itemString = this.makeString();
     const lsString = localStorage.getItem('chats');
-    const newString = (lsString === null) ? `${itemString}` : `${lsString}${itemString}`;
+    const newString =
+      lsString === null ? `${itemString}` : `${lsString}${itemString}`;
     localStorage.setItem('chats', newString);
   }
 
@@ -109,7 +113,6 @@ export default class ChatItem extends HTMLElement {
 
     nodesLinks.appContainer.append(this.$messageForm);
     this.$messageForm.historyScrollEnd();
-
 
     /* const frmArea = document.querySelector('.message-area');
     const frm = frmArea.querySelector('message-form');
