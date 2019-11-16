@@ -1,9 +1,10 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import ChatList from './ChatList';
 import ChatCreationInput from './ChatCreationInput';
 import ChatListTop from './ChatListTop';
-// import chatDefaults from '../chatDefaults';
+import chatDefaults from '../chatDefaults';
 import ChatItem from './ChatItem';
 
 class ChatListContainer extends React.Component {
@@ -13,7 +14,8 @@ class ChatListContainer extends React.Component {
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleKeyPress = this.handleKeyPress.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.state = { input: '' };
+    this.handleOpenMenu = this.handleOpenMenu.bind(this);
+    this.state = { input: '', menu: false };
   }
 
   handleInputChange(event) {
@@ -50,6 +52,11 @@ class ChatListContainer extends React.Component {
     this.handleSubmit(new Event('submit', { cancelable: true }));
   }
 
+  handleOpenMenu() {
+    const { menu } = this.state;
+    this.setState({ menu: !menu });
+  }
+
   createChat(name) {
     const { chatArray, save, username } = this.props;
     chatArray.push(
@@ -81,12 +88,17 @@ class ChatListContainer extends React.Component {
   }
 
   render() {
-    const { input } = this.state;
+    const { input, menu } = this.state;
     const { chatArray, username } = this.props;
     return (
       <div className="chat-list-area">
         <div className="chat-list-head">
-          <ChatListTop name={username} />
+          <ChatListTop name={username} onOpenMenu={this.handleOpenMenu} />
+          <div className={`main-settings-${menu}`}>
+            <Link to="/profile">
+              <button type="button">{chatDefaults.myProfileText}</button>
+            </Link>
+          </div>
         </div>
         <div className="wrap-chat-list">
           <ChatList chatArray={chatArray} />

@@ -35,3 +35,12 @@ div.wrap-chat-list {
   justify-content: flex-start;
   clear: none;
 }
+
+div.main-settings-false {
+  display: none;
+}
+
+div.main-settings-true {
+  position: absolute;
+  z-index: 2;
+}
