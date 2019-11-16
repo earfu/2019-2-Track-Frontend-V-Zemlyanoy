@@ -41,9 +41,8 @@ class Routes extends React.Component {
   }
 
   updateProfile(newUser) {
-    this.forceUpdate();
-    this.setState({ user: newUser });
-    this.save();
+    // forced to update by second callback?
+    this.setState((prevState, props) => ({ user: newUser }), this.save);
   }
 
   renderMain(props) {

@@ -34,8 +34,6 @@ class Profile extends React.Component {
     const { updateProfile } = this.props;
     const newUser = { username, fullName, bio };
     updateProfile(newUser);
-    const { user } = this.props;
-    this.setState(user);
   }
 
   render() {
