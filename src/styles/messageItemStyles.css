@@ -7,9 +7,10 @@ div.message-item-div {
   width: 85%;
   position: relative;
   left: calc(15% - 4px);
-  animation: pop 3s linear 0s 1 normal none running;
+  animation: pop 1.5s linear 0s 1 normal none running;
 
-  @media screen and (prefers-reduced-motion) { /* required by stylelint */
+  @media screen and (prefers-reduced-motion) {
+    /* required by stylelint */
     animation: none;
   }
 }
