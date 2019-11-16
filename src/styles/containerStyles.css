@@ -1,0 +1,13 @@
+.main-screen-container {
+  width: 50%;
+  height: calc(100% - 4px);
+  margin-left: 2px;
+  margin-right: 2px;
+}
+
+.chat-display-container {
+  width: 50%;
+  height: calc(100% - 4px);
+  margin-left: 2px;
+  margin-right: 2px;
+}
