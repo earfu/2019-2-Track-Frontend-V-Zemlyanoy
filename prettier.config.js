@@ -5,5 +5,5 @@ module.exports = {
   arrowParens: 'always',
   jsxBracketSameLine: false,
   tabWidth: 2,
-  useTabs: false,
+  useTabs: true,
 };
