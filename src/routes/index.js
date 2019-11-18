@@ -109,9 +109,9 @@ class Routes extends React.Component {
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
         />
         <Switch>
-          <Route exact path="/" render={this.renderMain} />
+          <Route path="/profile" render={this.renderProfile} />
           <Route path="/chat/:id" render={this.renderChat} />
-          <Route exact path="/profile" render={this.renderProfile} />
+          <Route path="/" render={this.renderMain} />
         </Switch>
       </Router>
     );
