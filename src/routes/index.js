@@ -17,7 +17,15 @@ class Routes extends React.Component {
     this.renderMain = this.renderMain.bind(this);
     this.renderProfile = this.renderProfile.bind(this);
     this.updateProfile = this.updateProfile.bind(this);
-    const state = JSON.parse(localStorage.getItem(chatDefaults.appName));
+    const stateString = localStorage.getItem(chatDefaults.appName);
+    if (stateString === null) {
+      this.state = {
+        chatArray: [],
+        user: { username: chatDefaults.authorName, fullName: '', bio: '' },
+      };
+      return;
+    }
+    const state = JSON.parse(stateString);
     let { user } = state;
     if (user === undefined) {
       user = { username: chatDefaults.authorName, fullName: '', bio: '' };
