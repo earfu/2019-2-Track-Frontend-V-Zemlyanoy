@@ -16,14 +16,15 @@ template.innerHTML = `
 export default class MessageHistory extends HTMLElement {
   constructor() {
     super();
-    /* this.shadowRoot = */this.attachShadow({ mode: 'open' });
+    /* this.shadowRoot = */ this.attachShadow({ mode: 'open' });
     this.shadowRoot.appendChild(template.content.cloneNode(true));
     this.$messageArea = this.shadowRoot.querySelector('.message-area');
     this.head = null;
     this.recreate();
   }
 
-  recreate(chatName) { // clear history, read the localStorage, form the message list, append list
+  recreate(chatName) {
+    // clear history, read the localStorage, form the message list, append list
     this.clear(); // full reset; clearing is also done in writeList(), though
     const name = `${chatName || chatDefaults.firstChatName}`;
     const lsKey = `messages_${name}`;
@@ -43,7 +44,7 @@ export default class MessageHistory extends HTMLElement {
       const msgString = lsString.slice(pos, sep1 + msgLength + 1);
       const msg = document.createElement('message-item');
       msg.fromString(msgString);
-      messageList = (messageList === null) ? msg : messageList.add(msg);
+      messageList = messageList === null ? msg : messageList.add(msg);
       // can change list head; also must watch out for list being a null
       // null list could be neutralised by switching add arguments
       pos = sep1 + msgLength + 1;
@@ -53,7 +54,8 @@ export default class MessageHistory extends HTMLElement {
     this.writeList(messageList);
   }
 
-  append(msg) { // append a message to the history
+  append(msg) {
+    // append a message to the history
     // note: no using msg.store() as long as this function is used in recreate()
     msg.setPrevious(this.head);
     this.head = msg;
@@ -63,7 +65,8 @@ export default class MessageHistory extends HTMLElement {
     // it shouldn't, but...
   }
 
-  writeList(listHead) { // write a full list from the head (i.e., end), overwriting past history
+  writeList(listHead) {
+    // write a full list from the head (i.e., end), overwriting past history
     this.clear(); // remove everything
     let current = listHead;
     const msgArea = this.$messageArea;
@@ -76,11 +79,13 @@ export default class MessageHistory extends HTMLElement {
     listHead.scrollIntoView(false); // set starting position at the newest
   }
 
-  addList(listHead) { // for merging histories in date order
+  addList(listHead) {
+    // for merging histories in date order
     let firstHead = this.head; // head of the list added to (i.e., the one already in the history)
-    if (firstHead === null) { // as long as added list is in order; sort it here?
-    // the MessageItem class has no methods for assembling lists without date-ordering;
-    // MessageHistory does, however
+    if (firstHead === null) {
+      // as long as added list is in order; sort it here?
+      // the MessageItem class has no methods for assembling lists without date-ordering;
+      // MessageHistory does, however
       this.writeList(listHead);
       return;
     }
@@ -110,7 +115,8 @@ export default class MessageHistory extends HTMLElement {
   }
 
   scrollEnd() {
-    if (this.head === null) { // happens
+    if (this.head === null) {
+      // happens
       return;
     }
     this.head.scrollIntoView(false);

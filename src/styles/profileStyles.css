@@ -1,0 +1,84 @@
+.profile-container {
+  width: 50%;
+  height: calc(100% - 4px);
+  margin-left: 4px;
+  margin-right: 4px;
+  background-color: rgb(0, 0, 176);
+  border-radius: 20px;
+}
+
+div.profile-top {
+  height: 15%;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  background-color: rgb(0, 0, 255);
+  border-radius: 20px;
+}
+
+.profile-back-link {
+  height: 100%;
+}
+
+.profile-back-button {
+  background-color: rgb(0, 0, 255);
+  border: none;
+  border-radius: 20px;
+  height: 100%;
+  width: 60px;
+  font-size: 16pt;
+  margin-left: 4px;
+}
+
+.profile-top-text {
+  color: rgb(255, 255, 255);
+  font-size: 12pt;
+  font-weight: 700;
+  margin-left: 4px;
+  align-self: center;
+}
+
+div.profile-scroll {
+  width: 100%;
+  height: 80%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  min-height: 0;
+  overflow: auto;
+  scroll-behavior: smooth;
+}
+
+.profile-attribute-text {
+  color: rgb(255, 255, 255);
+  font-size: 12pt;
+  font-weight: 700;
+  margin-left: 4px;
+}
+
+.profile-input-field {
+  width: 100%;
+  height: 100%;
+}
+
+form.profile-username-form {
+  width: 80%;
+  margin-left: 4px;
+}
+
+form.profile-full-name-form {
+  width: 80%;
+  margin-left: 4px;
+}
+
+form.profile-bio-form {
+  width: 80%;
+  height: 4em;
+  margin-left: 4px;
+}
+
+button.profile-save-button {
+  margin-top: 4px;
+  margin-left: 4px;
+}

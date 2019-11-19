@@ -57,13 +57,12 @@ template.innerHTML = `
 export default class MessageFormTop extends HTMLElement {
   constructor() {
     super();
-    /* this.shadowRoot = */this.attachShadow({ mode: 'open' });
+    /* this.shadowRoot = */ this.attachShadow({ mode: 'open' });
     this.shadowRoot.appendChild(template.content.cloneNode(true));
     this.$name = this.shadowRoot.querySelector('#top-name');
     this.$button = this.shadowRoot.querySelector('.deactivation');
 
     this.$button.addEventListener('click', deactivate.bind(this));
-
 
     this.setName(chatDefaults.firstChatName); // default at creation
   }
@@ -72,6 +71,5 @@ export default class MessageFormTop extends HTMLElement {
     this.$name.textContent = name;
   }
 }
-
 
 customElements.define('message-form-top', MessageFormTop);

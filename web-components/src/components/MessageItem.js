@@ -51,7 +51,7 @@ template.innerHTML = `
 export default class MessageItem extends HTMLElement {
   constructor() {
     super();
-    /* this.shadowRoot = */this.attachShadow({ mode: 'open' });
+    /* this.shadowRoot = */ this.attachShadow({ mode: 'open' });
     this.shadowRoot.appendChild(template.content.cloneNode(true));
     this.$text = this.shadowRoot.querySelector('.message-item-text');
     this.$author = this.shadowRoot.querySelector('.message-item-author');
@@ -75,7 +75,8 @@ export default class MessageItem extends HTMLElement {
     this.previous = head;
   }
 
-  store(chatName) { // store the message in localStorage
+  store(chatName) {
+    // store the message in localStorage
     const name = chatName || chatDefaults.firstChatName;
     const lsKey = `messages_${name}`;
     /*    const { author } = this;
@@ -83,20 +84,22 @@ export default class MessageItem extends HTMLElement {
     const date = this.date.getTime(); */
     const itemString = this.makeString();
     const lsString = localStorage.getItem(lsKey);
-    const newString = (lsString === null) ? `${itemString}` : `${lsString}${itemString}`;
+    const newString =
+      lsString === null ? `${itemString}` : `${lsString}${itemString}`;
     localStorage.setItem(lsKey, newString);
     // newer messages at the end, for linear-time list assembly (see MessageHistory.recreate());
     // displaying is not done message-by-message anyway
   }
 
-  add(message) { // add to the list, ordered by date
+  add(message) {
+    // add to the list, ordered by date
     const { date } = message;
     let current = this;
     if (date > current.date) {
       message.setPrevious(current);
       return message; // new list head
     }
-    while ((current.previous !== null) && (date < current.previous.date)) {
+    while (current.previous !== null && date < current.previous.date) {
       current = current.previous;
       // after this, date is guaranteed to be before current.date,
       // with either current.previous === null or current.previous.date before date;
@@ -107,7 +110,8 @@ export default class MessageItem extends HTMLElement {
     return this; // as long as the new message is not the last
   }
 
-  makeString() { // make string form of the message for localStorage
+  makeString() {
+    // make string form of the message for localStorage
     const { author } = this;
     const { text } = this;
     const date = this.date.getTime();
@@ -116,7 +120,8 @@ export default class MessageItem extends HTMLElement {
     return `${subString.length}|${subString}`;
   }
 
-  fromString(msgString) { // recreate message from its string form
+  fromString(msgString) {
+    // recreate message from its string form
     const sep1 = msgString.indexOf('|'); // first separator
     const sep2 = msgString.indexOf('|', sep1 + 1);
     const sep3 = msgString.indexOf('|', sep2 + 1);
@@ -126,7 +131,10 @@ export default class MessageItem extends HTMLElement {
     const authorLength = Number.parseInt(msgString.slice(sep2 + 1, sep3), 10);
     const textLength = Number.parseInt(msgString.slice(sep3 + 1, sep4), 10);
     const author = msgString.slice(sep4 + 1, sep4 + authorLength + 1);
-    const text = msgString.slice(sep4 + authorLength + 2, sep4 + authorLength + textLength + 2);
+    const text = msgString.slice(
+      sep4 + authorLength + 2,
+      sep4 + authorLength + textLength + 2,
+    );
     this.formulate(new Date(dateMillis), text, author);
     //    return this;
   }

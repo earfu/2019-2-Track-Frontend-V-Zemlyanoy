@@ -5,5 +5,7 @@ export const nodesLinks = {
 
 export function makeLinks() {
   nodesLinks.appContainer = document.querySelector('div.app-container');
-  nodesLinks.chatListContainer = nodesLinks.appContainer.querySelector('chat-list-container');
+  nodesLinks.chatListContainer = nodesLinks.appContainer.querySelector(
+    'chat-list-container',
+  );
 }

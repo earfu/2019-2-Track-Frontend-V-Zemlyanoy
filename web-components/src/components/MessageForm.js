@@ -70,7 +70,7 @@ template.innerHTML = `
 export default class MessageForm extends HTMLElement {
   constructor() {
     super();
-    /* this.shadowRoot = */this.attachShadow({ mode: 'open' });
+    /* this.shadowRoot = */ this.attachShadow({ mode: 'open' });
     this.shadowRoot.appendChild(template.content.cloneNode(true));
 
     this.$form = this.shadowRoot.querySelector('form');

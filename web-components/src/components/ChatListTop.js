@@ -47,7 +47,7 @@ template.innerHTML = `
 export default class ChatListTop extends HTMLElement {
   constructor() {
     super();
-    /* this.shadowRoot = */this.attachShadow({ mode: 'open' });
+    /* this.shadowRoot = */ this.attachShadow({ mode: 'open' });
     this.shadowRoot.appendChild(template.content.cloneNode(true));
 
     this.$name = this.shadowRoot.querySelector('#top-name');

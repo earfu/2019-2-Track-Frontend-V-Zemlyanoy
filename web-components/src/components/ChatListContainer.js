@@ -94,7 +94,7 @@ template.innerHTML = `
 export default class ChatListContainer extends HTMLElement {
   constructor() {
     super();
-    /* this.shadowRoot = */this.attachShadow({ mode: 'open' });
+    /* this.shadowRoot = */ this.attachShadow({ mode: 'open' });
     this.shadowRoot.appendChild(template.content.cloneNode(true));
 
     this.$chatCreate = this.shadowRoot.querySelector('.chat-create');
@@ -118,13 +118,15 @@ export default class ChatListContainer extends HTMLElement {
     event.preventDefault();
     // note: Firefox ignores this unless specifically allowed; see _onKeyPress below
     const chtName = this.$input.value;
-    if (chtName === '') { // no empty chat names
+    if (chtName === '') {
+      // no empty chat names
       return;
     }
 
     const chats = this.$chatList.$chatsArea.children;
     for (let i = 0; i < chats.length; i += 1) {
-      if (chats[i].name === chtName) { // no repeating chat names
+      if (chats[i].name === chtName) {
+        // no repeating chat names
         chats[i].scrollIntoView(false); // bump; should have some way of highlighting too
         return;
       }

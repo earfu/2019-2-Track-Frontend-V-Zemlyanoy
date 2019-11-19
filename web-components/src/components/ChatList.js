@@ -12,11 +12,10 @@ template.innerHTML = `
     <div class="chats-area"></div>
 `;
 
-
 export default class ChatList extends HTMLElement {
   constructor() {
     super();
-    /* this.shadowRoot = */this.attachShadow({ mode: 'open' });
+    /* this.shadowRoot = */ this.attachShadow({ mode: 'open' });
     this.shadowRoot.appendChild(template.content.cloneNode(true));
     this.$chatsArea = this.shadowRoot.querySelector('.chats-area');
     this.start = null;
@@ -24,7 +23,8 @@ export default class ChatList extends HTMLElement {
     this.recreate();
   }
 
-  recreate() { // clear history, read the localStorage, form the chat list
+  recreate() {
+    // clear history, read the localStorage, form the chat list
     this.clear(); // full reset
 
     const first = document.createElement('chat-item');
@@ -52,7 +52,8 @@ export default class ChatList extends HTMLElement {
     }
   }
 
-  append(cht) { // append a ChatItem
+  append(cht) {
+    // append a ChatItem
     if (this.start === null) {
       this.start = cht;
     } else {
