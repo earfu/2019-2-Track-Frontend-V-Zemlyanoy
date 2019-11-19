@@ -7,6 +7,7 @@ const chatDefaults = {
   chatName: 'Введите название',
   myProfileText: 'My profile',
   saveProfileText: 'Update',
+  geolocationServiceName: 'Geolocation service',
 };
 
 export default chatDefaults;

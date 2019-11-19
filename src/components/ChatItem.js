@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import MessageForm from './MessageForm';
+import geolocate from '../services/geolocation';
 
 class ChatItem extends React.Component {
   constructor(props) {
@@ -21,13 +22,17 @@ class ChatItem extends React.Component {
   }
 
   appendMessage(text, author, date) {
-    const { messageArray } = this.props;
+    const { messageArray, save } = this.props;
     messageArray.push({
       number: messageArray.length,
       text,
       author,
       date: date || new Date().valueOf(),
     });
+    if (text === '/geolocate') {
+      // call geolocation function
+      geolocate(this.appendMessage, save);
+    }
   }
 
   render() {
