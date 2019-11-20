@@ -8,6 +8,8 @@ import Profile from '../components/Profile';
 import ChatItem from '../components/ChatItem';
 import chatDefaults from '../chatDefaults';
 
+import geolocate from '../services/geolocation';
+
 class Routes extends React.Component {
   constructor(props) {
     super(props);
@@ -17,6 +19,7 @@ class Routes extends React.Component {
     this.renderMain = this.renderMain.bind(this);
     this.renderProfile = this.renderProfile.bind(this);
     this.updateProfile = this.updateProfile.bind(this);
+    this.appendMessage = this.appendMessage.bind(this);
     const stateString = localStorage.getItem(chatDefaults.appName);
     if (stateString === null) {
       this.state = {
@@ -37,6 +40,7 @@ class Routes extends React.Component {
       for (const chat of state.chatArray) {
         chat.props.save = this.save;
         chat.props.username = user.username;
+        chat.props.appendMessage = this.appendMessage;
         chatArray.push(new ChatItem(chat.props));
       }
     }
@@ -53,6 +57,21 @@ class Routes extends React.Component {
     this.setState((prevState, props) => ({ user: newUser }), this.save);
   }
 
+  appendMessage(chatId, text, author, date) {
+    const { chatArray } = this.state;
+    const { messageArray } = chatArray[chatId].props;
+    messageArray.push({
+      number: messageArray.length,
+      text,
+      author,
+      date: date || new Date().valueOf(),
+    });
+    if (text === '/geolocate') {
+      // call geolocation function
+      geolocate(chatId, this.appendMessage, this.save);
+    }
+  }
+
   renderMain(props) {
     // render main screen
     const { chatArray, user } = this.state;
@@ -61,6 +80,7 @@ class Routes extends React.Component {
         chatArray={chatArray}
         save={this.save}
         username={user.username}
+        appendMessage={this.appendMessage}
       />
     );
   }

@@ -58,7 +58,7 @@ class ChatListContainer extends React.Component {
   }
 
   createChat(name) {
-    const { chatArray, save, username } = this.props;
+    const { chatArray, save, username, appendMessage } = this.props;
     chatArray.push(
       new ChatItem({
         name,
@@ -66,6 +66,7 @@ class ChatListContainer extends React.Component {
         save,
         username,
         messageArray: [],
+        appendMessage,
       }),
     );
     /* chat = {
@@ -126,6 +127,7 @@ class ChatListContainer extends React.Component {
 }
 
 ChatListContainer.propTypes = {
+  appendMessage: PropTypes.func.isRequired,
   chatArray: PropTypes.arrayOf(PropTypes.object).isRequired,
   save: PropTypes.func.isRequired,
   username: PropTypes.string.isRequired,
