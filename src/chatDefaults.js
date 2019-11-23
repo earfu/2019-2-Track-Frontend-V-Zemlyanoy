@@ -8,6 +8,12 @@ const chatDefaults = {
   myProfileText: 'My profile',
   saveProfileText: 'Update',
   geolocationServiceName: 'Geolocation service',
+  imageClearText: 'Clear',
+  imageLoadText: 'Image:',
+  audioClearText: 'Clear',
+  audioLoadText: 'Audio:',
+  userLoadedImageAltText: 'user-loaded image',
+  userLoadedAudioAltText: 'user-loaded audio',
 };
 
 export default chatDefaults;

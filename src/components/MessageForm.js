@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import chatDefaults from '../chatDefaults';
+// import chatDefaults from '../chatDefaults';
 import MessageFormTop from './MessageFormTop';
 import MessageHistory from './MessageHistory';
 import MessageFormInput from './MessageFormInput';
@@ -13,6 +13,10 @@ class MessageForm extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleKeyPress = this.handleKeyPress.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleImageLoad = this.handleImageLoad.bind(this);
+    this.handleImageClear = this.handleImageClear.bind(this);
+    this.handleAudioLoad = this.handleAudioLoad.bind(this);
+    this.handleAudioClear = this.handleAudioClear.bind(this);
   }
 
   handleChange(event) {
@@ -21,12 +25,19 @@ class MessageForm extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    const { input } = this.state;
+    const { input, image, audio } = this.state;
     const { save, appendMessage, username, chatId } = this.props;
     if (input === '') {
       return;
     }
-    appendMessage(chatId, input, username, new Date().valueOf());
+    appendMessage({
+      chatId,
+      text: input,
+      author: username,
+      date: new Date().valueOf(),
+      image,
+      audio,
+    });
     this.setState({ input: '' });
     save();
   }
@@ -40,8 +51,47 @@ class MessageForm extends React.Component {
     }
   }
 
-  handleButtonClick() {
+  handleButtonClick(event) {
+    event.preventDefault();
     this.handleSubmit(new Event('submit', { cancelable: true }));
+  }
+
+  handleImageLoad(event) {
+    if (event.target.files.length > 1) {
+      event.preventDefault();
+      return;
+    }
+    const image = event.target.files[0];
+    if (image.type.search(/^image[/][a-z]+$/) === 0) {
+      // check file type to be "image/whatever"
+      this.setState({ image });
+    }
+  }
+
+  handleAudioLoad(event) {
+    if (event.target.files.length > 1) {
+      event.preventDefault();
+      return;
+    }
+    const audio = event.target.files[0];
+    if (audio.type.search(/^audio[/][a-z]+$/) === 0) {
+      // check file type to be "audio/whatever"
+      this.setState({ audio });
+    }
+  }
+
+  handleImageClear() {
+    // relying on event.target would create problems with button/image distinction,
+    // even if using document search is more costly
+    document.querySelector('.image-input-form').reset();
+    this.setState({ image: null });
+  }
+
+  handleAudioClear() {
+    // relying on event.target would create problems with button/image distinction,
+    // even if using document search is more costly
+    document.querySelector('.audio-input-form').reset();
+    this.setState({ audio: null });
   }
 
   render() {
@@ -59,24 +109,18 @@ class MessageForm extends React.Component {
             messageArray={messageArray}
           />
         </div>
-        <div className="message-sending-form">
-          <form className="message-form">
-            <MessageFormInput
-              name="message-text"
-              value={input}
-              onChange={this.handleChange}
-              onSubmit={this.handleSubmit}
-              onKeyPress={this.handleKeyPress}
-            />
-          </form>
-          <button
-            className="message-button"
-            type="submit"
-            onClick={this.handleButtonClick}
-          >
-            {chatDefaults.sendMessageText}
-          </button>
-        </div>
+        <MessageFormInput
+          name="message-text"
+          value={input}
+          onChange={this.handleChange}
+          onSubmit={this.handleSubmit}
+          onKeyPress={this.handleKeyPress}
+          onButtonClick={this.handleButtonClick}
+          onImageLoad={this.handleImageLoad}
+          onImageClear={this.handleImageClear}
+          onAudioLoad={this.handleAudioLoad}
+          onAudioClear={this.handleAudioClear}
+        />
       </div>
     );
   }

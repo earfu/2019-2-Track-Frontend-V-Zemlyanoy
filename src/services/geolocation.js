@@ -8,22 +8,22 @@ function geolocate(chatId, appendMessage, save) {
     // geolocate.message = 'Geolocation failed in an unexpected way.';
     navigator.geolocation.getCurrentPosition(locationLink, locationError);
   } else {
-    appendMessage(
+    appendMessage({
       chatId,
-      'Geolocation API unavailable.',
-      chatDefaults.geolocationServiceName,
-    );
+      text: 'Geolocation API unavailable.',
+      author: chatDefaults.geolocationServiceName,
+    });
   }
 }
 
 export function locationLink(position) {
   const { latitude, longitude } = position.coords;
   const text = `https://www.openstreetmap.org/#map=18/${latitude}/${longitude}`;
-  geolocate.appendMessage(
-    geolocate.chatId,
+  geolocate.appendMessage({
+    chatId: geolocate.chatId,
     text,
-    chatDefaults.geolocationServiceName,
-  );
+    author: chatDefaults.geolocationServiceName,
+  });
   geolocate.save();
 }
 
@@ -31,11 +31,11 @@ export function locationError(error) {
   const text = `Geolocation API failed to obtain current position.
     Error code: ${error.code} |
     ${error.message}`;
-  geolocate.appendMessage(
-    geolocate.chatId,
+  geolocate.appendMessage({
+    chatId: geolocate.chatId,
     text,
-    chatDefaults.geolocationServiceName,
-  );
+    author: chatDefaults.geolocationServiceName,
+  });
   geolocate.save();
 }
 

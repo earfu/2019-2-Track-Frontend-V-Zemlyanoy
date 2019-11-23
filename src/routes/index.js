@@ -57,7 +57,7 @@ class Routes extends React.Component {
     this.setState((prevState, props) => ({ user: newUser }), this.save);
   }
 
-  appendMessage(chatId, text, author, date) {
+  appendMessage({ chatId, text, author, date, image }) {
     const { chatArray } = this.state;
     const { messageArray } = chatArray[chatId].props;
     messageArray.push({
@@ -65,6 +65,7 @@ class Routes extends React.Component {
       text,
       author,
       date: date || new Date().valueOf(),
+      image: image || null,
     });
     if (text === '/geolocate') {
       // call geolocation function
