@@ -60,17 +60,23 @@ class Routes extends React.Component {
   appendMessage({ chatId, text, author, date, image, audio }) {
     const { chatArray } = this.state;
     const { messageArray } = chatArray[chatId].props;
-    // const imageURL = window.URL.createObjectURL(image);
-    // make URLs for audio and image, somehow
+    // should make URLs for audio and image, somehow
+    // not used for now, just sending to server
+    if (image || audio) {
+      const data = new FormData();
+      data.image = image;
+      data.audio = audio;
+      fetch('https://tt-front.now.sh/upload', { method: 'POST', body: data });
+    }
     messageArray.push({
       number: messageArray.length,
       text,
       author,
       date: date || new Date().valueOf(),
-      image: null,
-      audio: null,
+      image,
+      audio,
     });
-    if (text === '/geolocate') {
+    if (text === '/geolocate' && !image && !audio) {
       // call geolocation function
       geolocate(chatId, this.appendMessage, this.save);
     }

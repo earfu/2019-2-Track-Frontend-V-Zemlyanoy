@@ -17,6 +17,8 @@ function MessageHistory({ messageArray }) {
             date={item.date}
             number={item.number}
             text={item.text}
+            image={item.image}
+            audio={item.audio}
           />
         </li>
       ))}

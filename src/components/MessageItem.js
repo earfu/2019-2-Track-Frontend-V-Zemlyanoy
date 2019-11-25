@@ -9,7 +9,7 @@ function MessageItem({ number, date, author, text, image, audio }) {
       <p className="message-item-author">{author}</p>
       <p className="message-item-date">{new Date(date).toLocaleString()}</p>
       {audio ? (
-        <audio controls>
+        <audio className="loaded-audio" controls>
           <source src={audio} type="audio/mpeg" />
           <track kind="captions" />
           Unsupported audio format.
@@ -24,6 +24,7 @@ function MessageItem({ number, date, author, text, image, audio }) {
       ) : null}
     </div>
   );
+  // <track> is just to satisfy eslint
 }
 
 MessageItem.propTypes = {
