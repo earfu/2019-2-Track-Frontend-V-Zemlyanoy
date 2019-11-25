@@ -92,7 +92,7 @@ class MessageForm extends React.Component {
   handleDrop(event) {
     event.preventDefault();
     event.stopPropagation();
-    const { appendMessage, chatId, username } = this.props;
+    const { appendMessage, chatId, username, save } = this.props;
     const { files } = event.dataTransfer;
     for (const file of files) {
       if (file.type.search(/^image[/][a-z]+$/) === 0) {
@@ -105,6 +105,7 @@ class MessageForm extends React.Component {
         });
       }
     }
+    save();
     this.forceUpdate();
     // somehow needed for now because of message render handling, or what?
     // anyhow, should be replaced by notifications from server about new messages
