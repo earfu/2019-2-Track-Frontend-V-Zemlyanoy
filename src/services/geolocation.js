@@ -29,8 +29,7 @@ export function locationLink(position) {
 
 export function locationError(error) {
   const text = `Geolocation API failed to obtain current position.
-    Error code: ${error.code} |
-    ${error.message}`;
+    Error code: ${error.code} | ${error.message}`;
   geolocate.appendMessage({
     chatId: geolocate.chatId,
     text,

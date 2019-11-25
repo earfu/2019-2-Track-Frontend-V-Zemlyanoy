@@ -17,6 +17,7 @@ class MessageForm extends React.Component {
     this.handleImageClear = this.handleImageClear.bind(this);
     this.handleAudioLoad = this.handleAudioLoad.bind(this);
     this.handleAudioClear = this.handleAudioClear.bind(this);
+    this.handleDrop = this.handleDrop.bind(this);
   }
 
   handleChange(event) {
@@ -26,10 +27,10 @@ class MessageForm extends React.Component {
   handleSubmit(event) {
     event.preventDefault();
     const { input, image, audio } = this.state;
-    const { save, appendMessage, username, chatId } = this.props;
-    if (input === '') {
+    if (input === '' && !audio && !image) {
       return;
     }
+    const { save, appendMessage, username, chatId } = this.props;
     appendMessage({
       chatId,
       text: input,
@@ -39,6 +40,8 @@ class MessageForm extends React.Component {
       audio,
     });
     this.setState({ input: '' });
+    this.handleImageClear();
+    this.handleAudioClear();
     save();
   }
 
@@ -57,10 +60,6 @@ class MessageForm extends React.Component {
   }
 
   handleImageLoad(event) {
-    if (event.target.files.length > 1) {
-      event.preventDefault();
-      return;
-    }
     const image = event.target.files[0];
     if (image.type.search(/^image[/][a-z]+$/) === 0) {
       // check file type to be "image/whatever"
@@ -69,10 +68,6 @@ class MessageForm extends React.Component {
   }
 
   handleAudioLoad(event) {
-    if (event.target.files.length > 1) {
-      event.preventDefault();
-      return;
-    }
     const audio = event.target.files[0];
     if (audio.type.search(/^audio[/][a-z]+$/) === 0) {
       // check file type to be "audio/whatever"
@@ -94,6 +89,27 @@ class MessageForm extends React.Component {
     this.setState({ audio: null });
   }
 
+  handleDrop(event) {
+    event.preventDefault();
+    event.stopPropagation();
+    const { appendMessage, chatId, username } = this.props;
+    const { files } = event.dataTransfer;
+    for (const file of files) {
+      if (file.type.search(/^image[/][a-z]+$/) === 0) {
+        appendMessage({
+          chatId,
+          text: '',
+          author: username,
+          date: new Date().valueOf(),
+          image: file,
+        });
+      }
+    }
+    this.forceUpdate();
+    // somehow needed for now because of message render handling, or what?
+    // anyhow, should be replaced by notifications from server about new messages
+  }
+
   render() {
     const { name, messageArray } = this.props;
     const { input } = this.state;
@@ -102,7 +118,11 @@ class MessageForm extends React.Component {
         <div className="message-form-head">
           <MessageFormTop name={name} />
         </div>
-        <div className="wrap-history">
+        <div
+          className="wrap-history"
+          onDrop={this.handleDrop}
+          onDragOver={handleDragOver}
+        >
           <MessageHistory
             className="message-history"
             chatName={name}
@@ -124,6 +144,11 @@ class MessageForm extends React.Component {
       </div>
     );
   }
+}
+
+export function handleDragOver(event) {
+  event.preventDefault();
+  event.stopPropagation();
 }
 
 MessageForm.propTypes = {

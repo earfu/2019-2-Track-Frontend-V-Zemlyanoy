@@ -15,7 +15,7 @@ div.message-sending-form {
 }
 
 .message-form-input {
-  border: 0;
+  border-color: rgb(127, 127, 127);
   outline: none;
   width: calc(80% - 2px);
   height: 100%;

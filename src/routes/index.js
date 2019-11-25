@@ -57,15 +57,18 @@ class Routes extends React.Component {
     this.setState((prevState, props) => ({ user: newUser }), this.save);
   }
 
-  appendMessage({ chatId, text, author, date, image }) {
+  appendMessage({ chatId, text, author, date, image, audio }) {
     const { chatArray } = this.state;
     const { messageArray } = chatArray[chatId].props;
+    // const imageURL = window.URL.createObjectURL(image);
+    // make URLs for audio and image, somehow
     messageArray.push({
       number: messageArray.length,
       text,
       author,
       date: date || new Date().valueOf(),
-      image: image || null,
+      image: null,
+      audio: null,
     });
     if (text === '/geolocate') {
       // call geolocation function
