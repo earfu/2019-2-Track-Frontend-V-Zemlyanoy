@@ -9,6 +9,7 @@ import './styles/chatContainerTopStyles.css';
 import './styles/chatCreationStyles.css';
 import './styles/chatItemStyles.css';
 import './styles/chatListContainerStyles.css';
+import './styles/audioRecorderStyles.css';
 import './styles/messageFormComponentStyles.css';
 import './styles/messageFormInputStyles.css';
 import './styles/messageFormTopStyles.css';

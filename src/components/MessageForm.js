@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import MessageFormTop from './MessageFormTop';
 import MessageHistory from './MessageHistory';
 import MessageFormInput from './MessageFormInput';
+import AudioRecorder from './AudioRecorder';
 
 class MessageForm extends React.Component {
   constructor(props) {
@@ -142,6 +143,7 @@ class MessageForm extends React.Component {
           onAudioLoad={this.handleAudioLoad}
           onAudioClear={this.handleAudioClear}
         />
+        <AudioRecorder />
       </div>
     );
   }
