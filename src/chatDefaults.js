@@ -14,6 +14,14 @@ const chatDefaults = {
   audioLoadText: 'Audio:',
   userLoadedImageAltText: 'user-loaded image',
   userLoadedAudioAltText: 'user-loaded audio',
+
+  audioRecorderTexts: {
+    recordText: 'Record',
+    startText: 'Start',
+    stopText: 'Stop',
+    loadText: 'Load up',
+    clearText: 'Clear',
+  },
 };
 
 export default chatDefaults;

@@ -149,7 +149,10 @@ class MessageForm extends React.Component {
           onAudioLoad={this.handleAudioLoad}
           onAudioClear={this.handleAudioClear}
         />
-        <AudioRecorder onRecorder={this.handleRecorder} />
+        <AudioRecorder
+          onRecorder={this.handleRecorder}
+          onAudioClear={this.handleAudioClear}
+        />
       </div>
     );
   }

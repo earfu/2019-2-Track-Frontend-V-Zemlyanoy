@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-// import chatDefaults from '../chatDefaults';
+import chatDefaults from '../chatDefaults';
 // import MessageFormTop from './MessageFormTop';
 // import MessageHistory from './MessageHistory';
 // import MessageFormInput from './MessageFormInput';
@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 class AudioRecorder extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { chunks: [], file: null };
+    this.state = { chunks: [], file: null, blob: null };
     this.handleDataAvailable = this.handleDataAvailable.bind(this);
     this.handleStop = this.handleStop.bind(this);
     this.handleLoad = this.handleLoad.bind(this);
@@ -44,6 +44,8 @@ class AudioRecorder extends React.Component {
 
   handleClear() {
     this.setState({ file: null, blob: null });
+    const { onAudioClear } = this.props;
+    onAudioClear();
   }
 
   async record() {
@@ -70,27 +72,47 @@ class AudioRecorder extends React.Component {
           </audio>
         ) : null}
         <div className="audio-recorder-buttons">
-          <button type="button" onClick={this.record}>
-            Record
+          <button
+            className="audio-recorder-button"
+            type="button"
+            onClick={this.record}
+          >
+            {chatDefaults.audioRecorderTexts.recordText}
           </button>
           {recorder ? (
-            <button type="button" onClick={recorder.start.bind(recorder)}>
-              Start
+            <button
+              className="audio-recorder-button"
+              type="button"
+              onClick={recorder.start.bind(recorder)}
+            >
+              {chatDefaults.audioRecorderTexts.startText}
             </button>
           ) : null}
           {recorder ? (
-            <button type="button" onClick={recorder.stop.bind(recorder)}>
-              Stop
+            <button
+              className="audio-recorder-button"
+              type="button"
+              onClick={recorder.stop.bind(recorder)}
+            >
+              {chatDefaults.audioRecorderTexts.stopText}
             </button>
           ) : null}
           {file ? (
-            <button type="button" onClick={this.handleLoad}>
-              Load up
+            <button
+              className="audio-recorder-button"
+              type="button"
+              onClick={this.handleLoad}
+            >
+              {chatDefaults.audioRecorderTexts.loadText}
             </button>
           ) : null}
           {file ? (
-            <button type="button" onClick={this.handleClear}>
-              Clear
+            <button
+              className="audio-recorder-button"
+              type="button"
+              onClick={this.handleClear}
+            >
+              {chatDefaults.audioRecorderTexts.clearText}
             </button>
           ) : null}
         </div>
@@ -100,6 +122,7 @@ class AudioRecorder extends React.Component {
 }
 
 AudioRecorder.propTypes = {
+  onAudioClear: PropTypes.func.isRequired,
   onRecorder: PropTypes.func.isRequired,
 };
 
