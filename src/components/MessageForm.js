@@ -18,6 +18,7 @@ class MessageForm extends React.Component {
     this.handleImageClear = this.handleImageClear.bind(this);
     this.handleAudioLoad = this.handleAudioLoad.bind(this);
     this.handleAudioClear = this.handleAudioClear.bind(this);
+    this.handleRecorder = this.handleRecorder.bind(this);
     this.handleDrop = this.handleDrop.bind(this);
   }
 
@@ -74,6 +75,11 @@ class MessageForm extends React.Component {
       // check file type to be "audio/whatever"
       this.setState({ audio });
     }
+  }
+
+  handleRecorder(audio) {
+    this.handleAudioClear();
+    this.setState({ audio });
   }
 
   handleImageClear() {
@@ -143,7 +149,7 @@ class MessageForm extends React.Component {
           onAudioLoad={this.handleAudioLoad}
           onAudioClear={this.handleAudioClear}
         />
-        <AudioRecorder />
+        <AudioRecorder onRecorder={this.handleRecorder} />
       </div>
     );
   }

@@ -11,7 +11,17 @@ class AudioRecorder extends React.Component {
     this.state = { chunks: [], file: null };
     this.handleDataAvailable = this.handleDataAvailable.bind(this);
     this.handleStop = this.handleStop.bind(this);
+    this.handleLoad = this.handleLoad.bind(this);
+    this.handleClear = this.handleClear.bind(this);
     this.record = this.record.bind(this);
+    this.audioRef = React.createRef();
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    const { file } = this.state;
+    if (file !== prevState.file && file !== null) {
+      this.audioRef.current.load();
+    }
   }
 
   handleDataAvailable(event) {
@@ -21,9 +31,19 @@ class AudioRecorder extends React.Component {
 
   handleStop() {
     const { chunks, recorder } = this.state;
-    const blob = new Blob(chunks, { type: recorder.mimeType });
+    const blob = new Blob(chunks, { type: recorder.mimeType || 'audio/mpeg' });
     const audioURL = URL.createObjectURL(blob);
-    this.setState({ chunks: [], file: audioURL });
+    this.setState({ chunks: [], file: audioURL, blob });
+  }
+
+  handleLoad() {
+    const { blob } = this.state;
+    const { onRecorder } = this.props;
+    onRecorder(blob);
+  }
+
+  handleClear() {
+    this.setState({ file: null, blob: null });
   }
 
   async record() {
@@ -33,13 +53,9 @@ class AudioRecorder extends React.Component {
     }
     const recorder = new MediaRecorder(stream);
     // what defines the mimeType there?
-    recorder.start();
-    recorder.stop();
-    // what for, even?
     recorder.ondataavailable = this.handleDataAvailable;
     recorder.onstop = this.handleStop;
     this.setState({ recorder });
-    console.log(recorder);
   }
 
   render() {
@@ -47,8 +63,8 @@ class AudioRecorder extends React.Component {
     return (
       <div className="audio-recorder-div">
         {file ? (
-          <audio className="loaded-audio" controls>
-            <source src={file} type={recorder.mimeType || 'audio/mpeg'} />
+          <audio ref={this.audioRef} className="loaded-audio" controls>
+            <source src={file} />
             <track kind="captions" />
             Recorded track: wrong audio type.
           </audio>
@@ -67,13 +83,25 @@ class AudioRecorder extends React.Component {
               Stop
             </button>
           ) : null}
+          {file ? (
+            <button type="button" onClick={this.handleLoad}>
+              Load up
+            </button>
+          ) : null}
+          {file ? (
+            <button type="button" onClick={this.handleClear}>
+              Clear
+            </button>
+          ) : null}
         </div>
       </div>
     );
   }
 }
 
-AudioRecorder.propTypes = {};
+AudioRecorder.propTypes = {
+  onRecorder: PropTypes.func.isRequired,
+};
 
 export default AudioRecorder;
 
