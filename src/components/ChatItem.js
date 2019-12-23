@@ -2,33 +2,40 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import MessageForm from './MessageForm';
+import geolocate from '../services/geolocation';
 
 class ChatItem extends React.Component {
   constructor(props) {
     // { name, messageArray, handleReturn, save }
     super(props);
-    const { name, save, messageArray, username } = props;
-    this.appendMessage = this.appendMessage.bind(this);
+    const { name, save, messageArray, username, appendMessage, index } = props;
+    // this.appendMessage = this.appendMessage.bind(this);
+    this.geolocate = geolocate;
     this.messageForm = (
       <MessageForm
         name={name}
         username={username}
         messageArray={messageArray}
         save={save}
-        appendMessage={this.appendMessage}
+        appendMessage={appendMessage}
+        chatId={index}
       />
     );
   }
 
-  appendMessage(text, author, date) {
-    const { messageArray } = this.props;
+  /* appendMessage(text, author, date) {
+    const { messageArray, save } = this.props;
     messageArray.push({
       number: messageArray.length,
       text,
       author,
       date: date || new Date().valueOf(),
     });
-  }
+    if (text === '/geolocate') {
+      // call geolocation function
+      this.geolocate(this.appendMessage, save);
+    }
+  } */
 
   render() {
     const { index, name } = this.props;
@@ -48,6 +55,7 @@ class ChatItem extends React.Component {
 }
 
 ChatItem.propTypes = {
+  appendMessage: PropTypes.func.isRequired,
   index: PropTypes.number.isRequired,
   messageArray: PropTypes.arrayOf(PropTypes.object).isRequired,
   name: PropTypes.string.isRequired,

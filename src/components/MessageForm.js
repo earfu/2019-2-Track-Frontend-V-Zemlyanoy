@@ -1,9 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import chatDefaults from '../chatDefaults';
+// import chatDefaults from '../chatDefaults';
 import MessageFormTop from './MessageFormTop';
 import MessageHistory from './MessageHistory';
 import MessageFormInput from './MessageFormInput';
+import AudioRecorder from './AudioRecorder';
 
 class MessageForm extends React.Component {
   constructor(props) {
@@ -13,6 +14,12 @@ class MessageForm extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleKeyPress = this.handleKeyPress.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleImageLoad = this.handleImageLoad.bind(this);
+    this.handleImageClear = this.handleImageClear.bind(this);
+    this.handleAudioLoad = this.handleAudioLoad.bind(this);
+    this.handleAudioClear = this.handleAudioClear.bind(this);
+    this.handleRecorder = this.handleRecorder.bind(this);
+    this.handleDrop = this.handleDrop.bind(this);
   }
 
   handleChange(event) {
@@ -21,13 +28,22 @@ class MessageForm extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    const { input } = this.state;
-    const { save, appendMessage, username } = this.props;
-    if (input === '') {
+    const { input, image, audio } = this.state;
+    if (input === '' && !audio && !image) {
       return;
     }
-    appendMessage(input, username, new Date().valueOf());
+    const { save, appendMessage, username, chatId } = this.props;
+    appendMessage({
+      chatId,
+      text: input,
+      author: username,
+      date: new Date().valueOf(),
+      image,
+      audio,
+    });
     this.setState({ input: '' });
+    this.handleImageClear();
+    this.handleAudioClear();
     save();
   }
 
@@ -40,8 +56,66 @@ class MessageForm extends React.Component {
     }
   }
 
-  handleButtonClick() {
+  handleButtonClick(event) {
+    event.preventDefault();
     this.handleSubmit(new Event('submit', { cancelable: true }));
+  }
+
+  handleImageLoad(event) {
+    const image = event.target.files[0];
+    if (image.type.search(/^image[/][a-z]+$/) === 0) {
+      // check file type to be "image/whatever"
+      this.setState({ image });
+    }
+  }
+
+  handleAudioLoad(event) {
+    const audio = event.target.files[0];
+    if (audio.type.search(/^audio[/][a-z]+$/) === 0) {
+      // check file type to be "audio/whatever"
+      this.setState({ audio });
+    }
+  }
+
+  handleRecorder(audio) {
+    this.handleAudioClear();
+    this.setState({ audio });
+  }
+
+  handleImageClear() {
+    // relying on event.target would create problems with button/image distinction,
+    // even if using document search is more costly
+    document.querySelector('.image-input-form').reset();
+    this.setState({ image: null });
+  }
+
+  handleAudioClear() {
+    // relying on event.target would create problems with button/image distinction,
+    // even if using document search is more costly
+    document.querySelector('.audio-input-form').reset();
+    this.setState({ audio: null });
+  }
+
+  handleDrop(event) {
+    event.preventDefault();
+    event.stopPropagation();
+    const { appendMessage, chatId, username, save } = this.props;
+    const { files } = event.dataTransfer;
+    for (const file of files) {
+      if (file.type.search(/^image[/][a-z]+$/) === 0) {
+        appendMessage({
+          chatId,
+          text: '',
+          author: username,
+          date: new Date().valueOf(),
+          image: file,
+        });
+      }
+    }
+    save();
+    this.forceUpdate();
+    // somehow needed for now because of message render handling, or what?
+    // anyhow, should be replaced by notifications from server about new messages
   }
 
   render() {
@@ -52,38 +126,46 @@ class MessageForm extends React.Component {
         <div className="message-form-head">
           <MessageFormTop name={name} />
         </div>
-        <div className="wrap-history">
+        <div
+          className="wrap-history"
+          onDrop={this.handleDrop}
+          onDragOver={handleDragOver}
+        >
           <MessageHistory
             className="message-history"
             chatName={name}
             messageArray={messageArray}
           />
         </div>
-        <div className="message-sending-form">
-          <form className="message-form">
-            <MessageFormInput
-              name="message-text"
-              value={input}
-              onChange={this.handleChange}
-              onSubmit={this.handleSubmit}
-              onKeyPress={this.handleKeyPress}
-            />
-          </form>
-          <button
-            className="message-button"
-            type="submit"
-            onClick={this.handleButtonClick}
-          >
-            {chatDefaults.sendMessageText}
-          </button>
-        </div>
+        <MessageFormInput
+          name="message-text"
+          value={input}
+          onChange={this.handleChange}
+          onSubmit={this.handleSubmit}
+          onKeyPress={this.handleKeyPress}
+          onButtonClick={this.handleButtonClick}
+          onImageLoad={this.handleImageLoad}
+          onImageClear={this.handleImageClear}
+          onAudioLoad={this.handleAudioLoad}
+          onAudioClear={this.handleAudioClear}
+        />
+        <AudioRecorder
+          onRecorder={this.handleRecorder}
+          onAudioClear={this.handleAudioClear}
+        />
       </div>
     );
   }
 }
 
+export function handleDragOver(event) {
+  event.preventDefault();
+  event.stopPropagation();
+}
+
 MessageForm.propTypes = {
   appendMessage: PropTypes.func.isRequired,
+  chatId: PropTypes.number.isRequired,
   messageArray: PropTypes.arrayOf(PropTypes.object).isRequired,
   name: PropTypes.string.isRequired,
   save: PropTypes.func.isRequired,
