@@ -4,6 +4,8 @@ node_js:
 cache:
   directories:
     - node_modules
+before_install:
+  - cd exam
 script:
   - npm run test
   - npm run build
@@ -12,7 +14,7 @@ deploy:
   provider: pages
   skip_cleanup: true
   github_token: $pmpy
-  local_dir: build
+  local_dir: exam/build
   on:
     branch:
       - master
@@ -20,3 +22,4 @@ deploy:
       - hwork5
       - hwork6
       - hwork7
+      - exam
