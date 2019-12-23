@@ -15,9 +15,4 @@ deploy:
   local_dir: exam/build
   on:
     branch:
-      - master
-      - devel
-      - hwork5
-      - hwork6
-      - hwork7
       - exam
