@@ -1,0 +1,231 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<div
+  className="message-history-list"
+>
+  <li>
+    <div
+      className="message-item-div"
+      id={0}
+    >
+      <p
+        className="message-item-text"
+      >
+        Message 0 text content
+      </p>
+      <p
+        className="message-item-author"
+      >
+        author_0
+      </p>
+      <p
+        className="message-item-date"
+      >
+        1/1/1970, 1:16:40 AM
+      </p>
+    </div>
+  </li>
+  <li>
+    <div
+      className="message-item-div"
+      id={1}
+    >
+      <p
+        className="message-item-text"
+      >
+        Message 1 text content
+      </p>
+      <p
+        className="message-item-author"
+      >
+        author_1
+      </p>
+      <p
+        className="message-item-date"
+      >
+        1/1/1970, 1:16:50 AM
+      </p>
+    </div>
+  </li>
+  <li>
+    <div
+      className="message-item-div"
+      id={2}
+    >
+      <p
+        className="message-item-text"
+      >
+        Message 2 text content
+      </p>
+      <p
+        className="message-item-author"
+      >
+        author_2
+      </p>
+      <p
+        className="message-item-date"
+      >
+        1/1/1970, 1:17:00 AM
+      </p>
+    </div>
+  </li>
+  <li>
+    <div
+      className="message-item-div"
+      id={3}
+    >
+      <p
+        className="message-item-text"
+      >
+        Message 3 text content
+      </p>
+      <p
+        className="message-item-author"
+      >
+        author_3
+      </p>
+      <p
+        className="message-item-date"
+      >
+        1/1/1970, 1:17:10 AM
+      </p>
+    </div>
+  </li>
+  <li>
+    <div
+      className="message-item-div"
+      id={4}
+    >
+      <p
+        className="message-item-text"
+      >
+        Message 4 text content
+      </p>
+      <p
+        className="message-item-author"
+      >
+        author_4
+      </p>
+      <p
+        className="message-item-date"
+      >
+        1/1/1970, 1:17:20 AM
+      </p>
+    </div>
+  </li>
+  <li>
+    <div
+      className="message-item-div"
+      id={5}
+    >
+      <p
+        className="message-item-text"
+      >
+        Message 5 text content
+      </p>
+      <p
+        className="message-item-author"
+      >
+        author_5
+      </p>
+      <p
+        className="message-item-date"
+      >
+        1/1/1970, 1:17:30 AM
+      </p>
+    </div>
+  </li>
+  <li>
+    <div
+      className="message-item-div"
+      id={6}
+    >
+      <p
+        className="message-item-text"
+      >
+        Message 6 text content
+      </p>
+      <p
+        className="message-item-author"
+      >
+        author_6
+      </p>
+      <p
+        className="message-item-date"
+      >
+        1/1/1970, 1:17:40 AM
+      </p>
+    </div>
+  </li>
+  <li>
+    <div
+      className="message-item-div"
+      id={7}
+    >
+      <p
+        className="message-item-text"
+      >
+        Message 7 text content
+      </p>
+      <p
+        className="message-item-author"
+      >
+        author_7
+      </p>
+      <p
+        className="message-item-date"
+      >
+        1/1/1970, 1:17:50 AM
+      </p>
+    </div>
+  </li>
+  <li>
+    <div
+      className="message-item-div"
+      id={8}
+    >
+      <p
+        className="message-item-text"
+      >
+        Message 8 text content
+      </p>
+      <p
+        className="message-item-author"
+      >
+        author_8
+      </p>
+      <p
+        className="message-item-date"
+      >
+        1/1/1970, 1:18:00 AM
+      </p>
+    </div>
+  </li>
+  <li>
+    <div
+      className="message-item-div"
+      id={9}
+    >
+      <p
+        className="message-item-text"
+      >
+        Message 9 text content
+      </p>
+      <p
+        className="message-item-author"
+      >
+        author_9
+      </p>
+      <p
+        className="message-item-date"
+      >
+        1/1/1970, 1:18:10 AM
+      </p>
+    </div>
+  </li>
+  <div
+    id="last"
+  />
+</div>
+`;

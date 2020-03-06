@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<input
+  className="chat-name-input"
+  onChange={null}
+  onKeyPress={null}
+  onSubmit={null}
+  placeholder="Введите название"
+  type="text"
+  value="Test chat creation input text"
+/>
+`;

@@ -132,6 +132,7 @@ bower_components/
 dist/
 build/
 web-components/build/
+exam/build
 
 #### eslint ####
 # These rules are required to lint .eslintrc.js and friends.

@@ -77,7 +77,7 @@
     "lint:css": "stylelint 'src/**/*.{scss,css}' && stylelint --rd 'src/**/*.{scss,css}'",
     "lint:dup": "jscpd -g --threshold=1 tests docker",
     "clean": "rm -rf build",
-    "test": "npm run test:engine && npm run lint",
+    "test": "npm run test:engine && npm run lint && npm run test:unit -- --watchAll=false",
     "test:engine": "check-engine",
     "test:sec": "npm audit || true",
     "test:unit": "react-scripts test",
