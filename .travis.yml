@@ -10,7 +10,8 @@ deploy:
   provider: pages
   skip_cleanup: true
   github_token: $pmpy
-  local_dir: ./build
+  local_dir: build
   on:
     branch:
+      - master
       - 2hw1
