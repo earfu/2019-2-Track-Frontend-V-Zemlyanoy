@@ -2,6 +2,17 @@ import React from 'react';
 import renderer from 'react-test-renderer';
 import MessageItem from '../components/MessageItem';
 
+const trueDtLS = Date.toLocaleString;
+const trueDtGS = Date.toGMTString;
+
+beforeEach(() => {
+  Date.toLocaleString = Date.toGMTString;
+});
+
+afterEach(() => {
+  Date.toLocaleString = trueDtLS;
+});
+
 it('renders correctly', () => {
   const component = renderer
     .create(

@@ -2,6 +2,17 @@ import React from 'react';
 import renderer from 'react-test-renderer';
 import MessageHistory from '../components/MessageHistory';
 
+const trueDtLS = Date.toLocaleString;
+const trueDtGS = Date.toGMTString;
+
+beforeEach(() => {
+  Date.toLocaleString = Date.toGMTString;
+});
+
+afterEach(() => {
+  Date.toLocaleString = trueDtLS;
+});
+
 function messageFactory(messageArray) {
   const len = messageArray.length;
   const item = {
