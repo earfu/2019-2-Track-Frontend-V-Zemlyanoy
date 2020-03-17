@@ -10,16 +10,16 @@ exports[`renders correctly 1`] = `
     <textarea
       className="message-form-input"
       cols={80}
-      onChange={null}
-      onKeyPress={null}
-      onSubmit={null}
+      onChange={[Function]}
+      onKeyPress={[Function]}
+      onSubmit={[Function]}
       placeholder="Введите сообщение"
       type="text"
       value="Test message input text"
     />
     <button
       className="message-button"
-      onClick={null}
+      onClick={[Function]}
       type="submit"
     >
       Send message
@@ -36,11 +36,11 @@ exports[`renders correctly 1`] = `
     <input
       accept="image/*"
       id="image-input"
-      onChange={null}
+      onChange={[Function]}
       type="file"
     />
     <button
-      onClick={null}
+      onClick={[Function]}
       type="button"
     >
       Clear
@@ -57,11 +57,11 @@ exports[`renders correctly 1`] = `
     <input
       accept="audio/*"
       id="audio-input"
-      onChange={null}
+      onChange={[Function]}
       type="file"
     />
     <button
-      onClick={null}
+      onClick={[Function]}
       type="button"
     >
       Clear

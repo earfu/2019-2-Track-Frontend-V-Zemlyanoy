@@ -3,9 +3,9 @@
 exports[`renders correctly 1`] = `
 <input
   className="chat-name-input"
-  onChange={null}
-  onKeyPress={null}
-  onSubmit={null}
+  onChange={[Function]}
+  onKeyPress={[Function]}
+  onSubmit={[Function]}
   placeholder="Введите название"
   type="text"
   value="Test chat creation input text"

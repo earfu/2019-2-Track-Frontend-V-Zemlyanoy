@@ -1,5 +1,5 @@
 import React from 'react';
-import { action } from '@storybook/addon-actions';
+// import { action } from '@storybook/addon-actions';
 import MessageItem from '../components/MessageItem';
 import '../styles/messageItemStyles.css';
 

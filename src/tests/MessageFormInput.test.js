@@ -7,14 +7,14 @@ it('renders correctly', () => {
     .create(
       <MessageFormInput
         value="Test message input text"
-        onKeyPress={null}
-        onSubmit={null}
-        onChange={null}
-        onButtonClick={null}
-        onImageClear={null}
-        onImageLoad={null}
-        onAudioClear={null}
-        onAudioLoad={null}
+        onKeyPress={() => {}}
+        onSubmit={() => {}}
+        onChange={() => {}}
+        onButtonClick={() => {}}
+        onImageClear={() => {}}
+        onImageLoad={() => {}}
+        onAudioClear={() => {}}
+        onAudioLoad={() => {}}
       />,
     )
     .toJSON();

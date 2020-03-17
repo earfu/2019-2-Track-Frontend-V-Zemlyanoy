@@ -7,9 +7,9 @@ it('renders correctly', () => {
     .create(
       <ChatCreationInput
         value="Test chat creation input text"
-        onKeyPress={null}
-        onSubmit={null}
-        onChange={null}
+        onKeyPress={() => {}}
+        onSubmit={() => {}}
+        onChange={() => {}}
       />,
     )
     .toJSON();
