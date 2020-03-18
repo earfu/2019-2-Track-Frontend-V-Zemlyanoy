@@ -1,0 +1,24 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<div
+  className="message-item-div"
+  id={1388125}
+>
+  <p
+    className="message-item-text"
+  >
+    Test message text content
+  </p>
+  <p
+    className="message-item-author"
+  >
+    message_author
+  </p>
+  <p
+    className="message-item-date"
+  >
+    1/1/1970, 12:16:40 AM
+  </p>
+</div>
+`;

@@ -1,9 +1,7 @@
 language: node_js
 node_js:
   - 'stable'
-cache:
-  directories:
-    - node_modules
+
 script:
   - npm run test
   - npm run build
@@ -16,7 +14,4 @@ deploy:
   on:
     branch:
       - master
-      - devel
-      - hwork5
-      - hwork6
-      - hwork7
+      - 2hw1

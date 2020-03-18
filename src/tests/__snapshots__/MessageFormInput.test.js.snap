@@ -1,0 +1,71 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<div
+  className="message-sending-form"
+>
+  <form
+    className="message-text-form"
+  >
+    <textarea
+      className="message-form-input"
+      cols={80}
+      onChange={[Function]}
+      onKeyPress={[Function]}
+      onSubmit={[Function]}
+      placeholder="Введите сообщение"
+      type="text"
+      value="Test message input text"
+    />
+    <button
+      className="message-button"
+      onClick={[Function]}
+      type="submit"
+    >
+      Send message
+    </button>
+  </form>
+  <form
+    className="image-input-form"
+  >
+    <p
+      className="image-input-text"
+    >
+      Image:
+    </p>
+    <input
+      accept="image/*"
+      id="image-input"
+      onChange={[Function]}
+      type="file"
+    />
+    <button
+      onClick={[Function]}
+      type="button"
+    >
+      Clear
+    </button>
+  </form>
+  <form
+    className="audio-input-form"
+  >
+    <p
+      className="audio-input-text"
+    >
+      Audio:
+    </p>
+    <input
+      accept="audio/*"
+      id="audio-input"
+      onChange={[Function]}
+      type="file"
+    />
+    <button
+      onClick={[Function]}
+      type="button"
+    >
+      Clear
+    </button>
+  </form>
+</div>
+`;
