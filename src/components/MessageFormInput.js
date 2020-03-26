@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import chatDefaults from '../chatDefaults';
 
@@ -13,13 +13,14 @@ function MessageFormInput({
   onAudioLoad,
   onAudioClear,
   onButtonClick,
+  onEmojiClick,
   value,
 }) {
   const [emojisVisible, setEmojisVisible] = useState(false);
 
   return (
     <div className="message-sending-form">
-      <EmojiKeyboard visible={emojisVisible} />
+      <EmojiKeyboard visible={emojisVisible} onEmojiClick={onEmojiClick} />
       <form className="message-text-form">
         <textarea
           cols={80}
@@ -86,6 +87,7 @@ MessageFormInput.propTypes = {
   onImageClear: PropTypes.func.isRequired,
   onAudioLoad: PropTypes.func.isRequired,
   onAudioClear: PropTypes.func.isRequired,
+  onEmojiClick: PropTypes.func.isRequired,
   value: PropTypes.string.isRequired,
 };
 

@@ -1,10 +1,11 @@
 .emoji-keyboard-visible-true {
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
   align-content: center;
   justify-content: flex-start;
   width: 100%;
-  height: 42px;
+  height: 100%;
 }
 
 .emoji-keyboard-visible-false {
@@ -16,74 +17,74 @@
   height: 40px;
 }
 
-.emoji-see-no-evil {
-  background: url('./../icons/emojis/see-no-evil-monkey_1f648.png?sprite=emoji-keyboard')
-    no-repeat;
+.emoji-see-no-evil-monkey {
+  background-image: url('./../icons/emojis/see-no-evil-monkey.png?sprite=emoji-keyboard');
+  background-repeat: no-repeat;
   background-size: 40px 40px;
 }
 
-.emoji-hear-no-evil {
-  background: url('./../icons/emojis/hear-no-evil-monkey_1f649.png?sprite=emoji-keyboard')
-    no-repeat;
+.emoji-hear-no-evil-monkey {
+  background-image: url('./../icons/emojis/hear-no-evil-monkey.png?sprite=emoji-keyboard');
+  background-repeat: no-repeat;
   background-size: 40px 40px;
 }
 
-.emoji-speak-no-evil {
-  background: url('./../icons/emojis/speak-no-evil-monkey_1f64a.png?sprite=emoji-keyboard')
-    no-repeat;
+.emoji-speak-no-evil-monkey {
+  background-image: url('./../icons/emojis/speak-no-evil-monkey.png?sprite=emoji-keyboard');
+  background-repeat: no-repeat;
   background-size: 40px 40px;
 }
 
 .emoji-ophiuchus {
-  background: url('./../icons/emojis/ophiuchus_26ce.png?sprite=emoji-keyboard')
-    no-repeat;
+  background-image: url('./../icons/emojis/ophiuchus.png?sprite=emoji-keyboard');
+  background-repeat: no-repeat;
   background-size: 40px 40px;
 }
 
 .emoji-volcano {
-  background: url('./../icons/emojis/volcano_1f30b.png?sprite=emoji-keyboard')
-    no-repeat;
+  background-image: url('./../icons/emojis/volcano.png?sprite=emoji-keyboard');
+  background-repeat: no-repeat;
   background-size: 40px 40px;
 }
 
 .emoji-fountain {
-  background: url('./../icons/emojis/fountain_26f2.png?sprite=emoji-keyboard')
-    no-repeat;
+  background-image: url('./../icons/emojis/fountain.png?sprite=emoji-keyboard');
+  background-repeat: no-repeat;
   background-size: 40px 40px;
 }
 
 .emoji-sleeping-symbol {
-  background: url('./../icons/emojis/sleeping-symbol_1f4a4.png?sprite=emoji-keyboard')
-    no-repeat;
+  background-image: url('./../icons/emojis/sleeping-symbol.png?sprite=emoji-keyboard');
+  background-repeat: no-repeat;
   background-size: 40px 40px;
 }
 
 .emoji-anger-symbol {
-  background: url('./../icons/emojis/anger-symbol_1f4a2.png?sprite=emoji-keyboard')
-    no-repeat;
+  background-image: url('./../icons/emojis/anger-symbol.png?sprite=emoji-keyboard');
+  background-repeat: no-repeat;
   background-size: 40px 40px;
 }
 
 .emoji-heavy-check-mark {
-  background: url('./../icons/emojis/heavy-check-mark_2714.png?sprite=emoji-keyboard')
-    no-repeat;
+  background-image: url('./../icons/emojis/heavy-check-mark.png?sprite=emoji-keyboard');
+  background-repeat: no-repeat;
   background-size: 40px 40px;
 }
 
 .emoji-cross-mark {
-  background: url('./../icons/emojis/cross-mark_274c.png?sprite=emoji-keyboard')
-    no-repeat;
+  background-image: url('./../icons/emojis/cross-mark.png?sprite=emoji-keyboard');
+  background-repeat: no-repeat;
   background-size: 40px 40px;
 }
 
 .emoji-exclamation-question-mark {
-  background: url('./../icons/emojis/exclamation-question-mark_2049.png?sprite=emoji-keyboard')
-    no-repeat;
+  background-image: url('./../icons/emojis/exclamation-question-mark.png?sprite=emoji-keyboard');
+  background-repeat: no-repeat;
   background-size: 40px 40px;
 }
 
 .emoji-banknote-with-dollar-sign {
-  background: url('./../icons/emojis/banknote-with-dollar-sign_1f4b5.png?sprite=emoji-keyboard')
-    no-repeat;
+  background-image: url('./../icons/emojis/banknote-with-dollar-sign.png?sprite=emoji-keyboard');
+  background-repeat: no-repeat;
   background-size: 40px 40px;
 }

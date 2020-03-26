@@ -20,6 +20,7 @@ class MessageForm extends React.Component {
     this.handleAudioClear = this.handleAudioClear.bind(this);
     this.handleRecorder = this.handleRecorder.bind(this);
     this.handleDrop = this.handleDrop.bind(this);
+    this.handleEmojiClick = this.handleEmojiClick.bind(this);
   }
 
   handleChange(event) {
@@ -118,6 +119,12 @@ class MessageForm extends React.Component {
     // anyhow, should be replaced by notifications from server about new messages
   }
 
+  handleEmojiClick(event) {
+    const name = event.target.classList[1];
+    const { input } = this.state;
+    this.setState({ input: `${input}:${name}:` });
+  }
+
   render() {
     const { name, messageArray } = this.props;
     const { input } = this.state;
@@ -148,6 +155,7 @@ class MessageForm extends React.Component {
           onImageClear={this.handleImageClear}
           onAudioLoad={this.handleAudioLoad}
           onAudioClear={this.handleAudioClear}
+          onEmojiClick={this.handleEmojiClick}
         />
         <AudioRecorder
           onRecorder={this.handleRecorder}
