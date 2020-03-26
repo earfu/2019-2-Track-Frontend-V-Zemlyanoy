@@ -1,0 +1,35 @@
+.emoji-keyboard-visible-true {
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+  justify-content: flex-start;
+  width: 100%;
+  height: 42px;
+}
+
+.emoji-keyboard-visible-false {
+  visibility: collapse;
+}
+
+.emoji-icon {
+  width: 40px;
+  height: 40px;
+}
+
+.emoji-see-no-evil {
+  background: url('./../icons/emojis/see-no-evil-monkey_1f648.png?sprite=emoji-keyboard')
+    no-repeat;
+  background-size: 40px 40px;
+}
+
+.emoji-hear-no-evil {
+  background: url('./../icons/emojis/hear-no-evil-monkey_1f649.png?sprite=emoji-keyboard')
+    no-repeat;
+  background-size: 40px 40px;
+}
+
+.emoji-speak-no-evil {
+  background: url('./../icons/emojis/speak-no-evil-monkey_1f64a.png?sprite=emoji-keyboard')
+    no-repeat;
+  background-size: 40px 40px;
+}

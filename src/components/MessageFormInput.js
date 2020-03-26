@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import chatDefaults from '../chatDefaults';
+
+import EmojiKeyboard from './EmojiKeyboard';
 
 function MessageFormInput({
   onChange,
@@ -13,8 +15,11 @@ function MessageFormInput({
   onButtonClick,
   value,
 }) {
+  const [emojisVisible, setEmojisVisible] = useState(false);
+
   return (
     <div className="message-sending-form">
+      <EmojiKeyboard visible={emojisVisible} />
       <form className="message-text-form">
         <textarea
           cols={80}
@@ -26,6 +31,15 @@ function MessageFormInput({
           onSubmit={onSubmit}
           onKeyPress={onKeyPress}
         />
+        <button
+          className="emoji-keyboard-button"
+          type="button"
+          onClick={() => {
+            setEmojisVisible(!emojisVisible);
+          }}
+        >
+          <i className="fa fa-icon" />
+        </button>
         <button
           className="message-button"
           type="submit"

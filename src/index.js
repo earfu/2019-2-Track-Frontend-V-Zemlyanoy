@@ -1,7 +1,7 @@
 import React from 'react';
 import { render } from 'react-dom';
-//import { Provider } from 'react-redux';
-//import store from './store';
+// import { Provider } from 'react-redux';
+// import store from './store';
 import Routes from './routes';
 
 import './styles/globalStyles.css';
@@ -17,8 +17,10 @@ import './styles/messageItemStyles.css';
 import './styles/containerStyles.css';
 import './styles/profileStyles.css';
 
+import './styles/emojiKeyboardStyles.css';
+
 import * as serviceWorker from './utils/serviceWorker';
-//import chatDefaults from './chatDefaults';
+// import chatDefaults from './chatDefaults';
 
 render(<Routes />, document.getElementById('root'));
 // If you want your app to work offline and load faster, you can change

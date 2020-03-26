@@ -16,12 +16,17 @@ div.message-sending-form {
 .message-form-input {
   border-color: rgb(127, 127, 127);
   outline: none;
-  width: calc(80% - 2px);
+  width: calc(75% - 2px);
   height: 100%;
 }
 
 .message-button {
-  width: calc(20% - 2px);
+  width: calc(15% - 2px);
+}
+
+.emoji-keyboard-button {
+  width: calc(10% - 2px);
+  height: 100%;
 }
 
 .image-input-form {
