@@ -15,6 +15,7 @@ it('renders correctly', () => {
         onImageLoad={() => {}}
         onAudioClear={() => {}}
         onAudioLoad={() => {}}
+        onEmojiClick={() => {}}
       />,
     )
     .toJSON();
