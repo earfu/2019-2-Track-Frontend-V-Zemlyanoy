@@ -33,3 +33,57 @@
     no-repeat;
   background-size: 40px 40px;
 }
+
+.emoji-ophiuchus {
+  background: url('./../icons/emojis/ophiuchus_26ce.png?sprite=emoji-keyboard')
+    no-repeat;
+  background-size: 40px 40px;
+}
+
+.emoji-volcano {
+  background: url('./../icons/emojis/volcano_1f30b.png?sprite=emoji-keyboard')
+    no-repeat;
+  background-size: 40px 40px;
+}
+
+.emoji-fountain {
+  background: url('./../icons/emojis/fountain_26f2.png?sprite=emoji-keyboard')
+    no-repeat;
+  background-size: 40px 40px;
+}
+
+.emoji-sleeping-symbol {
+  background: url('./../icons/emojis/sleeping-symbol_1f4a4.png?sprite=emoji-keyboard')
+    no-repeat;
+  background-size: 40px 40px;
+}
+
+.emoji-anger-symbol {
+  background: url('./../icons/emojis/anger-symbol_1f4a2.png?sprite=emoji-keyboard')
+    no-repeat;
+  background-size: 40px 40px;
+}
+
+.emoji-heavy-check-mark {
+  background: url('./../icons/emojis/heavy-check-mark_2714.png?sprite=emoji-keyboard')
+    no-repeat;
+  background-size: 40px 40px;
+}
+
+.emoji-cross-mark {
+  background: url('./../icons/emojis/cross-mark_274c.png?sprite=emoji-keyboard')
+    no-repeat;
+  background-size: 40px 40px;
+}
+
+.emoji-exclamation-question-mark {
+  background: url('./../icons/emojis/exclamation-question-mark_2049.png?sprite=emoji-keyboard')
+    no-repeat;
+  background-size: 40px 40px;
+}
+
+.emoji-banknote-with-dollar-sign {
+  background: url('./../icons/emojis/banknote-with-dollar-sign_1f4b5.png?sprite=emoji-keyboard')
+    no-repeat;
+  background-size: 40px 40px;
+}

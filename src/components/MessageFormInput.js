@@ -32,14 +32,13 @@ function MessageFormInput({
           onKeyPress={onKeyPress}
         />
         <button
+          label="emoji-keyboard-button"
           className="emoji-keyboard-button"
           type="button"
           onClick={() => {
             setEmojisVisible(!emojisVisible);
           }}
-        >
-          <i className="fa fa-icon" />
-        </button>
+        />
         <button
           className="message-button"
           type="submit"
