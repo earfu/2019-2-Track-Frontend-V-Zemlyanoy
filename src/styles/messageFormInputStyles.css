@@ -9,19 +9,29 @@ div.message-sending-form {
 .message-text-form {
   display: flex;
   flex-direction: row;
-  align-items: flex-start;
+  align-items: center;
+  justify-content: space-between;
   width: 100%;
 }
 
 .message-form-input {
   border-color: rgb(127, 127, 127);
   outline: none;
-  width: calc(80% - 2px);
+  width: calc(75% - 2px);
   height: 100%;
 }
 
 .message-button {
-  width: calc(20% - 2px);
+  width: calc(15% - 2px);
+}
+
+.emoji-keyboard-button {
+  width: 42px;
+  height: 40px;
+  background-position: center;
+  background-size: 40px 40px;
+  background-image: url('./../icons/emojis/grinning-face.png?sprite=emoji-icon');
+  background-repeat: no-repeat;
 }
 
 .image-input-form {

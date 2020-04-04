@@ -2,10 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import chatDefaults from '../chatDefaults';
 
+import messageTextParser from '../services/messageTextParser';
+
 function MessageItem({ number, date, author, text, image, audio }) {
   return (
     <div className="message-item-div" id={number}>
-      <p className="message-item-text">{text}</p>
+      <p className="message-item-text">{messageTextParser(text)}</p>
       <p className="message-item-author">{author}</p>
       <p className="message-item-date">{new Date(date).toLocaleString()}</p>
       {audio ? (

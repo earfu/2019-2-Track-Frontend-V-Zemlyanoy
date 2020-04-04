@@ -4,6 +4,82 @@ exports[`renders correctly 1`] = `
 <div
   className="message-sending-form"
 >
+  <div
+    className="emoji-keyboard-visible-false"
+  >
+    <button
+      className="emoji-icon emoji-see-no-evil-monkey"
+      label="see-no-evil-monkey"
+      onClick={[Function]}
+      type="button"
+    />
+    <button
+      className="emoji-icon emoji-hear-no-evil-monkey"
+      label="hear-no-evil-monkey"
+      onClick={[Function]}
+      type="button"
+    />
+    <button
+      className="emoji-icon emoji-speak-no-evil-monkey"
+      label="speak-no-evil-monkey"
+      onClick={[Function]}
+      type="button"
+    />
+    <button
+      className="emoji-icon emoji-ophiuchus"
+      label="ophiuchus"
+      onClick={[Function]}
+      type="button"
+    />
+    <button
+      className="emoji-icon emoji-volcano"
+      label="volcano"
+      onClick={[Function]}
+      type="button"
+    />
+    <button
+      className="emoji-icon emoji-fountain"
+      label="fountain"
+      onClick={[Function]}
+      type="button"
+    />
+    <button
+      className="emoji-icon emoji-sleeping-symbol"
+      label="sleeping-symbol"
+      onClick={[Function]}
+      type="button"
+    />
+    <button
+      className="emoji-icon emoji-anger-symbol"
+      label="anger-symbol"
+      onClick={[Function]}
+      type="button"
+    />
+    <button
+      className="emoji-icon emoji-heavy-check-mark"
+      label="heavy-check-mark"
+      onClick={[Function]}
+      type="button"
+    />
+    <button
+      className="emoji-icon emoji-cross-mark"
+      label="cross-mark"
+      onClick={[Function]}
+      type="button"
+    />
+    <button
+      className="emoji-icon emoji-exclamation-question-mark"
+      label="exclamation-question-mark"
+      onClick={[Function]}
+      type="button"
+    />
+    <button
+      className="emoji-icon emoji-banknote-with-dollar-sign"
+      label="banknote-with-dollar-sign"
+      onClick={[Function]}
+      type="button"
+    />
+  </div>
   <form
     className="message-text-form"
   >
@@ -16,6 +92,12 @@ exports[`renders correctly 1`] = `
       placeholder="Введите сообщение"
       type="text"
       value="Test message input text"
+    />
+    <button
+      className="emoji-keyboard-button"
+      label="emoji-keyboard-button"
+      onClick={[Function]}
+      type="button"
     />
     <button
       className="message-button"
