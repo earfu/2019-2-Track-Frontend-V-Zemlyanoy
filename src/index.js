@@ -10,12 +10,15 @@ import './styles/chatCreationStyles.css';
 import './styles/chatItemStyles.css';
 import './styles/chatListContainerStyles.css';
 import './styles/audioRecorderStyles.css';
+import './styles/loginFormStyles.sass';
 import './styles/messageFormComponentStyles.css';
 import './styles/messageFormInputStyles.css';
 import './styles/messageFormTopStyles.css';
 import './styles/messageItemStyles.css';
 import './styles/containerStyles.css';
 import './styles/profileStyles.css';
+import './styles/peerChatStyles.css';
+import './styles/registrationFormStyles.sass';
 
 import './styles/emojiKeyboardStyles.css';
 

@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-// import { FlatList } from 'react-native';
 import PropTypes from 'prop-types';
 import MessageItem from './MessageItem';
 
@@ -8,17 +7,18 @@ function MessageHistory({ messageArray }) {
   useEffect(() => document.querySelector('#last').scrollIntoView(false), [
     messageArray.length,
   ]);
+
   return (
     <div className="message-history-list">
       {messageArray.map((item, index) => (
-        <li key={item.number}>
+        <li key={item.id}>
           <MessageItem
-            author={item.author}
-            date={item.date}
-            number={item.number}
-            text={item.text}
-            image={item.image}
-            audio={item.audio}
+            author={item.user__username}
+            date={new Date(item.added_at)}
+            number={item.id || index}
+            text={item.content}
+            // image={item.image}
+            // audio={item.audio}
           />
         </li>
       ))}

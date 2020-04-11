@@ -1,26 +1,89 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import cookie from 'cookie';
 // import chatDefaults from '../chatDefaults';
 import MessageFormTop from './MessageFormTop';
 import MessageHistory from './MessageHistory';
 import MessageFormInput from './MessageFormInput';
-import AudioRecorder from './AudioRecorder';
+
+import links from '../links';
 
 class MessageForm extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { input: '' };
     this.handleButtonClick = this.handleButtonClick.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleKeyPress = this.handleKeyPress.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleImageLoad = this.handleImageLoad.bind(this);
-    this.handleImageClear = this.handleImageClear.bind(this);
-    this.handleAudioLoad = this.handleAudioLoad.bind(this);
-    this.handleAudioClear = this.handleAudioClear.bind(this);
-    this.handleRecorder = this.handleRecorder.bind(this);
-    this.handleDrop = this.handleDrop.bind(this);
     this.handleEmojiClick = this.handleEmojiClick.bind(this);
+    this.getChat = this.getChat.bind(this);
+    this.postMessage = this.postMessage.bind(this);
+    this.centMessages = this.centMessages.bind(this);
+
+    if (!props.peer || !props.conn) {
+      // fetch message history, unless it's a WebRTC chat
+      this.state = { input: '', loaded: false, inError: false };
+      this.getChat();
+    } else {
+      this.state = {
+        input: '',
+        loaded: true,
+        inError: false,
+        messageArray: [],
+        chatName: `WebRTC-chat#${props.chatId}`,
+      };
+    }
+  }
+
+  componentWillUnmount() {
+    const { msgSub, conn } = this.state;
+    if (msgSub) {
+      msgSub.unsubscribe();
+      this.setState({ msgSub: null });
+    }
+    if (conn) {
+      conn.close();
+    }
+  }
+
+  async getChat() {
+    const { chatId } = this.props;
+    await fetch(links['chat-id'](chatId), {
+      method: 'GET',
+      mode: 'cors',
+      credentials: 'include',
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (
+          data &&
+          data.messages &&
+          data.username &&
+          data.chat_name &&
+          data.chat_id &&
+          data.chat_id === chatId
+        ) {
+          this.setState({
+            messageArray: data.messages,
+            chatName: data.chat_name,
+            loaded: true,
+          });
+          this.centMessages();
+        } else {
+          this.setState({ inError: true, error: data.error, loaded: true });
+        }
+      });
+  }
+
+  async centMessages() {
+    const { centrifuge, chatId } = this.props;
+    const msgSub = centrifuge.subscribe(`${'$'}chat${chatId}`, (msg) => {
+      const { messageArray } = this.state;
+      messageArray.push(msg.data);
+      this.setState({ messageArray });
+    });
+    centrifuge.connect();
+    this.setState({ msgSub });
   }
 
   handleChange(event) {
@@ -29,23 +92,12 @@ class MessageForm extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    const { input, image, audio } = this.state;
-    if (input === '' && !audio && !image) {
+    const { input } = this.state;
+    if (input === '') {
       return;
     }
-    const { save, appendMessage, username, chatId } = this.props;
-    appendMessage({
-      chatId,
-      text: input,
-      author: username,
-      date: new Date().valueOf(),
-      image,
-      audio,
-    });
+    this.postMessage();
     this.setState({ input: '' });
-    this.handleImageClear();
-    this.handleAudioClear();
-    save();
   }
 
   handleKeyPress(event) {
@@ -62,85 +114,62 @@ class MessageForm extends React.Component {
     this.handleSubmit(new Event('submit', { cancelable: true }));
   }
 
-  handleImageLoad(event) {
-    const image = event.target.files[0];
-    if (image.type.search(/^image[/][a-z]+$/) === 0) {
-      // check file type to be "image/whatever"
-      this.setState({ image });
-    }
-  }
-
-  handleAudioLoad(event) {
-    const audio = event.target.files[0];
-    if (audio.type.search(/^audio[/][a-z]+$/) === 0) {
-      // check file type to be "audio/whatever"
-      this.setState({ audio });
-    }
-  }
-
-  handleRecorder(audio) {
-    this.handleAudioClear();
-    this.setState({ audio });
-  }
-
-  handleImageClear() {
-    // relying on event.target would create problems with button/image distinction,
-    // even if using document search is more costly
-    document.querySelector('.image-input-form').reset();
-    this.setState({ image: null });
-  }
-
-  handleAudioClear() {
-    // relying on event.target would create problems with button/image distinction,
-    // even if using document search is more costly
-    document.querySelector('.audio-input-form').reset();
-    this.setState({ audio: null });
-  }
-
-  handleDrop(event) {
-    event.preventDefault();
-    event.stopPropagation();
-    const { appendMessage, chatId, username, save } = this.props;
-    const { files } = event.dataTransfer;
-    for (const file of files) {
-      if (file.type.search(/^image[/][a-z]+$/) === 0) {
-        appendMessage({
-          chatId,
-          text: '',
-          author: username,
-          date: new Date().valueOf(),
-          image: file,
-        });
-      }
-    }
-    save();
-    this.forceUpdate();
-    // somehow needed for now because of message render handling, or what?
-    // anyhow, should be replaced by notifications from server about new messages
-  }
-
   handleEmojiClick(event) {
     const name = event.target.classList[1];
     const { input } = this.state;
     this.setState({ input: `${input}:${name}:` });
   }
 
-  render() {
-    const { name, messageArray } = this.props;
+  async postMessage() {
+    const { chatId, peer, messageArray } = this.props;
     const { input } = this.state;
+    if (peer) {
+      const { conn, username } = this.props;
+      const msg = {
+        content: input,
+        added_at: new Date().toString(),
+        user__username: username,
+      };
+      conn.send(msg);
+      return;
+    }
+    const body = JSON.stringify({ content: input });
+    await fetch(links['chat-send-message'](chatId), {
+      method: 'POST',
+      mode: 'cors',
+      credentials: 'include',
+      body,
+      headers: {
+        'X-CSRFToken': cookie.parse(document.cookie).csrftoken,
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {});
+  }
+
+  render() {
+    const { loaded } = this.state;
+    if (!loaded) {
+      return <div />;
+    }
+    const { inError } = this.state;
+    if (inError) {
+      const { error } = this.state;
+      return <p>{error}</p>;
+    }
+    const { chatName, input } = this.state;
+    const { peer } = this.props;
+
+    const { messageArray } = peer ? this.props : this.state;
+
     return (
       <div className="message-form-wrap">
         <div className="message-form-head">
-          <MessageFormTop name={name} />
+          <MessageFormTop name={chatName} />
         </div>
-        <div
-          className="wrap-history"
-          onDrop={this.handleDrop}
-          onDragOver={handleDragOver}
-        >
+        <div className="wrap-history">
           <MessageHistory
             className="message-history"
-            chatName={name}
             messageArray={messageArray}
           />
         </div>
@@ -151,33 +180,33 @@ class MessageForm extends React.Component {
           onSubmit={this.handleSubmit}
           onKeyPress={this.handleKeyPress}
           onButtonClick={this.handleButtonClick}
-          onImageLoad={this.handleImageLoad}
-          onImageClear={this.handleImageClear}
-          onAudioLoad={this.handleAudioLoad}
-          onAudioClear={this.handleAudioClear}
           onEmojiClick={this.handleEmojiClick}
-        />
-        <AudioRecorder
-          onRecorder={this.handleRecorder}
-          onAudioClear={this.handleAudioClear}
         />
       </div>
     );
   }
 }
 
-export function handleDragOver(event) {
-  event.preventDefault();
-  event.stopPropagation();
-}
-
 MessageForm.propTypes = {
-  appendMessage: PropTypes.func.isRequired,
   chatId: PropTypes.number.isRequired,
-  messageArray: PropTypes.arrayOf(PropTypes.object).isRequired,
-  name: PropTypes.string.isRequired,
-  save: PropTypes.func.isRequired,
-  username: PropTypes.string.isRequired,
+  peer: PropTypes.bool,
+  username: PropTypes.string,
+  messageArray: PropTypes.arrayOf(PropTypes.shape({})),
+
+  centrifuge: PropTypes.shape({
+    connect: PropTypes.func.isRequired,
+    setToken: PropTypes.func.isRequired,
+    subscribe: PropTypes.func.isRequired,
+  }),
+  conn: PropTypes.shape({ send: PropTypes.func.isRequired }),
+};
+
+MessageForm.defaultProps = {
+  centrifuge: null,
+  conn: null,
+  peer: false,
+  username: '',
+  messageArray: undefined,
 };
 
 export default MessageForm;

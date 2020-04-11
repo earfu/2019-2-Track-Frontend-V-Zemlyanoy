@@ -1,134 +1,27 @@
 import React from 'react';
-import { Router, Route, Switch, Link } from 'react-router-dom';
+import { Router, Route, Switch, Redirect } from 'react-router-dom';
 import { createBrowserHistory } from 'history';
+import Centrifuge from 'centrifuge';
 
-import MainScreenContainer from '../containers/MainScreenContainer';
-import ChatDisplayContainer from '../containers/ChatDisplayContainer';
+import ChatListContainer from '../components/ChatListContainer';
+import RegistrationForm from '../components/RegistrationForm';
+import LoginForm from '../components/LoginForm';
+import PeerChat from '../components/PeerChat';
 import Profile from '../components/Profile';
-import ChatItem from '../components/ChatItem';
-import chatDefaults from '../chatDefaults';
+// import ChatItem from '../components/ChatItem';
+// import chatDefaults from '../chatDefaults';
+import MessageForm from '../components/MessageForm';
 
-import geolocate from '../services/geolocation';
+// import geolocate from '../services/geolocation';
+import links from '../links';
 
 class Routes extends React.Component {
   constructor(props) {
     super(props);
     this.history = createBrowserHistory();
-    this.save = this.save.bind(this);
-    this.renderChat = this.renderChat.bind(this);
-    this.renderMain = this.renderMain.bind(this);
-    this.renderProfile = this.renderProfile.bind(this);
-    this.updateProfile = this.updateProfile.bind(this);
-    this.appendMessage = this.appendMessage.bind(this);
-    const stateString = localStorage.getItem(chatDefaults.appName);
-    if (stateString === null) {
-      this.state = {
-        chatArray: [],
-        user: { username: chatDefaults.authorName, fullName: '', bio: '' },
-      };
-      return;
-    }
-    const state = JSON.parse(stateString);
-    let { user } = state;
-    if (user === undefined) {
-      user = { username: chatDefaults.authorName, fullName: '', bio: '' };
-    }
-    this.state = { chatArray: [], user };
-    if (state != null) {
-      // recreate the chat array from stored data
-      const { chatArray } = this.state;
-      for (const chat of state.chatArray) {
-        chat.props.save = this.save;
-        chat.props.username = user.username;
-        chat.props.appendMessage = this.appendMessage;
-        chatArray.push(new ChatItem(chat.props));
-      }
-    }
-  }
-
-  save() {
-    // save current state to storage
-    const lsString = JSON.stringify(this.state);
-    localStorage.setItem(chatDefaults.appName, lsString);
-  }
-
-  updateProfile(newUser) {
-    // forced to update by second callback?
-    this.setState((prevState, props) => ({ user: newUser }), this.save);
-  }
-
-  appendMessage({ chatId, text, author, date, image, audio }) {
-    const { chatArray } = this.state;
-    const { messageArray } = chatArray[chatId].props;
-    // should make URLs for audio and image, somehow
-    // not used for now, just sending to server
-    if (image || audio) {
-      const data = new FormData();
-      data.image = image;
-      data.audio = audio;
-      fetch('https://tt-front.now.sh/upload', { method: 'POST', body: data });
-    }
-    messageArray.push({
-      number: messageArray.length,
-      text,
-      author,
-      date: date || new Date().valueOf(),
-      image,
-      audio,
+    this.centrifuge = new Centrifuge(links.centrifuge, {
+      subscribeEndpoint: links['subscribe-endpoint'],
     });
-    if (text === '/geolocate' && !image && !audio) {
-      // call geolocation function
-      geolocate(chatId, this.appendMessage, this.save);
-    }
-  }
-
-  renderMain(props) {
-    // render main screen
-    const { chatArray, user } = this.state;
-    return (
-      <MainScreenContainer
-        chatArray={chatArray}
-        save={this.save}
-        username={user.username}
-        appendMessage={this.appendMessage}
-      />
-    );
-  }
-
-  renderProfile(props) {
-    // render user profile
-    const { user } = this.state;
-    return (
-      <Profile
-        user={user}
-        save={this.save}
-        updateProfile={this.updateProfile}
-      />
-    );
-  }
-
-  renderChat(props) {
-    // render a chat screen
-    const { chatArray } = this.state;
-    const chatId = Number.parseInt(props.match.params.id, 10);
-    if (Number.isNaN(chatId)) {
-      return (
-        <div>
-          <p>Wrong chat identifier. Don&apos;t do that.</p>
-          <Link to="/">Go back to main screen</Link>
-        </div>
-      );
-    }
-    const chat = chatArray[chatId];
-    if (chat === undefined) {
-      return (
-        <div>
-          <p>No such chat.</p>
-          <Link to="/">Go back to main screen</Link>
-        </div>
-      );
-    }
-    return <ChatDisplayContainer chat={chat} />;
   }
 
   render() {
@@ -139,13 +32,45 @@ class Routes extends React.Component {
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
         />
         <Switch>
-          <Route path="/profile" render={this.renderProfile} />
-          <Route path="/chat/:id" render={this.renderChat} />
-          <Route path="/" render={this.renderMain} />
+          <Route path="/register" render={() => <RegistrationForm />} />
+          <Route path="/login" render={() => <LoginForm />} />
+          <Route path="/logout" render={renderLogout} />
+          <Route
+            path="/webrtc"
+            render={() => <PeerChat username="%username" />}
+          />
+          <Route path="/profile" render={() => <Profile />} />
+          <Route
+            path="/chats/:id"
+            render={(props) => (
+              <MessageForm
+                chatId={Number.parseInt(props.match.params.id, 10)}
+                centrifuge={this.centrifuge}
+              />
+            )}
+          />
+          <Route
+            path="/"
+            render={() => <ChatListContainer centrifuge={this.centrifuge} />}
+          />
         </Switch>
       </Router>
     );
   }
+}
+
+function renderLogout() {
+  async function getLogout() {
+    await fetch(links.logout, {
+      method: 'GET',
+      mode: 'cors',
+      credentials: 'include',
+    }).then((res) => {
+      return res.statusCode;
+    });
+  }
+  getLogout();
+  return <Redirect to={{ pathname: '/login' }} />;
 }
 
 export default Routes;

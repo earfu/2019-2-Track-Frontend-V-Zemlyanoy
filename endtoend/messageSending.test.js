@@ -6,7 +6,7 @@ import chatDefaults from './../src/chatDefaults';
 describe('A user creating a chat and sending a message', () => {
   // because a new client won't have a chat to begin with
   beforeAll(async () => {
-    await page.goto('http://127.0.0.1:3000/2019-2-Track-Frontend-V-Zemlyanoy');
+    await page.goto('http://127.0.0.1:3000/');
   });
 
   it('should display the page, to start with', async () => {
@@ -47,6 +47,6 @@ describe('A user creating a chat and sending a message', () => {
   it('should display the message', async () => {
     await expect(page).toMatchElement('.message-item-text', {
       text: 'This is a test message text',
-    }); // because nobody even changed the page name
+    });
   });
 });

@@ -4,26 +4,12 @@ import chatDefaults from '../chatDefaults';
 
 import messageTextParser from '../services/messageTextParser';
 
-function MessageItem({ number, date, author, text, image, audio }) {
+function MessageItem({ number, date, author, text }) {
   return (
     <div className="message-item-div" id={number}>
       <p className="message-item-text">{messageTextParser(text)}</p>
       <p className="message-item-author">{author}</p>
       <p className="message-item-date">{new Date(date).toLocaleString()}</p>
-      {audio ? (
-        <audio className="loaded-audio" controls>
-          <source src={audio} type="audio/mpeg" />
-          <track kind="captions" />
-          Unsupported audio format.
-        </audio>
-      ) : null}
-      {image ? (
-        <img
-          className="loaded-image"
-          src={image}
-          alt={chatDefaults.userLoadedImageAltText}
-        />
-      ) : null}
     </div>
   );
   // <track> is just to satisfy eslint
@@ -31,17 +17,13 @@ function MessageItem({ number, date, author, text, image, audio }) {
 
 MessageItem.propTypes = {
   author: PropTypes.string,
-  date: PropTypes.number.isRequired,
+  date: PropTypes.instanceOf(Date).isRequired,
   number: PropTypes.number.isRequired,
   text: PropTypes.string.isRequired,
-  image: PropTypes.shape({}),
-  audio: PropTypes.shape({}),
 };
 
 MessageItem.defaultProps = {
   author: chatDefaults.authorName,
-  image: null,
-  audio: null,
 };
 
 export default MessageItem;

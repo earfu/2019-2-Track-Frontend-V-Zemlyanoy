@@ -62,12 +62,7 @@ div.profile-scroll {
   height: 100%;
 }
 
-form.profile-username-form {
-  width: 80%;
-  margin-left: 4px;
-}
-
-form.profile-full-name-form {
+form.profile-name-form {
   width: 80%;
   margin-left: 4px;
 }

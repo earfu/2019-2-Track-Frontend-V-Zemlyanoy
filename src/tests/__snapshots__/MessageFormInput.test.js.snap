@@ -107,47 +107,5 @@ exports[`renders correctly 1`] = `
       Send message
     </button>
   </form>
-  <form
-    className="image-input-form"
-  >
-    <p
-      className="image-input-text"
-    >
-      Image:
-    </p>
-    <input
-      accept="image/*"
-      id="image-input"
-      onChange={[Function]}
-      type="file"
-    />
-    <button
-      onClick={[Function]}
-      type="button"
-    >
-      Clear
-    </button>
-  </form>
-  <form
-    className="audio-input-form"
-  >
-    <p
-      className="audio-input-text"
-    >
-      Audio:
-    </p>
-    <input
-      accept="audio/*"
-      id="audio-input"
-      onChange={[Function]}
-      type="file"
-    />
-    <button
-      onClick={[Function]}
-      type="button"
-    >
-      Clear
-    </button>
-  </form>
 </div>
 `;

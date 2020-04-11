@@ -1,11 +1,15 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import cookie from 'cookie';
+
 import ChatList from './ChatList';
 import ChatCreationInput from './ChatCreationInput';
 import ChatListTop from './ChatListTop';
 import chatDefaults from '../chatDefaults';
-import ChatItem from './ChatItem';
+// import ChatItem from './ChatItem';
+
+import links from '../links';
 
 class ChatListContainer extends React.Component {
   constructor(props) {
@@ -15,7 +19,60 @@ class ChatListContainer extends React.Component {
     this.handleKeyPress = this.handleKeyPress.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleOpenMenu = this.handleOpenMenu.bind(this);
-    this.state = { input: '', menu: false };
+    this.state = { input: '', chatArray: [], menu: false, loaded: false };
+    this.postChat = this.postChat.bind(this);
+    this.getChats = this.getChats.bind(this);
+    this.centChats = this.centChats.bind(this);
+
+    this.getChats();
+  }
+
+  componentWillUnmount() {
+    const { chatSub } = this.state;
+    if (chatSub) {
+      chatSub.unsubscribe();
+      this.setState({ chatSub: null });
+    }
+  }
+
+  async getChats() {
+    await fetch(links['chat-index'], {
+      method: 'GET',
+      mode: 'cors',
+      credentials: 'include',
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (
+          data &&
+          data.user_id &&
+          data.username &&
+          data.chats &&
+          data.cent_token
+        ) {
+          this.setState({
+            userId: data.user_id,
+            username: data.username,
+            chatArray: data.chats,
+            centToken: data.cent_token,
+            loaded: true,
+          });
+          this.centChats();
+        }
+      });
+  }
+
+  async centChats() {
+    const { centToken, userId } = this.state;
+    const { centrifuge } = this.props;
+    centrifuge.setToken(centToken);
+    const chatSub = centrifuge.subscribe(`chats#${userId}`, (chtObj) => {
+      const { chatArray } = this.state;
+      chatArray.push(chtObj.data);
+      this.setState({ chatArray });
+    });
+    centrifuge.connect();
+    this.setState({ chatSub });
   }
 
   handleInputChange(event) {
@@ -25,18 +82,11 @@ class ChatListContainer extends React.Component {
   handleSubmit(event) {
     event.preventDefault();
     const { input } = this.state;
-    const { chatArray, save } = this.props;
     if (input === '') {
       return;
     }
-    for (const chat of chatArray) {
-      if (chat.name === input) {
-        return;
-      }
-    }
-    this.createChat(input);
+    this.postChat();
     this.setState({ input: '' });
-    save();
   }
 
   handleKeyPress(event) {
@@ -57,40 +107,29 @@ class ChatListContainer extends React.Component {
     this.setState({ menu: !menu });
   }
 
-  createChat(name) {
-    const { chatArray, save, username, appendMessage } = this.props;
-    chatArray.push(
-      new ChatItem({
-        name,
-        index: chatArray.length,
-        save,
-        username,
-        messageArray: [],
-        appendMessage,
-      }),
-    );
-    /* chat = {
-        props: {
-            name: name,
-            index: chatArray.length,
-            save: save,
-            username: username,
-            messageArray: [],
-        },
-        messageForm: (
-            <MessageForm
-            name={name}
-            username={username}
-            messageArray={messageArray}
-            save={save}
-            appendMessage={this.appendMessage}
-            />
-        ), */
+  async postChat() {
+    const { input } = this.state;
+    const body = JSON.stringify({ chatName: input });
+    await fetch(links['chat-create'], {
+      method: 'POST',
+      mode: 'cors',
+      credentials: 'include',
+      headers: {
+        'X-CSRFToken': cookie.parse(document.cookie).csrftoken,
+        'X-Requested-With': 'XMLHttpRequest',
+      },
+      body,
+    })
+      .then((res) => res.json())
+      .then((data) => {});
   }
 
   render() {
-    const { input, menu } = this.state;
-    const { chatArray, username } = this.props;
+    const { loaded } = this.state;
+    if (!loaded) {
+      return <div />;
+    }
+    const { input, menu, username, chatArray } = this.state;
     return (
       <div className="chat-list-area">
         <div className="chat-list-head">
@@ -127,10 +166,11 @@ class ChatListContainer extends React.Component {
 }
 
 ChatListContainer.propTypes = {
-  appendMessage: PropTypes.func.isRequired,
-  chatArray: PropTypes.arrayOf(PropTypes.object).isRequired,
-  save: PropTypes.func.isRequired,
-  username: PropTypes.string.isRequired,
+  centrifuge: PropTypes.shape({
+    connect: PropTypes.func.isRequired,
+    setToken: PropTypes.func.isRequired,
+    subscribe: PropTypes.func.isRequired,
+  }).isRequired,
 };
 
 export default ChatListContainer;
