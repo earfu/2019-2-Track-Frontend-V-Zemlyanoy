@@ -29,7 +29,7 @@ class PeerChat extends React.Component {
 
   async makePeer() {
     const peer = await new Peer();
-    peer.on('error', (error) => console.log(error));
+    peer.on('error', (error) => null);
     peer.on('connection', (conn) => {
       const { arrays, conns } = this.state;
       const arr = [];

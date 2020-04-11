@@ -121,7 +121,7 @@ class MessageForm extends React.Component {
   }
 
   async postMessage() {
-    const { chatId, peer, messageArray } = this.props;
+    const { chatId, peer } = this.props;
     const { input } = this.state;
     if (peer) {
       const { conn, username } = this.props;
@@ -157,10 +157,10 @@ class MessageForm extends React.Component {
       const { error } = this.state;
       return <p>{error}</p>;
     }
-    const { chatName, input } = this.state;
-    const { peer } = this.props;
+    const { chatName, input, messageArray: messageArrayS } = this.state;
+    const { peer, messageArray: messageArrayP } = this.props;
 
-    const { messageArray } = peer ? this.props : this.state;
+    const { messageArray } = peer ? messageArrayP : messageArrayS;
 
     return (
       <div className="message-form-wrap">
