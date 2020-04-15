@@ -160,8 +160,7 @@ class MessageForm extends React.Component {
     const { chatName, input, messageArray: messageArrayS } = this.state;
     const { peer, messageArray: messageArrayP } = this.props;
 
-    const { messageArray } = peer ? messageArrayP : messageArrayS;
-
+    const messageArray = peer ? messageArrayP : messageArrayS;
     return (
       <div className="message-form-wrap">
         <div className="message-form-head">
