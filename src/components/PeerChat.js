@@ -96,6 +96,7 @@ class PeerChat extends React.Component {
 
   handleOpen(event) {
     this.setState({
+      // get the chat id, whether the click was on the button (#chat-button-$id) or the the icon (#chat-i-$id)
       current: event.target.id.replace(/chat-[a-z]+-([\d]+)/, '$1'),
     });
   }
