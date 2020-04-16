@@ -135,7 +135,7 @@ class ChatListContainer extends React.Component {
         <div className="chat-list-head">
           <ChatListTop name={username} onOpenMenu={this.handleOpenMenu} />
           <div className={`main-settings-${menu}`}>
-            <Link to="/profile">
+            <Link to={`${links.frontPrefix}/profile`}>
               <button type="button">{chatDefaults.myProfileText}</button>
             </Link>
           </div>

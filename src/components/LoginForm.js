@@ -16,7 +16,7 @@ class LoginForm extends React.Component {
       captchaText: '',
       csrftoken: '',
       redirect: false,
-      redirectPath: '/',
+      redirectPath: `${links.frontPrefix}`,
     };
     this.getLoginData = this.getLoginData.bind(this);
     this.postLoginData = this.postLoginData.bind(this);
@@ -110,7 +110,10 @@ class LoginForm extends React.Component {
   }
 
   handleRegister() {
-    this.setState({ redirect: true, redirectPath: '/register' });
+    this.setState({
+      redirect: true,
+      redirectPath: `${links.frontPrefix}/register`,
+    });
   }
 
   render() {

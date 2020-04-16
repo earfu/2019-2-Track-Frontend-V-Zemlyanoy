@@ -54,7 +54,7 @@ class Profile extends React.Component {
     return (
       <div className="profile-container">
         <div className="profile-top">
-          <Link to="/" className="profile-back-link">
+          <Link to={`${links.frontPrefix}`} className="profile-back-link">
             <button className="profile-back-button" type="button">
               <i className="fa fa-chevron-left" />
             </button>

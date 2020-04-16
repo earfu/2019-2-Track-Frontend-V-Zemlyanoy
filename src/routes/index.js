@@ -25,7 +25,7 @@ class Routes extends React.Component {
   }
 
   render() {
-    // prefix = '2019-2-Track-Frontend-V-Zemlyanoy';
+    const prefix = links.frontPrefix;
     return (
       <Router history={this.history}>
         <link
@@ -33,16 +33,19 @@ class Routes extends React.Component {
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
         />
         <Switch>
-          <Route path="/register" render={() => <RegistrationForm />} />
-          <Route path="/login" render={() => <LoginForm />} />
-          <Route path="/logout" render={renderLogout} />
           <Route
-            path="/webrtc"
+            path={`${prefix}/register`}
+            render={() => <RegistrationForm />}
+          />
+          <Route path={`${prefix}/login`} render={() => <LoginForm />} />
+          <Route path={`${prefix}/logout`} render={renderLogout} />
+          <Route
+            path={`${prefix}/webrtc`}
             render={() => <PeerChat username="%username" />}
           />
-          <Route path="/profile" render={() => <Profile />} />
+          <Route path={`${prefix}/profile`} render={() => <Profile />} />
           <Route
-            path="/chats/:id"
+            path={`${prefix}/chats/:id`}
             render={(props) => (
               <MessageForm
                 chatId={Number.parseInt(props.match.params.id, 10)}

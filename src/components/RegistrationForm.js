@@ -61,7 +61,7 @@ class RegistrationForm extends React.Component {
       .then((data) => {
         if (data['User creation:'] === 'success') {
           this.setState({ redirect: true }, () => (
-            <Redirect to={{ pathname: '/login' }} />
+            <Redirect to={{ pathname: `${links.frontPrefix}/login` }} />
           ));
         }
       });
@@ -94,7 +94,7 @@ class RegistrationForm extends React.Component {
   render() {
     const { redirect } = this.state;
     if (redirect) {
-      return <Redirect to={{ pathname: '/login' }} />;
+      return <Redirect to={{ pathname: `${links.frontPrefix}/login` }} />;
     }
     const { username, password1, password2 } = this.state;
     return (

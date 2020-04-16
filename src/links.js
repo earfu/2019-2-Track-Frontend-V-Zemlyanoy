@@ -1,8 +1,10 @@
+const frontPrefix = '/2019-2-Track-Frontend-V-Zemlyanoy';
 const backendURL = 'http://127.0.0.1:8000';
 const centrifugeURL = '127.0.0.1:8001';
 
 const links = {
   backendURL,
+  frontPrefix,
   login: `${backendURL}/login/`,
   logout: `${backendURL}/logout/`,
   register: `${backendURL}/users/new/`,

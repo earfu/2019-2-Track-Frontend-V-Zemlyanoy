@@ -4,13 +4,18 @@ import { Link } from 'react-router-dom';
 // import MessageForm from './MessageForm';
 // import geolocate from '../services/geolocation';
 
+import links from '../links';
+
 function ChatItem({ index, name }) {
   return (
     <div className="chat-list-item" index={index}>
       <div className="chat-item-text">
         <p className="chat-item-name">{name}</p>
       </div>
-      <Link to={`/chats/${index}`} className="chat-display-link">
+      <Link
+        to={`${links.frontPrefix}/chats/${index}`}
+        className="chat-display-link"
+      >
         <button className="chat-messages-button" type="button" index={index}>
           <i className="fa fa-chevron-right" index={index} />
         </button>
