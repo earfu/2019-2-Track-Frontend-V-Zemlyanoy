@@ -36,7 +36,7 @@ class ChatListContainer extends React.Component {
   }
 
   async getChats() {
-    await fetch(links['chat-index'], {
+    fetch(links['chat-index'], {
       method: 'GET',
       mode: 'cors',
       credentials: 'include',
@@ -110,7 +110,7 @@ class ChatListContainer extends React.Component {
   async postChat() {
     const { input } = this.state;
     const body = JSON.stringify({ chatName: input });
-    await fetch(links['chat-create'], {
+    fetch(links['chat-create'], {
       method: 'POST',
       mode: 'cors',
       credentials: 'include',

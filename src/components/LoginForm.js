@@ -31,7 +31,7 @@ class LoginForm extends React.Component {
   }
 
   async getLoginData() {
-    await fetch(links.login, {
+    fetch(links.login, {
       method: 'GET',
       mode: 'cors',
       headers: {
@@ -67,7 +67,7 @@ class LoginForm extends React.Component {
       captchaKey,
       captchaText,
     });
-    await fetch(links.login, {
+    fetch(links.login, {
       method: 'POST',
       mode: 'cors',
       headers: {

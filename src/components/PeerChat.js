@@ -95,7 +95,9 @@ class PeerChat extends React.Component {
   }
 
   handleOpen(event) {
-    this.setState({ current: event.target.id });
+    this.setState({
+      current: event.target.id.replace(/chat-[a-z]+-([\d]+)/, '$1'),
+    });
   }
 
   render() {
@@ -106,7 +108,7 @@ class PeerChat extends React.Component {
     }
     const { current } = this.state;
     if (current) {
-      const { arrays, conns, peerId } = this.state;
+      const { arrays, conns } = this.state;
       const { username } = this.props;
       return (
         <MessageForm
@@ -114,7 +116,7 @@ class PeerChat extends React.Component {
           conn={conns[current]}
           peer
           username={username}
-          chatId={peerId}
+          chatId={parseInt(current, 10)}
         />
       );
     }
@@ -129,10 +131,14 @@ class PeerChat extends React.Component {
           Connect
         </button>
         {conns.map((item, index) => (
-          <li className="peer-chat-li" key={item.id}>
+          <li className="peer-chat-li" key={item.label}>
             <p>{item.label}</p>
-            <button type="button" id={index} onClick={this.handleOpen}>
-              <i id={index} className="fa fa-chevron-right" />
+            <button
+              type="button"
+              id={`chat-button-${index}`}
+              onClick={this.handleOpen}
+            >
+              <i id={`chat-i-${index}`} className="fa fa-chevron-right" />
             </button>
           </li>
         ))}

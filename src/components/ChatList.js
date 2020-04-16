@@ -33,7 +33,7 @@ function ChatList({ chatArray }) {
 
   return (
     <div className="chats-area">
-      {chatArray.map((item, index) => (
+      {chatArray.map((item) => (
         <li key={item.id}>
           <ChatItem name={item.name} index={item.id} />
         </li>
