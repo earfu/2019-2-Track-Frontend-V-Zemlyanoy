@@ -24,7 +24,7 @@ class Profile extends React.Component {
   }
 
   async getProfile() {
-    await fetch(links['user-self'], {
+    fetch(links['user-self'], {
       method: 'GET',
       mode: 'cors',
       credentials: 'include',

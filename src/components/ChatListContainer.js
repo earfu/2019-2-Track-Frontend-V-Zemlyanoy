@@ -41,7 +41,9 @@ class ChatListContainer extends React.Component {
       mode: 'cors',
       credentials: 'include',
     })
-      .then((res) => res.json())
+      .then((res) => {
+        return res.json();
+      })
       .then((data) => {
         if (
           data &&
@@ -136,7 +138,14 @@ class ChatListContainer extends React.Component {
           <ChatListTop name={username} onOpenMenu={this.handleOpenMenu} />
           <div className={`main-settings-${menu}`}>
             <Link to={`${links.frontPrefix}/profile`}>
-              <button type="button">{chatDefaults.myProfileText}</button>
+              <button className="menu-button" type="button">
+                {chatDefaults.myProfileText}
+              </button>
+            </Link>
+            <Link to={`${links.frontPrefix}/webrtc`}>
+              <button className="menu-button" type="button">
+                WebRTC
+              </button>
             </Link>
           </div>
         </div>

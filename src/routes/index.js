@@ -54,9 +54,10 @@ class Routes extends React.Component {
             )}
           />
           <Route
-            path="/"
+            path={`${prefix}/chats`}
             render={() => <ChatListContainer centrifuge={this.centrifuge} />}
           />
+          <Route path="/" render={() => <LoginForm />} />
         </Switch>
       </Router>
     );
@@ -74,7 +75,7 @@ function renderLogout() {
     });
   }
   getLogout();
-  return <Redirect to={{ pathname: '/login' }} />;
+  return <Redirect to={{ pathname: `${links.frontPrefix}/login` }} />;
 }
 
 export default Routes;
