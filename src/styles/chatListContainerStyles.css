@@ -1,5 +1,5 @@
 div.chat-list-area {
-  width: 100%;
+  width: 50%;
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -43,4 +43,10 @@ div.main-settings-false {
 div.main-settings-true {
   position: absolute;
   z-index: 2;
+  display: flex;
+  flex-direction: column;
+}
+
+.menu-button {
+  width: 100%;
 }

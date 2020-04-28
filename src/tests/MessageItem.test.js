@@ -8,10 +8,8 @@ it('renders correctly', () => {
       <MessageItem
         number={1388125}
         author="message_author"
-        date={1000001}
+        date={new Date(1000001)}
         text="Test message text content"
-        audio={null}
-        image={null}
       />,
     )
     .toJSON();

@@ -1,7 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
+
 import chatDefaults from '../chatDefaults';
+import links from '../links';
 
 function handleKeyPress(event) {
   // to disable re-rendering on Enter
@@ -11,12 +13,29 @@ function handleKeyPress(event) {
 }
 
 class Profile extends React.Component {
-  constructor(props) {
-    super(props);
-    const { username, fullName, bio } = props.user;
+  constructor() {
+    super();
     this.handleButtonClick = this.handleButtonClick.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
-    this.state = { username, fullName, bio };
+    this.getProfile = this.getProfile.bind(this);
+    this.state = { username: '', firstName: '', lastName: '', bio: '' };
+
+    this.getProfile();
+  }
+
+  async getProfile() {
+    fetch(links['user-self'], {
+      method: 'GET',
+      mode: 'cors',
+      credentials: 'include',
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data && data.user_id) {
+          const { username, first_name: firstName, last_name: lastName } = data;
+          this.setState({ username, firstName, lastName });
+        }
+      });
   }
 
   handleInputChange(event) {
@@ -26,22 +45,16 @@ class Profile extends React.Component {
   }
 
   handleButtonClick() {
-    const { username, fullName, bio } = this.state;
     // check correctness
-    if (username === '') {
-      return;
-    }
-    const { updateProfile } = this.props;
-    const newUser = { username, fullName, bio };
-    updateProfile(newUser);
+    this.setState({});
   }
 
   render() {
-    const { username, fullName, bio } = this.state;
+    const { username, firstName, lastName, bio } = this.state;
     return (
       <div className="profile-container">
         <div className="profile-top">
-          <Link to="/" className="profile-back-link">
+          <Link to={`${links.frontPrefix}`} className="profile-back-link">
             <button className="profile-back-button" type="button">
               <i className="fa fa-chevron-left" />
             </button>
@@ -50,7 +63,7 @@ class Profile extends React.Component {
         </div>
         <div className="profile-scroll">
           <p className="profile-attribute-text">Username:</p>
-          <form className="profile-username-form">
+          <form className="profile-name-form">
             <input
               className="profile-input-field"
               type="text"
@@ -60,15 +73,26 @@ class Profile extends React.Component {
               id="username"
             />
           </form>
-          <p className="profile-attribute-text">Full name:</p>
-          <form className="profile-full-name-form">
+          <p className="profile-attribute-text">First name:</p>
+          <form className="profile-name-form">
             <input
               className="profile-input-field"
               type="text"
-              value={fullName}
+              value={firstName}
               onChange={this.handleInputChange}
               onKeyPress={handleKeyPress}
-              id="fullName"
+              id="firstName"
+            />
+          </form>
+          <p className="profile-attribute-text">Last name:</p>
+          <form className="profile-name-form">
+            <input
+              className="profile-input-field"
+              type="text"
+              value={lastName}
+              onChange={this.handleInputChange}
+              onKeyPress={handleKeyPress}
+              id="lastName"
             />
           </form>
           <p className="profile-attribute-text">About me:</p>
@@ -96,14 +120,5 @@ class Profile extends React.Component {
     );
   }
 }
-
-Profile.propTypes = {
-  user: PropTypes.shape({
-    username: PropTypes.string,
-    fullName: PropTypes.string,
-    bio: PropTypes.string,
-  }).isRequired,
-  updateProfile: PropTypes.func.isRequired,
-};
 
 export default Profile;
