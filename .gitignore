@@ -133,6 +133,7 @@ dist/
 build/
 web-components/build/
 exam
+ts/utils/*.js
 
 #### eslint ####
 # These rules are required to lint .eslintrc.js and friends.
