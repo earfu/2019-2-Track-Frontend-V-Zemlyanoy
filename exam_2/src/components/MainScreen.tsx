@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 
 import * as TranslateUtil from './../utils/index';
 import * as T from './../utils/types';
