@@ -1,0 +1,13 @@
+.lang-div {
+  width: 100%;
+  margin: 2px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.top-text {
+  font-size: 12pt;
+  font-weight: 700;
+}
