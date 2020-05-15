@@ -2,8 +2,7 @@ import * as T from './types';
 import escapeText from './escapeText';
 import { checkCache, setCache } from './translationCache';
 
-const APIKEY =
-  'trnsl.1.1.20200503T044336Z.0e5c077f9924453a.30e692f12ef30f7f54078843a78340b592f7e104';
+const APIKEY = process.env.REACT_APP_YAN_API_KEY;
 const APIURL = 'https://translate.yandex.net/api/v1.5/tr.json/translate';
 
 // no default here, as would result in [top].default.default if the top is required instead of import
