@@ -2,6 +2,9 @@ language: node_js
 node_js:
   - 'stable'
 
+before_install:
+  - cd exam_2
+
 script:
   - npm run test
   - npm run build
@@ -10,17 +13,7 @@ deploy:
   provider: pages
   skip_cleanup: true
   github_token: $pmpy
-  local_dir: build
+  local_dir: exam_2/build
   on:
     branch:
-      - master
-      - 2hw1
-      - 2hw2
-      - 2hw3
-      - 2hw4
-      - 2hw5
-      - 2hw6
-      - 2hw7
-      - 2hw8
-      - 2hw9
-      - 2hw10
+      - exam_2

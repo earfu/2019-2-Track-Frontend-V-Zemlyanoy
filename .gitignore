@@ -134,6 +134,8 @@ build/
 web-components/build/
 exam
 ts/utils/*.js
+package-lock.json
+exam_2/package-lock.json
 
 #### eslint ####
 # These rules are required to lint .eslintrc.js and friends.
